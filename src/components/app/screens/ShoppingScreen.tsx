@@ -1,0 +1,92 @@
+import { useMemo } from "react";
+import { useMenu, usePantry, useCheckedItems } from "@/store/useAppStore";
+import { buildShoppingList, CATEGORY_LABELS, CATEGORY_EMOJI } from "@/lib/menuUtils";
+import { IngredientCategory } from "@/types";
+import { Check } from "lucide-react";
+
+export function ShoppingScreen() {
+  const [menu] = useMenu();
+  const [pantry] = usePantry();
+  const [checked, setChecked] = useCheckedItems();
+
+  const grouped = useMemo(
+    () => buildShoppingList(menu, pantry, checked),
+    [menu, pantry, checked]
+  );
+
+  const allItems = (Object.values(grouped) as any[]).flat();
+  const checkedCount = allItems.filter((i: any) => i.checked).length;
+
+  const toggle = (key: string) =>
+    setChecked((c) => ({ ...c, [key]: !c[key] }));
+
+  const cats = Object.keys(grouped) as IngredientCategory[];
+
+  return (
+    <div className="pb-24">
+      <header className="px-4 pt-4">
+        <h1 className="text-3xl font-bold text-foreground">Список покупок</h1>
+        <p className="text-muted-foreground text-sm mt-1">
+          {checkedCount} из {allItems.length} куплено
+        </p>
+        <div className="mt-3 h-2 bg-muted rounded-full overflow-hidden">
+          <div
+            className="h-full bg-gradient-mint transition-all"
+            style={{ width: `${allItems.length ? (checkedCount / allItems.length) * 100 : 0}%` }}
+          />
+        </div>
+      </header>
+
+      <div className="px-4 mt-5 space-y-5">
+        {cats
+          .filter((c) => grouped[c].length > 0)
+          .map((cat) => (
+            <section key={cat}>
+              <h2 className="font-bold text-foreground mb-2 flex items-center gap-2">
+                <span className="text-xl">{CATEGORY_EMOJI[cat]}</span>
+                {CATEGORY_LABELS[cat]}
+                <span className="text-xs text-muted-foreground font-normal">
+                  · {grouped[cat].length}
+                </span>
+              </h2>
+              <div className="rounded-2xl bg-card shadow-soft overflow-hidden">
+                {grouped[cat].map((item) => (
+                  <button
+                    key={item.key}
+                    onClick={() => toggle(item.key)}
+                    className="w-full flex items-center gap-3 px-4 py-3 border-b border-border last:border-b-0 hover:bg-muted/40 transition-colors text-left"
+                  >
+                    <div
+                      className={`flex-shrink-0 h-6 w-6 rounded-full border-2 flex items-center justify-center transition-colors ${
+                        item.checked
+                          ? "bg-primary border-primary"
+                          : "border-border bg-background"
+                      }`}
+                    >
+                      {item.checked && <Check className="h-3.5 w-3.5 text-primary-foreground" />}
+                    </div>
+                    <span
+                      className={`flex-1 text-sm ${
+                        item.checked ? "line-through text-muted-foreground" : "text-foreground"
+                      }`}
+                    >
+                      {item.name}
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                      {item.amount} {item.unit}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </section>
+          ))}
+
+        {allItems.length === 0 && (
+          <p className="text-center text-muted-foreground py-12">
+            Список пуст — всё уже в кладовой.
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
