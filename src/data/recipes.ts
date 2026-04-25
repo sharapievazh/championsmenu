@@ -22,6 +22,22 @@ import imgBeefStirfry from "@/assets/recipes/beef-stirfry.jpg";
 import imgShrimpZoodles from "@/assets/recipes/shrimp-zoodles.jpg";
 import imgSweetPotato from "@/assets/recipes/sweet-potato.jpg";
 import imgBerryPancakes from "@/assets/recipes/berry-pancakes.jpg";
+import imgLentilWaffles from "@/assets/recipes/lentil-waffles.jpg";
+import imgFiloSpiral from "@/assets/recipes/filo-spiral.jpg";
+import imgPumpkinWaffles from "@/assets/recipes/pumpkin-waffles.jpg";
+import imgBuckwheatWaffles from "@/assets/recipes/buckwheat-waffles.jpg";
+import imgBananaPancakes from "@/assets/recipes/banana-pancakes.jpg";
+import imgCottageBowl from "@/assets/recipes/cottage-bowl.jpg";
+import imgBroccoliCreamSoup from "@/assets/recipes/broccoli-cream-soup.jpg";
+import imgPumpkinCreamSoup from "@/assets/recipes/pumpkin-cream-soup.jpg";
+import imgCauliflowerCreamSoup from "@/assets/recipes/cauliflower-cream-soup.jpg";
+import imgTurkeySpinach from "@/assets/recipes/turkey-spinach.jpg";
+import imgLemonChicken from "@/assets/recipes/lemon-chicken.jpg";
+import imgChickenStirfry from "@/assets/recipes/chicken-stirfry.jpg";
+import imgTurkeyBurgers from "@/assets/recipes/turkey-burgers.jpg";
+import imgSalmonPoke from "@/assets/recipes/salmon-poke.jpg";
+import imgZucchiniFritters from "@/assets/recipes/zucchini-fritters.jpg";
+import imgBeefStew from "@/assets/recipes/beef-stew.jpg";
 
 export const recipes: Recipe[] = [
   {
