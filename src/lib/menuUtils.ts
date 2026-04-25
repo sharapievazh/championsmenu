@@ -68,7 +68,7 @@ export function buildShoppingList(
 export const CATEGORY_LABELS: Record<IngredientCategory, string> = {
   fruit_veg: "Фрукты и овощи",
   grains: "Крупы и хлеб (без глютена)",
-  meat_fish: "Мясо и рыба (без свинины)",
+  meat_fish: "Мясо и рыба",
   dairy_alt: "Молочка и альтернативы",
   other: "Остальное",
 };
@@ -87,15 +87,31 @@ export function suggestFromPantry(pantry: PantryItem[]): Recipe | null {
   );
   if (stocked.size === 0) return null;
 
-  let best: { recipe: Recipe; score: number } | null = null;
+  // Базовые «всегда есть дома» — соль, специи, масло, лимон и т.п. — не учитываем как недостающие.
+  const PANTRY_BASICS = new Set([
+    "соль, перец", "соль", "перец", "корица", "куркума", "тимьян",
+    "розмарин", "лавровый лист", "корица и зира", "мускатный орех",
+    "разрыхлитель", "оливковое масло", "кунжутное масло", "льняное масло",
+    "масло авокадо (спрей)", "семена кунжута", "кунжут",
+  ]);
+
+  let best: { recipe: Recipe; score: number; missing: number } | null = null;
   for (const r of recipes) {
-    let matched = 0;
+    let missing = 0;
+    let total = 0;
     for (const ing of r.ingredients) {
-      if (stocked.has(ing.name.toLowerCase())) matched++;
+      const name = ing.name.toLowerCase();
+      if (PANTRY_BASICS.has(name)) continue;
+      total++;
+      if (!stocked.has(name)) missing++;
     }
-    const score = matched / r.ingredients.length;
-    if (matched >= 2 && (!best || score > best.score)) {
-      best = { recipe: r, score };
+    if (total === 0) continue;
+    const score = (total - missing) / total;
+    // Подсказываем рецепт только если есть >=80% ингредиентов И не больше 1 недостающего.
+    if (score >= 0.8 && missing <= 1) {
+      if (!best || score > best.score || (score === best.score && missing < best.missing)) {
+        best = { recipe: r, score, missing };
+      }
     }
   }
   return best?.recipe ?? null;

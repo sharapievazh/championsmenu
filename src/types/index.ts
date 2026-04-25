@@ -45,6 +45,8 @@ export interface MealSlot {
   day: DayKey;
   meal: MealType;
   recipeId: string;
+  /** Номер недели в плане: 1 или 2. */
+  week: 1 | 2;
 }
 
 export interface PantryItem {

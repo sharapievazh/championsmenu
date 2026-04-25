@@ -33,7 +33,7 @@ export function RecipesScreen() {
       <header className="px-4 pt-4">
         <h1 className="text-3xl font-bold text-foreground">База рецептов</h1>
         <p className="text-muted-foreground text-sm mt-1">
-          {recipes.length} здоровых рецептов · без свинины, low gluten
+          {recipes.length} здоровых рецептов · low gluten · low lactose
         </p>
       </header>
 
