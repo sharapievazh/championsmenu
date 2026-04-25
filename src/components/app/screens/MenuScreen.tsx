@@ -12,18 +12,23 @@ import { toast } from "sonner";
 export function MenuScreen() {
   const [menu, setMenu] = useMenu();
   const [selected, setSelected] = useState<Recipe | null>(null);
+  const [week, setWeek] = useState<1 | 2>(1);
+
+  const weekMenu = menu.filter((s) => s.week === week);
 
   const swap = (day: DayKey, meal: MealType, currentId: string) => {
     const next = pickRandomRecipe(meal, currentId);
     setMenu((prev) =>
       prev.map((s) =>
-        s.day === day && s.meal === meal ? { ...s, recipeId: next.id } : s
+        s.day === day && s.meal === meal && s.week === week
+          ? { ...s, recipeId: next.id }
+          : s
       )
     );
     toast.success(`Заменили на: ${next.title}`);
   };
 
-  const prepTasks = getPrepDayTasks(menu);
+  const prepTasks = getPrepDayTasks(weekMenu);
 
   return (
     <div className="space-y-5 pb-24">
@@ -32,11 +37,26 @@ export function MenuScreen() {
         <p className="text-muted-foreground text-sm mt-1">
           Свайп влево чтобы заменить блюдо · нажмите для рецепта
         </p>
+        <div className="mt-3 inline-flex rounded-full bg-muted p-1">
+          {[1, 2].map((w) => (
+            <button
+              key={w}
+              onClick={() => setWeek(w as 1 | 2)}
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+                week === w
+                  ? "bg-primary text-primary-foreground shadow-soft"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Неделя {w}
+            </button>
+          ))}
+        </div>
       </header>
 
       {DAYS.map((d) => {
-        const slots = menu.filter((s) => s.day === d.key);
-        const kcal = totalKcalForDay(menu, d.key);
+        const slots = weekMenu.filter((s) => s.day === d.key);
+        const kcal = totalKcalForDay(weekMenu, d.key);
         const isPrepDay = d.key === "sat";
         return (
           <section key={d.key} className="px-4">
@@ -74,7 +94,7 @@ export function MenuScreen() {
       <section className="mx-4 rounded-2xl bg-gradient-mint p-5 text-primary-foreground shadow-glow">
         <div className="flex items-center gap-2 mb-2">
           <Sparkles className="h-5 w-5" />
-          <h2 className="text-xl font-bold">Прep-день: суббота</h2>
+          <h2 className="text-xl font-bold">День заготовок: суббота</h2>
         </div>
         <p className="text-sm opacity-90 mb-3">
           Заготовьте впрок, чтобы будни прошли легче.
