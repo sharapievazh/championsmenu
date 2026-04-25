@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useMenu, usePantry, useCheckedItems } from "@/store/useAppStore";
 import { buildShoppingList, CATEGORY_LABELS, CATEGORY_EMOJI } from "@/lib/menuUtils";
 import { IngredientCategory } from "@/types";
@@ -8,10 +8,13 @@ export function ShoppingScreen() {
   const [menu] = useMenu();
   const [pantry] = usePantry();
   const [checked, setChecked] = useCheckedItems();
+  const [week, setWeek] = useState<1 | 2>(1);
+
+  const weekMenu = useMemo(() => menu.filter((s) => s.week === week), [menu, week]);
 
   const grouped = useMemo(
-    () => buildShoppingList(menu, pantry, checked),
-    [menu, pantry, checked]
+    () => buildShoppingList(weekMenu, pantry, checked),
+    [weekMenu, pantry, checked]
   );
 
   const allItems = (Object.values(grouped) as any[]).flat();
@@ -29,6 +32,21 @@ export function ShoppingScreen() {
         <p className="text-muted-foreground text-sm mt-1">
           {checkedCount} из {allItems.length} куплено
         </p>
+        <div className="mt-3 inline-flex rounded-full bg-muted p-1">
+          {[1, 2].map((w) => (
+            <button
+              key={w}
+              onClick={() => setWeek(w as 1 | 2)}
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+                week === w
+                  ? "bg-primary text-primary-foreground shadow-soft"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Неделя {w}
+            </button>
+          ))}
+        </div>
         <div className="mt-3 h-2 bg-muted rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-mint transition-all"
