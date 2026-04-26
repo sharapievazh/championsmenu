@@ -6,10 +6,14 @@ import { RecipeDialog } from "../RecipeDialog";
 import { recipesById } from "@/data/recipes";
 import { pickRandomRecipe, getPrepDayTasks, totalKcalForDay } from "@/lib/menuUtils";
 import { Recipe, MealType, DayKey } from "@/types";
-import { Snowflake, Sparkles } from "lucide-react";
+import { Snowflake, Sparkles, Printer } from "lucide-react";
 import { toast } from "sonner";
 
-export function MenuScreen() {
+interface MenuScreenProps {
+  onPrint?: (weeks: (1 | 2 | 3 | 4)[]) => void;
+}
+
+export function MenuScreen({ onPrint }: MenuScreenProps = {}) {
   const [menu, setMenu] = useMenu();
   const [selected, setSelected] = useState<Recipe | null>(null);
   const [week, setWeek] = useState<1 | 2 | 3 | 4>(1);
@@ -30,10 +34,26 @@ export function MenuScreen() {
 
   const prepTasks = getPrepDayTasks(weekMenu);
 
+  const handlePrint = (scope: "current" | "all") => {
+    const weeks = scope === "current" ? [week] : ([1, 2, 3, 4] as const);
+    onPrint?.(weeks as (1 | 2 | 3 | 4)[]);
+    // даём React дорендерить скрытый PrintView перед печатью
+    setTimeout(() => window.print(), 60);
+  };
+
   return (
     <div className="space-y-5 pb-24">
       <header className="px-4 pt-4">
-        <h1 className="text-3xl font-bold text-foreground">Меню недели</h1>
+        <div className="flex items-start justify-between gap-3">
+          <h1 className="text-3xl font-bold text-foreground">Меню недели</h1>
+          <button
+            onClick={() => handlePrint("current")}
+            className="inline-flex items-center gap-1.5 rounded-full bg-card border border-border px-3 py-1.5 text-xs font-semibold text-foreground shadow-soft hover:bg-muted transition-colors"
+            aria-label="Распечатать меню недели"
+          >
+            <Printer className="h-3.5 w-3.5" /> Печать
+          </button>
+        </div>
         <p className="text-muted-foreground text-sm mt-1">
           Свайп влево чтобы заменить блюдо · нажмите для рецепта
         </p>
@@ -52,6 +72,12 @@ export function MenuScreen() {
             </button>
           ))}
         </div>
+        <button
+          onClick={() => handlePrint("all")}
+          className="mt-2 ml-2 text-xs text-primary font-semibold hover:underline"
+        >
+          Распечатать все 4 недели →
+        </button>
       </header>
 
       {DAYS.map((d) => {
