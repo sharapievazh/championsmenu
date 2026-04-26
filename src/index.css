@@ -183,3 +183,53 @@
   from { opacity: 0; transform: scale(0.96); }
   to { opacity: 1; transform: scale(1); }
 }
+
+/* ===== Печатный вид (PDF / печать) ===== */
+.print-only { display: none; }
+
+@media print {
+  @page { margin: 14mm; size: A4; }
+
+  html, body { background: #fff !important; }
+  body * { visibility: hidden !important; }
+  .print-only, .print-only * { visibility: visible !important; }
+
+  .print-only {
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    color: #111;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 11pt;
+    line-height: 1.35;
+  }
+
+  .print-header { border-bottom: 2px solid #111; padding-bottom: 6pt; margin-bottom: 12pt; }
+  .print-header h1 { font-size: 20pt; font-weight: 800; margin: 0; }
+  .print-header p { margin: 2pt 0 0; color: #444; font-size: 10pt; }
+
+  .print-section { margin-bottom: 14pt; page-break-inside: avoid; }
+  .print-section h2 { font-size: 13pt; font-weight: 700; margin: 0 0 6pt; }
+  .print-section h3 { font-size: 11pt; font-weight: 700; margin: 8pt 0 4pt; }
+  .print-muted { color: #666; font-weight: 400; font-size: 9pt; }
+
+  .print-table { width: 100%; border-collapse: collapse; }
+  .print-table th, .print-table td {
+    border: 1px solid #bbb;
+    padding: 4pt 6pt;
+    text-align: left;
+    vertical-align: top;
+    font-size: 10pt;
+  }
+  .print-table th { background: #f1f1f1; font-weight: 700; }
+  .print-day { font-weight: 600; white-space: nowrap; }
+
+  .print-cat { page-break-inside: avoid; }
+  .print-list { list-style: none; padding: 0; margin: 0;
+    columns: 2; column-gap: 16pt; }
+  .print-list li { padding: 1.5pt 0; font-size: 10pt; break-inside: avoid; }
+  .print-check { font-size: 11pt; margin-right: 4pt; }
+  .print-amount { color: #555; }
+
+  .print-footer { margin-top: 12pt; text-align: center; color: #888; font-size: 9pt; }
+}
