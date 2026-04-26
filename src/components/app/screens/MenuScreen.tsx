@@ -12,7 +12,7 @@ import { toast } from "sonner";
 export function MenuScreen() {
   const [menu, setMenu] = useMenu();
   const [selected, setSelected] = useState<Recipe | null>(null);
-  const [week, setWeek] = useState<1 | 2>(1);
+  const [week, setWeek] = useState<1 | 2 | 3 | 4>(1);
 
   const weekMenu = menu.filter((s) => s.week === week);
 
@@ -37,11 +37,11 @@ export function MenuScreen() {
         <p className="text-muted-foreground text-sm mt-1">
           Свайп влево чтобы заменить блюдо · нажмите для рецепта
         </p>
-        <div className="mt-3 inline-flex rounded-full bg-muted p-1">
-          {[1, 2].map((w) => (
+        <div className="mt-3 inline-flex rounded-full bg-muted p-1 flex-wrap">
+          {[1, 2, 3, 4].map((w) => (
             <button
               key={w}
-              onClick={() => setWeek(w as 1 | 2)}
+              onClick={() => setWeek(w as 1 | 2 | 3 | 4)}
               className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-colors ${
                 week === w
                   ? "bg-primary text-primary-foreground shadow-soft"

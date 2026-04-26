@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { MealSlot, PantryItem } from "@/types";
 import { defaultMenu } from "@/data/defaultMenu";
 
-// v2 — добавлены 16 новых рецептов, поле week у MealSlot, обновлены фото.
-const MENU_KEY = "cm.menu.v2";
-const PANTRY_KEY = "cm.pantry.v2";
-const CHECKED_KEY = "cm.shopping.checked.v2";
+// v3 — обычное молоко, новые категории, меню на 4 недели.
+const MENU_KEY = "cm.menu.v3";
+const PANTRY_KEY = "cm.pantry.v3";
+const CHECKED_KEY = "cm.shopping.checked.v3";
 
 function read<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
