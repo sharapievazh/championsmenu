@@ -4,6 +4,8 @@ import { MenuScreen } from "@/components/app/screens/MenuScreen";
 import { RecipesScreen } from "@/components/app/screens/RecipesScreen";
 import { ShoppingScreen } from "@/components/app/screens/ShoppingScreen";
 import { PantryScreen } from "@/components/app/screens/PantryScreen";
+import { PrintView } from "@/components/app/PrintView";
+import { useMenu, usePantry } from "@/store/useAppStore";
 
 type Tab = "menu" | "recipes" | "shopping" | "pantry";
 
@@ -16,17 +18,25 @@ const TABS: { key: Tab; label: string; icon: typeof CalendarDays }[] = [
 
 const Index = () => {
   const [tab, setTab] = useState<Tab>("menu");
+  const [menu] = useMenu();
+  const [pantry] = usePantry();
+  const [printConfig, setPrintConfig] = useState<{
+    weeks: (1 | 2 | 3 | 4)[];
+    mode: "menu" | "shopping" | "both";
+  }>({ weeks: [1], mode: "both" });
 
   return (
     <div className="min-h-screen bg-gradient-soft">
       <div className="mx-auto max-w-2xl">
         <div className="animate-fade-in" key={tab}>
-          {tab === "menu" && <MenuScreen />}
+          {tab === "menu" && <MenuScreen onPrint={(weeks) => setPrintConfig({ weeks, mode: "menu" })} />}
           {tab === "recipes" && <RecipesScreen />}
-          {tab === "shopping" && <ShoppingScreen />}
+          {tab === "shopping" && <ShoppingScreen onPrint={(weeks) => setPrintConfig({ weeks, mode: "shopping" })} />}
           {tab === "pantry" && <PantryScreen />}
         </div>
       </div>
+
+      <PrintView menu={menu} pantry={pantry} weeks={printConfig.weeks} mode={printConfig.mode} />
 
       <nav className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur border-t border-border z-20 pb-[env(safe-area-inset-bottom)]">
         <div className="mx-auto max-w-2xl grid grid-cols-4">
