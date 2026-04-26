@@ -81,4 +81,62 @@ export const defaultMenu: MealSlot[] = [
   { day: "sun", meal: "breakfast", recipeId: "green-juice", week: 2 },
   { day: "sun", meal: "lunch", recipeId: "sweet-potato", week: 2 },
   { day: "sun", meal: "dinner", recipeId: "baked-cod", week: 2 },
+
+  // ===== Неделя 3 — больше выпечки/роллов и блюд из птицы =====
+  { day: "mon", meal: "breakfast", recipeId: "syrniki", week: 3 },
+  { day: "mon", meal: "lunch", recipeId: "mushroom-cream-soup", week: 3 },
+  { day: "mon", meal: "dinner", recipeId: "pp-pizza", week: 3 },
+
+  { day: "tue", meal: "breakfast", recipeId: "berry-smoothie", week: 3 },
+  { day: "tue", meal: "lunch", recipeId: "chicken-meatball-soup", week: 3 },
+  { day: "tue", meal: "dinner", recipeId: "spring-rolls", week: 3 },
+
+  { day: "wed", meal: "breakfast", recipeId: "cottage-casserole", week: 3 },
+  { day: "wed", meal: "lunch", recipeId: "broccoli-cream-soup", week: 3 },
+  { day: "wed", meal: "dinner", recipeId: "turkey-roast", week: 3 },
+
+  { day: "thu", meal: "breakfast", recipeId: "pumpkin-waffles", week: 3 },
+  { day: "thu", meal: "lunch", recipeId: "veggie-sticks", week: 3 },
+  { day: "thu", meal: "dinner", recipeId: "chicken-wrap", week: 3 },
+
+  { day: "fri", meal: "breakfast", recipeId: "cocoa-smoothie", week: 3 },
+  { day: "fri", meal: "lunch", recipeId: "lentil-soup", week: 3 },
+  { day: "fri", meal: "dinner", recipeId: "grill-rolls", week: 3 },
+
+  { day: "sat", meal: "breakfast", recipeId: "protein-brownies", week: 3 },
+  { day: "sat", meal: "lunch", recipeId: "khachapuri", week: 3 },
+  { day: "sat", meal: "dinner", recipeId: "salmon-rice", week: 3 },
+
+  { day: "sun", meal: "breakfast", recipeId: "banana-pancakes", week: 3 },
+  { day: "sun", meal: "lunch", recipeId: "chicken-stew", week: 3 },
+  { day: "sun", meal: "dinner", recipeId: "turkey-meatballs", week: 3 },
+
+  // ===== Неделя 4 =====
+  { day: "mon", meal: "breakfast", recipeId: "oat-cookies", week: 4 },
+  { day: "mon", meal: "lunch", recipeId: "pumpkin-cream-soup", week: 4 },
+  { day: "mon", meal: "dinner", recipeId: "chicken-wrap", week: 4 },
+
+  { day: "tue", meal: "breakfast", recipeId: "mango-smoothie", week: 4 },
+  { day: "tue", meal: "lunch", recipeId: "tuna-salad", week: 4 },
+  { day: "tue", meal: "dinner", recipeId: "pp-pizza", week: 4 },
+
+  { day: "wed", meal: "breakfast", recipeId: "syrniki", week: 4 },
+  { day: "wed", meal: "lunch", recipeId: "mushroom-cream-soup", week: 4 },
+  { day: "wed", meal: "dinner", recipeId: "spring-rolls", week: 4 },
+
+  { day: "thu", meal: "breakfast", recipeId: "buckwheat-waffles", week: 4 },
+  { day: "thu", meal: "lunch", recipeId: "chicken-meatball-soup", week: 4 },
+  { day: "thu", meal: "dinner", recipeId: "turkey-spinach", week: 4 },
+
+  { day: "fri", meal: "breakfast", recipeId: "cottage-casserole", week: 4 },
+  { day: "fri", meal: "lunch", recipeId: "cauliflower-cream-soup", week: 4 },
+  { day: "fri", meal: "dinner", recipeId: "grill-rolls", week: 4 },
+
+  { day: "sat", meal: "breakfast", recipeId: "berry-pancakes", week: 4 },
+  { day: "sat", meal: "lunch", recipeId: "khachapuri", week: 4 },
+  { day: "sat", meal: "dinner", recipeId: "lemon-chicken", week: 4 },
+
+  { day: "sun", meal: "breakfast", recipeId: "baked-apples", week: 4 },
+  { day: "sun", meal: "lunch", recipeId: "quinoa-bowl", week: 4 },
+  { day: "sun", meal: "dinner", recipeId: "turkey-roast", week: 4 },
 ];

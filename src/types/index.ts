@@ -1,6 +1,17 @@
 export type MealType = "breakfast" | "lunch" | "dinner";
 export type DayKey = "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun";
 
+/**
+ * Дополнительная категория рецепта для быстрых разделов в шапке:
+ * десерты, смузи/коктейли, снеки, выпечка и роллы.
+ * Не пересекается с mealTypes — рецепт может иметь и то и то.
+ */
+export type RecipeCategory =
+  | "dessert"
+  | "smoothie"
+  | "snack"
+  | "bakery";
+
 export type IngredientCategory =
   | "fruit_veg"
   | "grains"
@@ -28,6 +39,8 @@ export interface Recipe {
   title: string;
   image: string;
   mealTypes: MealType[];
+  /** Дополнительные категории (десерт/смузи/снек/выпечка). */
+  categories?: RecipeCategory[];
   servings: number; // обычно 4
   timeMin: number;
   ingredients: Ingredient[];
@@ -45,8 +58,8 @@ export interface MealSlot {
   day: DayKey;
   meal: MealType;
   recipeId: string;
-  /** Номер недели в плане: 1 или 2. */
-  week: 1 | 2;
+  /** Номер недели в плане: 1, 2, 3 или 4. */
+  week: 1 | 2 | 3 | 4;
 }
 
 export interface PantryItem {
