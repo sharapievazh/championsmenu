@@ -39,6 +39,27 @@ import imgSalmonPoke from "@/assets/recipes/salmon-poke.jpg";
 import imgZucchiniFritters from "@/assets/recipes/zucchini-fritters.jpg";
 import imgBeefStew from "@/assets/recipes/beef-stew.jpg";
 
+// Новые блюда: десерты, смузи, снеки, выпечка/роллы
+import imgProteinBrownies from "@/assets/recipes/protein-brownies.jpg";
+import imgSyrniki from "@/assets/recipes/syrniki.jpg";
+import imgBakedApples from "@/assets/recipes/baked-apples.jpg";
+import imgBerrySmoothie from "@/assets/recipes/berry-smoothie.jpg";
+import imgCocoaSmoothie from "@/assets/recipes/cocoa-smoothie.jpg";
+import imgMangoSmoothie from "@/assets/recipes/mango-smoothie.jpg";
+import imgNutMix from "@/assets/recipes/nut-mix.jpg";
+import imgVeggieSticks from "@/assets/recipes/veggie-sticks.jpg";
+import imgHealthySandwich from "@/assets/recipes/healthy-sandwich.jpg";
+import imgPpPizza from "@/assets/recipes/pp-pizza.jpg";
+import imgGrillRolls from "@/assets/recipes/grill-rolls.jpg";
+import imgSpringRolls from "@/assets/recipes/spring-rolls.jpg";
+import imgChickenWrap from "@/assets/recipes/chicken-wrap.jpg";
+import imgOatCookies from "@/assets/recipes/oat-cookies.jpg";
+import imgCottageCasserole from "@/assets/recipes/cottage-casserole.jpg";
+import imgChickenMeatballSoup from "@/assets/recipes/chicken-meatball-soup.jpg";
+import imgMushroomCreamSoup from "@/assets/recipes/mushroom-cream-soup.jpg";
+import imgTurkeyRoast from "@/assets/recipes/turkey-roast.jpg";
+import imgKhachapuri from "@/assets/recipes/khachapuri.jpg";
+
 export const recipes: Recipe[] = [
   {
     id: "green-juice",
