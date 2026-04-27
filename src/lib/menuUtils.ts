@@ -7,9 +7,9 @@ import {
   MealType,
   PantryItem,
   Recipe,
-  RecipeRatings,
   ShoppingItem,
 } from "@/types";
+import type { RecipeRatings } from "@/store/useAppStore";
 
 export function pickRandomRecipe(meal: MealType, excludeId?: string): Recipe {
   const pool = recipes.filter(
