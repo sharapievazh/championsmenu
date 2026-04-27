@@ -3,7 +3,8 @@ import { MealSlot } from "@/types";
 import { recipesById } from "@/data/recipes";
 import { RecipeImage } from "./RecipeImage";
 import { RecipeBadges } from "./RecipeBadges";
-import { RefreshCw } from "lucide-react";
+import { RefreshCw, Heart, ThumbsDown } from "lucide-react";
+import { useRatings } from "@/store/useAppStore";
 
 interface Props {
   slot: MealSlot;
@@ -16,8 +17,19 @@ export function MealCard({ slot, onSwap, onOpen }: Props) {
   const [dragX, setDragX] = useState(0);
   const [swiping, setSwiping] = useState(false);
   const startX = useRef(0);
+  const [ratings, setRatings] = useRatings();
 
   if (!recipe) return null;
+
+  const rating = ratings[recipe.id];
+  const toggleRating = (next: "love" | "dislike") => {
+    setRatings((prev) => {
+      const copy = { ...prev };
+      if (copy[recipe.id] === next) delete copy[recipe.id];
+      else copy[recipe.id] = next;
+      return copy;
+    });
+  };
 
   const onPointerDown = (e: React.PointerEvent) => {
     startX.current = e.clientX;
@@ -67,16 +79,48 @@ export function MealCard({ slot, onSwap, onOpen }: Props) {
               <RecipeBadges recipe={recipe} />
             </div>
           </div>
-          <button
-            className="self-start p-2 rounded-full hover:bg-muted text-muted-foreground"
-            onClick={(e) => {
-              e.stopPropagation();
-              onSwap();
-            }}
-            aria-label="Заменить блюдо"
-          >
-            <RefreshCw className="h-4 w-4" />
-          </button>
+          <div className="flex flex-col items-center gap-1 self-start">
+            <button
+              className={`p-1.5 rounded-full transition-colors ${
+                rating === "love"
+                  ? "bg-primary/15 text-primary"
+                  : "text-muted-foreground hover:bg-muted"
+              }`}
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleRating("love");
+              }}
+              aria-label="Любимое"
+              aria-pressed={rating === "love"}
+            >
+              <Heart className={`h-4 w-4 ${rating === "love" ? "fill-current" : ""}`} />
+            </button>
+            <button
+              className={`p-1.5 rounded-full transition-colors ${
+                rating === "dislike"
+                  ? "bg-destructive/15 text-destructive"
+                  : "text-muted-foreground hover:bg-muted"
+              }`}
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleRating("dislike");
+              }}
+              aria-label="Не моё"
+              aria-pressed={rating === "dislike"}
+            >
+              <ThumbsDown className="h-4 w-4" />
+            </button>
+            <button
+              className="p-1.5 rounded-full hover:bg-muted text-muted-foreground"
+              onClick={(e) => {
+                e.stopPropagation();
+                onSwap();
+              }}
+              aria-label="Заменить блюдо"
+            >
+              <RefreshCw className="h-4 w-4" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
