@@ -1,12 +1,17 @@
 import { useState } from "react";
-import { useMenu } from "@/store/useAppStore";
+import { useMenu, useRatings } from "@/store/useAppStore";
 import { DAYS, MEAL_LABELS, MEAL_EMOJI } from "@/data/defaultMenu";
 import { MealCard } from "../MealCard";
 import { RecipeDialog } from "../RecipeDialog";
 import { recipesById } from "@/data/recipes";
-import { pickRandomRecipe, getPrepDayTasks, totalKcalForDay } from "@/lib/menuUtils";
+import {
+  pickRandomRecipe,
+  getPrepDayTasks,
+  totalKcalForDay,
+  buildWeekFromFavorites,
+} from "@/lib/menuUtils";
 import { Recipe, MealType, DayKey } from "@/types";
-import { Snowflake, Sparkles, Printer } from "lucide-react";
+import { Snowflake, Sparkles, Printer, Heart } from "lucide-react";
 import { toast } from "sonner";
 
 interface MenuScreenProps {
@@ -15,6 +20,7 @@ interface MenuScreenProps {
 
 export function MenuScreen({ onPrint }: MenuScreenProps = {}) {
   const [menu, setMenu] = useMenu();
+  const [ratings] = useRatings();
   const [selected, setSelected] = useState<Recipe | null>(null);
   const [week, setWeek] = useState<1 | 2 | 3 | 4>(1);
 
@@ -33,6 +39,26 @@ export function MenuScreen({ onPrint }: MenuScreenProps = {}) {
   };
 
   const prepTasks = getPrepDayTasks(weekMenu);
+
+  const lovedCount = Object.values(ratings).filter((v) => v === "love").length;
+
+  const buildFromFavorites = () => {
+    if (lovedCount < 3) {
+      toast.error("Отметь хотя бы 3 любимых блюда ❤️", {
+        description: "Так получится разнообразная неделя.",
+      });
+      return;
+    }
+    const { slots, usedFavorites, total } = buildWeekFromFavorites(
+      ratings,
+      week,
+      DAYS
+    );
+    setMenu((prev) => [...prev.filter((s) => s.week !== week), ...slots]);
+    toast.success(`Неделя ${week} собрана из любимых`, {
+      description: `${usedFavorites} из ${total} приёмов — ❤️ блюда`,
+    });
+  };
 
   const handlePrint = (scope: "current" | "all") => {
     const weeks = scope === "current" ? [week] : ([1, 2, 3, 4] as const);
@@ -72,12 +98,26 @@ export function MenuScreen({ onPrint }: MenuScreenProps = {}) {
             </button>
           ))}
         </div>
-        <button
-          onClick={() => handlePrint("all")}
-          className="mt-2 ml-2 text-xs text-primary font-semibold hover:underline"
-        >
-          Распечатать все 4 недели →
-        </button>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <button
+            onClick={buildFromFavorites}
+            className="inline-flex items-center gap-1.5 rounded-full bg-gradient-mint text-primary-foreground px-3.5 py-1.5 text-xs font-semibold shadow-glow hover:opacity-90 transition-opacity"
+          >
+            <Heart className="h-3.5 w-3.5 fill-current" />
+            Собрать неделю из любимых
+            {lovedCount > 0 && (
+              <span className="ml-1 rounded-full bg-primary-foreground/25 px-1.5 py-0.5 text-[10px]">
+                {lovedCount}
+              </span>
+            )}
+          </button>
+          <button
+            onClick={() => handlePrint("all")}
+            className="text-xs text-primary font-semibold hover:underline"
+          >
+            Распечатать все 4 недели →
+          </button>
+        </div>
       </header>
 
       {DAYS.map((d) => {

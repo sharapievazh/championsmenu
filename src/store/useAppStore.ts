@@ -6,6 +6,11 @@ import { defaultMenu } from "@/data/defaultMenu";
 const MENU_KEY = "cm.menu.v3";
 const PANTRY_KEY = "cm.pantry.v3";
 const CHECKED_KEY = "cm.shopping.checked.v3";
+const RATINGS_KEY = "cm.ratings.v1";
+
+/** Оценка блюда: ❤️ любимое, 👎 не моё, либо без оценки. */
+export type RecipeRating = "love" | "dislike";
+export type RecipeRatings = Record<string, RecipeRating>;
 
 function read<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
@@ -58,4 +63,13 @@ export function usePantry() {
 }
 export function useCheckedItems() {
   return useStore<Record<string, boolean>>(CHECKED_KEY, {});
+}
+
+/**
+ * Хранит оценки рецептов: { [recipeId]: "love" | "dislike" }.
+ * Используется для подбора недели только из любимых блюд
+ * и для быстрой пометки на карточках.
+ */
+export function useRatings() {
+  return useStore<RecipeRatings>(RATINGS_KEY, {});
 }

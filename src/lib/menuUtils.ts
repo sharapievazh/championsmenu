@@ -1,5 +1,6 @@
 import { recipes, recipesById } from "@/data/recipes";
 import {
+  DayKey,
   Ingredient,
   IngredientCategory,
   MealSlot,
@@ -8,12 +9,73 @@ import {
   Recipe,
   ShoppingItem,
 } from "@/types";
+import type { RecipeRatings } from "@/store/useAppStore";
 
 export function pickRandomRecipe(meal: MealType, excludeId?: string): Recipe {
   const pool = recipes.filter(
     (r) => r.mealTypes.includes(meal) && r.id !== excludeId
   );
   return pool[Math.floor(Math.random() * pool.length)];
+}
+
+/**
+ * Собрать неделю из любимых блюд. Берём только те, что отмечены ❤️,
+ * исключаем 👎. Если для какого-то приёма пищи любимых не хватает —
+ * добираем случайные не-нелюбимые, чтобы план был полон.
+ * Внутри одной недели стараемся не повторять блюда.
+ */
+export function buildWeekFromFavorites(
+  ratings: RecipeRatings,
+  week: 1 | 2 | 3 | 4,
+  days: { key: DayKey }[]
+): { slots: MealSlot[]; usedFavorites: number; total: number } {
+  const meals: MealType[] = ["breakfast", "lunch", "dinner"];
+  const isLoved = (r: Recipe) => ratings[r.id] === "love";
+  const isDisliked = (r: Recipe) => ratings[r.id] === "dislike";
+
+  const slots: MealSlot[] = [];
+  const used = new Set<string>();
+  let usedFavorites = 0;
+  const total = days.length * meals.length;
+
+  const pickFor = (meal: MealType): Recipe | null => {
+    const loved = recipes.filter(
+      (r) => r.mealTypes.includes(meal) && isLoved(r) && !used.has(r.id)
+    );
+    if (loved.length > 0) {
+      const r = loved[Math.floor(Math.random() * loved.length)];
+      used.add(r.id);
+      usedFavorites++;
+      return r;
+    }
+    // нет неиспользованных любимых — позволяем повтор любимых
+    const lovedAny = recipes.filter((r) => r.mealTypes.includes(meal) && isLoved(r));
+    if (lovedAny.length > 0) {
+      const r = lovedAny[Math.floor(Math.random() * lovedAny.length)];
+      usedFavorites++;
+      return r;
+    }
+    // добираем случайные не-дизлайкнутые
+    const fallback = recipes.filter(
+      (r) => r.mealTypes.includes(meal) && !isDisliked(r) && !used.has(r.id)
+    );
+    const pool = fallback.length > 0
+      ? fallback
+      : recipes.filter((r) => r.mealTypes.includes(meal) && !isDisliked(r));
+    if (pool.length === 0) return null;
+    const r = pool[Math.floor(Math.random() * pool.length)];
+    used.add(r.id);
+    return r;
+  };
+
+  for (const d of days) {
+    for (const meal of meals) {
+      const r = pickFor(meal);
+      if (!r) continue;
+      slots.push({ day: d.key, meal, recipeId: r.id, week });
+    }
+  }
+  return { slots, usedFavorites, total };
 }
 
 export function buildShoppingList(

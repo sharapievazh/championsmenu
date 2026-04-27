@@ -4,6 +4,7 @@ import { RecipeImage } from "../RecipeImage";
 import { RecipeBadges } from "../RecipeBadges";
 import { RecipeDialog } from "../RecipeDialog";
 import { Recipe, MealType, RecipeCategory } from "@/types";
+import { useRatings } from "@/store/useAppStore";
 import {
   Search,
   LayoutGrid,
@@ -15,16 +16,20 @@ import {
   GlassWater,
   Apple,
   Pizza,
+  Heart,
+  ThumbsDown,
 } from "lucide-react";
 
 type FilterKey =
   | "all"
   | MealType
   | "brain"
+  | "favorites"
   | RecipeCategory;
 
 const FILTERS: { key: FilterKey; label: string; icon: typeof LayoutGrid }[] = [
   { key: "all", label: "Все", icon: LayoutGrid },
+  { key: "favorites", label: "Любимые", icon: Heart },
   { key: "breakfast", label: "Завтрак", icon: Sunrise },
   { key: "lunch", label: "Обед", icon: Soup },
   { key: "dinner", label: "Ужин", icon: Moon },
@@ -39,18 +44,29 @@ export function RecipesScreen() {
   const [filter, setFilter] = useState<FilterKey>("all");
   const [q, setQ] = useState("");
   const [selected, setSelected] = useState<Recipe | null>(null);
+  const [ratings, setRatings] = useRatings();
 
   const filtered = useMemo(() => {
     return recipes.filter((r) => {
       if (q && !r.title.toLowerCase().includes(q.toLowerCase())) return false;
       if (filter === "all") return true;
+      if (filter === "favorites") return ratings[r.id] === "love";
       if (filter === "brain") return !!r.brainBoost;
       if (filter === "dessert" || filter === "smoothie" || filter === "snack" || filter === "bakery") {
         return r.categories?.includes(filter) ?? false;
       }
       return r.mealTypes.includes(filter);
     });
-  }, [filter, q]);
+  }, [filter, q, ratings]);
+
+  const toggleRating = (id: string, next: "love" | "dislike") => {
+    setRatings((prev) => {
+      const copy = { ...prev };
+      if (copy[id] === next) delete copy[id];
+      else copy[id] = next;
+      return copy;
+    });
+  };
 
   return (
     <div className="pb-24">
@@ -94,26 +110,65 @@ export function RecipesScreen() {
       </div>
 
       <div className="grid grid-cols-2 gap-3 px-4 mt-3">
-        {filtered.map((r) => (
-          <button
-            key={r.id}
-            onClick={() => setSelected(r)}
-            className="text-left rounded-2xl bg-card shadow-soft hover:shadow-card transition-all overflow-hidden animate-fade-in"
-          >
-            <div className="aspect-square bg-muted overflow-hidden">
-              <RecipeImage recipe={r} />
-            </div>
-            <div className="p-3 space-y-1.5">
-              <h3 className="font-semibold text-sm leading-tight line-clamp-2 text-foreground">
-                {r.title}
-              </h3>
-              <div className="text-xs text-muted-foreground">
-                {r.nutrition.kcalAdult} ккал
+        {filtered.map((r) => {
+          const rating = ratings[r.id];
+          return (
+            <div
+              key={r.id}
+              className="relative text-left rounded-2xl bg-card shadow-soft hover:shadow-card transition-all overflow-hidden animate-fade-in"
+            >
+              <button
+                onClick={() => setSelected(r)}
+                className="block w-full text-left"
+              >
+                <div className="aspect-square bg-muted overflow-hidden">
+                  <RecipeImage recipe={r} />
+                </div>
+                <div className="p-3 space-y-1.5">
+                  <h3 className="font-semibold text-sm leading-tight line-clamp-2 text-foreground">
+                    {r.title}
+                  </h3>
+                  <div className="text-xs text-muted-foreground">
+                    {r.nutrition.kcalAdult} ккал
+                  </div>
+                  <RecipeBadges recipe={r} />
+                </div>
+              </button>
+              <div className="absolute top-2 right-2 flex flex-col gap-1">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleRating(r.id, "love");
+                  }}
+                  className={`p-1.5 rounded-full backdrop-blur-md shadow-soft transition-colors ${
+                    rating === "love"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-card/80 text-muted-foreground hover:text-primary"
+                  }`}
+                  aria-label="Любимое"
+                  aria-pressed={rating === "love"}
+                >
+                  <Heart className={`h-3.5 w-3.5 ${rating === "love" ? "fill-current" : ""}`} />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleRating(r.id, "dislike");
+                  }}
+                  className={`p-1.5 rounded-full backdrop-blur-md shadow-soft transition-colors ${
+                    rating === "dislike"
+                      ? "bg-destructive text-destructive-foreground"
+                      : "bg-card/80 text-muted-foreground hover:text-destructive"
+                  }`}
+                  aria-label="Не моё"
+                  aria-pressed={rating === "dislike"}
+                >
+                  <ThumbsDown className="h-3.5 w-3.5" />
+                </button>
               </div>
-              <RecipeBadges recipe={r} />
             </div>
-          </button>
-        ))}
+          );
+        })}
       </div>
 
       <RecipeDialog
