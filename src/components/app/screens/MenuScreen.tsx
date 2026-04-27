@@ -111,12 +111,6 @@ export function MenuScreen({ onPrint }: MenuScreenProps = {}) {
               </span>
             )}
           </button>
-          <button
-            onClick={() => handlePrint("all")}
-            className="text-xs text-primary font-semibold hover:underline"
-          >
-            Распечатать все 4 недели →
-          </button>
         </div>
       </header>
 
