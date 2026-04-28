@@ -66,12 +66,6 @@ export function ShoppingScreen({ onPrint }: ShoppingScreenProps = {}) {
             </button>
           ))}
         </div>
-        <button
-          onClick={() => handlePrint("all")}
-          className="block mt-2 ml-2 text-xs text-primary font-semibold hover:underline"
-        >
-          Распечатать список на все 4 недели →
-        </button>
         <div className="mt-3 h-2 bg-muted rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-mint transition-all"
