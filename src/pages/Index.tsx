@@ -6,17 +6,19 @@ import { ShoppingScreen } from "@/components/app/screens/ShoppingScreen";
 import { PantryScreen } from "@/components/app/screens/PantryScreen";
 import { PrintView } from "@/components/app/PrintView";
 import { useMenu, usePantry } from "@/store/useAppStore";
+import { useT, type TKey } from "@/i18n";
 
 type Tab = "menu" | "recipes" | "shopping" | "pantry";
 
-const TABS: { key: Tab; label: string; icon: typeof CalendarDays }[] = [
-  { key: "menu", label: "Меню", icon: CalendarDays },
-  { key: "recipes", label: "Рецепты", icon: BookOpen },
-  { key: "shopping", label: "Покупки", icon: ShoppingCart },
-  { key: "pantry", label: "Кладовая", icon: Refrigerator },
+const TABS: { key: Tab; tKey: TKey; icon: typeof CalendarDays }[] = [
+  { key: "menu", tKey: "nav_menu", icon: CalendarDays },
+  { key: "recipes", tKey: "nav_recipes", icon: BookOpen },
+  { key: "shopping", tKey: "nav_shopping", icon: ShoppingCart },
+  { key: "pantry", tKey: "nav_pantry", icon: Refrigerator },
 ];
 
 const Index = () => {
+  const { t } = useT();
   const [tab, setTab] = useState<Tab>("menu");
   const [menu] = useMenu();
   const [pantry] = usePantry();
@@ -53,7 +55,7 @@ const Index = () => {
               >
                 <Icon className={`h-5 w-5 ${active ? "scale-110" : ""} transition-transform`} />
                 <span className={`text-[10px] font-semibold ${active ? "" : "font-medium"}`}>
-                  {t.label}
+                  {t(t_key_for(t, t))}
                 </span>
               </button>
             );
