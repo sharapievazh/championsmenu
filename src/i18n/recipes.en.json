@@ -1,1 +1,822 @@
-{}
+{
+  "green-juice": {
+    "title": "Green Detox Smoothie",
+    "ingredients": [
+      "Spinach",
+      "Green Apple",
+      "Cucumber",
+      "Lemon",
+      "Ginger",
+      "Water"
+    ],
+    "steps": [
+      "Wash and roughly chop all fruits and vegetables.",
+      "Place everything into a blender, pour in coconut water.",
+      "Blend until smooth and serve immediately."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "oat-bowl": {
+    "title": "Oat Bowl with Berries and Almonds",
+    "ingredients": [
+      "Gluten-free Rolled Oats",
+      "Milk",
+      "Blueberries",
+      "Raspberries",
+      "Almonds",
+      "Honey"
+    ],
+    "steps": [
+      "Cook oats with milk for 5–7 minutes.",
+      "Divide into bowls, add berries and almonds.",
+      "Drizzle with honey and serve warm."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "salmon-pancakes": {
+    "title": "Buckwheat Pancakes with Salmon and Avocado",
+    "ingredients": [
+      "Buckwheat Flour",
+      "Egg",
+      "Milk",
+      "Lightly Salted Salmon",
+      "Avocado",
+      "Lemon",
+      "Dill"
+    ],
+    "steps": [
+      "Mix flour, eggs, and milk until a smooth batter forms.",
+      "Cook thin pancakes in a dry pan.",
+      "Wrap with salmon, avocado, greens, and a squeeze of lemon."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "avocado-toast": {
+    "title": "Rye Bread Toast with Quark and Poached Egg",
+    "ingredients": [
+      "Rye Bread (wheat-free)",
+      "Soft Quark",
+      "Egg",
+      "Cherry Tomatoes",
+      "Sesame Seeds",
+      "Lemon Juice"
+    ],
+    "steps": [
+      "Toast the bread, spread with quark, sprinkle with lemon.",
+      "Poach eggs for 3 minutes.",
+      "Spread on toast, top with egg, sprinkle with sesame seeds and cherry tomatoes."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "walnut-porridge": {
+    "title": "Millet Porridge with Walnuts and Pear",
+    "ingredients": [
+      "Millet",
+      "Milk",
+      "Pear",
+      "Walnut",
+      "Cinnamon",
+      "Maple Syrup"
+    ],
+    "steps": [
+      "Rinse millet, cover with milk, and cook for 20 minutes.",
+      "Slice pear, toast walnuts in a dry pan.",
+      "Serve with pear, walnuts, cinnamon, and syrup."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "chia-pudding": {
+    "title": "Mango Coconut Chia Pudding",
+    "ingredients": [
+      "Chia seeds",
+      "Milk",
+      "Mango",
+      "Shredded coconut",
+      "Honey"
+    ],
+    "steps": [
+      "Mix chia seeds with milk and honey, refrigerate overnight.",
+      "In the morning, dice the mango.",
+      "Layer the pudding with mango and shredded coconut on top."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "egg-muffins": {
+    "title": "Spinach Egg Muffins",
+    "ingredients": [
+      "Egg",
+      "Spinach",
+      "Cherry tomatoes",
+      "Bell pepper",
+      "Olive oil"
+    ],
+    "steps": [
+      "Whisk eggs, chop vegetables, and mix.",
+      "Pour into oiled muffin molds.",
+      "Bake for 18 minutes at 180°C."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "quinoa-bowl": {
+    "title": "Quinoa Bowl with Chickpeas and Roasted Veggies",
+    "ingredients": [
+      "Quinoa",
+      "Cooked chickpeas",
+      "Zucchini",
+      "Bell pepper",
+      "Tahini",
+      "Lemon"
+    ],
+    "steps": [
+      "Cook quinoa for 15 minutes, roast vegetables for 20 minutes at 200°C.",
+      "Mix tahini with lemon and water to create a sauce.",
+      "Assemble the bowl: quinoa, vegetables, chickpeas, then drizzle with sauce."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "salmon-rice": {
+    "title": "Baked Salmon with Wild Rice and Broccoli",
+    "ingredients": [
+      "Salmon fillet",
+      "Wild rice",
+      "Broccoli",
+      "Lemon",
+      "Olive oil",
+      "Garlic"
+    ],
+    "steps": [
+      "Cook rice for 25 minutes.",
+      "Drizzle salmon with oil and lemon, bake for 12 minutes at 200°C.",
+      "Steam broccoli for 5 minutes, serve all together."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "chicken-buckwheat": {
+    "title": "Chicken Breast with Buckwheat and Braised Vegetables",
+    "ingredients": [
+      "Chicken breast",
+      "Buckwheat",
+      "Carrot",
+      "Onion",
+      "Thyme",
+      "Olive oil"
+    ],
+    "steps": [
+      "Cook buckwheat for 20 minutes.",
+      "Brown chicken and braise with vegetables for 15 minutes.",
+      "Serve with herbs and thyme."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "lentil-soup": {
+    "title": "Lentil Soup with Turmeric and Lemon",
+    "ingredients": [
+      "Red lentils",
+      "Carrot",
+      "Onion",
+      "Celery",
+      "Turmeric",
+      "Lemon",
+      "Vegetable broth"
+    ],
+    "steps": [
+      "Sauté onion, carrot, and celery for 5 minutes.",
+      "Add lentils, turmeric, and broth, cook for 25 minutes.",
+      "Puree, then season with lemon juice."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "tuna-salad": {
+    "title": "Tuna, Bean, and Egg Salad",
+    "ingredients": [
+      "Tuna in its own juice",
+      "White beans",
+      "Egg",
+      "Tomatoes",
+      "Salad mix",
+      "Olive oil",
+      "Lemon"
+    ],
+    "steps": [
+      "Hard boil eggs, chop them.",
+      "Combine salad, tuna, beans, and tomatoes.",
+      "Dress with oil and lemon."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "turkey-meatballs": {
+    "title": "Turkey Meatballs with Tomato Sauce",
+    "ingredients": [
+      "Ground turkey",
+      "Onion",
+      "Garlic",
+      "Canned tomatoes",
+      "Basil",
+      "Gluten-free oats",
+      "Egg"
+    ],
+    "steps": [
+      "Mix ground turkey with onion, oats, and egg, form into meatballs.",
+      "Sear in olive oil until golden brown.",
+      "Simmer in tomato sauce with basil for 15 minutes."
+    ],
+    "tags": [
+      "gluten-free"
+    ],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "veggie-frittata": {
+    "title": "Frittata with Spinach and Bell Pepper",
+    "ingredients": [
+      "Egg",
+      "Spinach",
+      "Bell pepper",
+      "Green onion",
+      "Olive oil"
+    ],
+    "steps": [
+      "Sauté bell pepper for 3 minutes, add spinach.",
+      "Pour in beaten eggs with green onion.",
+      "Bake for 12 minutes at 180°C."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "baked-cod": {
+    "title": "Baked Cod with Vegetables and Lemon",
+    "ingredients": [
+      "Cod fillet",
+      "New potatoes",
+      "Cherry tomatoes",
+      "Olives",
+      "Lemon",
+      "Olive oil"
+    ],
+    "steps": [
+      "Slice potatoes, bake for 15 minutes.",
+      "Add cod, cherry tomatoes, olives, and lemon.",
+      "Bake for another 12 minutes at 200°C."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "chicken-stew": {
+    "title": "Moroccan Chicken & Veg",
+    "ingredients": [
+      "Skinless chicken thighs",
+      "Carrots",
+      "Zucchini",
+      "Cooked chickpeas",
+      "Dried apricots",
+      "Cinnamon and cumin",
+      "Vegetable broth"
+    ],
+    "steps": [
+      "Sauté chicken with spices for 5 minutes.",
+      "Add vegetables, chickpeas, apricots, and broth.",
+      "Simmer covered for 35 minutes."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "mackerel": {
+    "title": "Baked Mackerel with Quinoa Salad",
+    "ingredients": [
+      "Mackerel",
+      "Quinoa",
+      "Cucumber",
+      "Cherry tomatoes",
+      "Greens (parsley, mint)",
+      "Lemon"
+    ],
+    "steps": [
+      "Bake mackerel with lemon for 18 minutes at 200°C.",
+      "Cook quinoa for 15 minutes.",
+      "Mix quinoa with vegetables and greens, serve with fish."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "beef-stirfry": {
+    "title": "Asian Beef Stir-fry",
+    "ingredients": [
+      "Beef tenderloin",
+      "Bell pepper",
+      "Broccoli",
+      "Ginger",
+      "Tamari (gluten-free soy sauce)",
+      "Sesame oil",
+      "Basmati rice"
+    ],
+    "steps": [
+      "Cook rice for 15 minutes.",
+      "Sear beef for 3 minutes over high heat.",
+      "Add vegetables and tamari, cook for another 4 minutes."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "shrimp-zoodles": {
+    "title": "Shrimp Zoodles with Pesto",
+    "ingredients": [
+      "Peeled shrimp",
+      "Zucchini",
+      "Basil",
+      "Pine nuts",
+      "Garlic",
+      "Olive oil",
+      "Lemon"
+    ],
+    "steps": [
+      "Make pesto: blend basil, nuts, oil, garlic.",
+      "Spiralize zucchini, sauté for 3 minutes.",
+      "Add shrimp and pesto, cook for 4 minutes."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "sweet-potato": {
+    "title": "Baked Sweet Potato with Chicken & Corn",
+    "ingredients": [
+      "Sweet potato",
+      "Chicken breast",
+      "Corn",
+      "Lime",
+      "Cilantro"
+    ],
+    "steps": [
+      "Bake sweet potato for 40 minutes at 200°C.",
+      "Sauté chicken and chop.",
+      "Cut sweet potato, fill with chicken, corn, and lime."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "berry-pancakes": {
+    "title": "Oat Berry Banana Pancakes",
+    "ingredients": [
+      "Gluten-free oat flour",
+      "Banana",
+      "Egg",
+      "Milk",
+      "Mixed berries",
+      "Maple syrup",
+      "Baking powder"
+    ],
+    "steps": [
+      "Mash the banana, mix with flour, eggs, milk, and baking powder.",
+      "Cook small pancakes in a dry pan.",
+      "Serve with berries and syrup."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "filo-spiral": {
+    "title": "Cabbage Filo Spiral",
+    "ingredients": [
+      "Filo pastry",
+      "Fresh cabbage",
+      "Sauerkraut",
+      "Avocado oil (spray)",
+      "Salt, pepper"
+    ],
+    "steps": [
+      "Braise cabbage without oil until soft, season with salt.",
+      "Lay a sheet of filo pastry, place a strip of filling.",
+      "Roll it into a log, then coil into a spiral.",
+      "Lightly spray with avocado oil, bake for 25 min at 190°C until golden."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "buckwheat-waffles": {
+    "title": "Buckwheat Waffles with Banana & Walnut",
+    "ingredients": [
+      "Buckwheat flour",
+      "Banana",
+      "Egg",
+      "Milk",
+      "Baking powder",
+      "Walnut",
+      "Honey"
+    ],
+    "steps": [
+      "Mash the banana, mix with flour, eggs, milk, and baking powder.",
+      "Cook in a waffle maker for 4 minutes.",
+      "Serve with banana, nuts, and honey."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "banana-pancakes": {
+    "title": "Banana Pancakes with Almond Butter",
+    "ingredients": [
+      "Banana",
+      "Egg",
+      "Gluten-free oat flour",
+      "Peanut butter",
+      "Cinnamon",
+      "Honey"
+    ],
+    "steps": [
+      "Mash bananas, mix with eggs, flour, and cinnamon.",
+      "Cook small pancakes in a dry pan for 2 min per side.",
+      "Serve with almond butter and honey."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "cottage-bowl": {
+    "title": "Cottage Cheese Bowl with Strawberry & Almond",
+    "ingredients": [
+      "Cottage cheese 5%",
+      "Strawberry",
+      "Almond",
+      "Honey"
+    ],
+    "steps": [
+      "Divide cottage cheese into bowls.",
+      "Top with strawberries, almonds, and honey."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "pumpkin-cream-soup": {
+    "title": "Pumpkin Ginger Cream Soup (Thermomix)",
+    "ingredients": [
+      "Pumpkin",
+      "Carrot",
+      "Onion",
+      "Ginger",
+      "Vegetable broth",
+      "Milk",
+      "Pumpkin seeds"
+    ],
+    "steps": [
+      "Thermomix: onion and ginger 5 sec/spd 5, sauté 3 min.",
+      "Add pumpkin, carrot, and broth, cook 20 min/100°C/spd 1.",
+      "Puree 1 min/spd 10, pour in milk.",
+      "Serve with seeds."
+    ],
+    "tags": [
+      "thermomix"
+    ],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "cauliflower-cream-soup": {
+    "title": "Cauliflower Cream Soup (Thermomix)",
+    "ingredients": [
+      "Cauliflower",
+      "Potato",
+      "Leek",
+      "Vegetable broth",
+      "Milk",
+      "Nutmeg",
+      "Olive oil"
+    ],
+    "steps": [
+      "Thermomix: leek 5 sec/spd 5, sauté 3 min.",
+      "Add cauliflower, potato, and broth, cook 20 min/100°C/spd 1.",
+      "Puree 1 min/spd 10, add milk and nutmeg.",
+      "Serve with baked cauliflower florets."
+    ],
+    "tags": [
+      "thermomix"
+    ],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "lemon-chicken": {
+    "title": "Lemon Rosemary Chicken",
+    "ingredients": [
+      "Chicken breast",
+      "Lemon",
+      "Rosemary",
+      "Garlic",
+      "Quinoa",
+      "Zucchini",
+      "Olive oil"
+    ],
+    "steps": [
+      "Marinate chicken in lemon, garlic, and rosemary for 15 minutes.",
+      "Bake with vegetables for 25 min at 200°C.",
+      "Cook quinoa for 15 minutes, serve together."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "chicken-stirfry": {
+    "title": "Chicken Stir-fry with Vegetables and Rice",
+    "ingredients": [
+      "Chicken fillet",
+      "Bell pepper",
+      "Broccoli",
+      "Carrot",
+      "Ginger",
+      "Tamari (gluten-free soy sauce)",
+      "Sesame",
+      "Basmati rice"
+    ],
+    "steps": [
+      "Cook rice.",
+      "Sear chicken for 4 min over high heat.",
+      "Add vegetables, ginger, and tamari, cook for 5 min.",
+      "Serve with rice and sesame."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "turkey-burgers": {
+    "title": "Turkey Patties with Sweet Potato",
+    "ingredients": [
+      "Ground turkey",
+      "Onion",
+      "Greens (parsley)",
+      "Egg",
+      "Gluten-free oat flakes",
+      "Sweet potato",
+      "Olive oil"
+    ],
+    "steps": [
+      "Slice sweet potato, bake for 30 min at 200°C.",
+      "Form patties, fry 4 min per side.",
+      "Serve with salad."
+    ],
+    "tags": [
+      "gluten-free"
+    ],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "zucchini-fritters": {
+    "title": "Zucchini Fritters with Yogurt",
+    "ingredients": [
+      "Zucchini",
+      "Egg",
+      "Gluten-Free Oat Flour",
+      "Greens (dill)",
+      "Natural Yogurt",
+      "Olive Oil"
+    ],
+    "steps": [
+      "Grate zucchini, squeeze out juice.",
+      "Mix with eggs, flour, and dill.",
+      "Fry fritters for 2 minutes per side.",
+      "Serve with yogurt."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "beef-stew": {
+    "title": "Braised Beef with Vegetables",
+    "ingredients": [
+      "Beef",
+      "Carrot",
+      "Potato",
+      "Onion",
+      "Tomatoes in own juice",
+      "Vegetable Broth",
+      "Bay Leaf"
+    ],
+    "steps": [
+      "Sear beef for 5 minutes.",
+      "Add onion, carrot, simmer for 10 minutes.",
+      "Add potato, tomatoes, broth, and spices.",
+      "Braise covered for 60 minutes."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "syrniki": {
+    "title": "Syrniki with Berries and Honey",
+    "ingredients": [
+      "Cottage Cheese 5%",
+      "Egg",
+      "Gluten-Free Oat Flour",
+      "Honey",
+      "Vanilla",
+      "Mixed Berries",
+      "Sour Cream 15%"
+    ],
+    "steps": [
+      "Mash cottage cheese with eggs, honey, and vanilla.",
+      "Add flour, knead into a soft dough.",
+      "Form syrniki, fry for 3 minutes per side.",
+      "Serve with berries and sour cream."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "baked-apples": {
+    "title": "Baked Apples with Nuts and Honey",
+    "ingredients": [
+      "Apple",
+      "Walnut",
+      "Gluten-Free Rolled Oats",
+      "Honey",
+      "Cinnamon",
+      "Raisins"
+    ],
+    "steps": [
+      "Remove apple cores with a spoon.",
+      "Mix nuts, oats, raisins, cinnamon, and honey.",
+      "Fill apples with the mixture.",
+      "Bake for 25 mins at 180°C."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "oat-cookies": {
+    "title": "Oat Cookies with Chocolate",
+    "ingredients": [
+      "Gluten-Free Rolled Oats",
+      "Banana",
+      "Dark Chocolate Chips",
+      "Raisins",
+      "Honey",
+      "Milk"
+    ],
+    "steps": [
+      "Mash bananas, mix with milk and honey.",
+      "Add oats, chocolate, and raisins.",
+      "Spoon onto a baking sheet with parchment.",
+      "Bake for 15 mins at 180°C."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "grill-rolls": {
+    "title": "Grilled Chicken Sushi Rolls",
+    "ingredients": [
+      "Sushi rice",
+      "Nori",
+      "Chicken fillet",
+      "Cream cheese",
+      "Cucumber",
+      "Tamari (gluten-free soy sauce)",
+      "Sesame seeds"
+    ],
+    "steps": [
+      "Cook rice, season with rice vinegar.",
+      "Grill chicken, cut into strips.",
+      "Lay rice on nori, add cheese, cucumber, and chicken. Roll tightly.",
+      "Bake rolls for 6 min at 200°C, slice, sprinkle with sesame seeds."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "spring-rolls": {
+    "title": "Chicken and Veggie Spring Rolls",
+    "ingredients": [
+      "Rice paper",
+      "Chicken fillet",
+      "Carrot",
+      "Cucumber",
+      "Bell pepper",
+      "Lettuce",
+      "Peanut butter",
+      "Tamari (gluten-free soy sauce)"
+    ],
+    "steps": [
+      "Boil chicken and cut into strips.",
+      "Cut vegetables into thin strips.",
+      "Soak rice paper for 5 sec in warm water.",
+      "Add filling, fold into an envelope. Serve with peanut butter and tamari sauce."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "chicken-wrap": {
+    "title": "Chicken & Cheese Quesadilla",
+    "ingredients": [
+      "Wheat tortilla",
+      "Chicken fillet",
+      "Hard cheese",
+      "Bell pepper",
+      "Avocado",
+      "Cilantro",
+      "Lime"
+    ],
+    "steps": [
+      "Sauté chicken with pepper for 8 minutes, then cut.",
+      "Place filling and cheese on half of a tortilla, fold over.",
+      "Fry for 2 min per side until cheese melts.",
+      "Serve with avocado cubes, cilantro, and lime."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "khachapuri": {
+    "title": "Easy Egg Khachapuri",
+    "ingredients": [
+      "Whole wheat flour",
+      "Milk",
+      "Dry yeast",
+      "Grated Suluguni cheese",
+      "Cottage cheese 5%",
+      "Egg",
+      "Greens (parsley, dill)"
+    ],
+    "steps": [
+      "Knead yeast dough, let rise for 30 min.",
+      "Form boats, add cheese filling.",
+      "Bake for 15 min at 220°C, crack egg into the center.",
+      "Bake for another 4 min, sprinkle with greens."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "mushroom-cream-soup": {
+    "title": "Mushroom Cream Soup (Thermomix)",
+    "ingredients": [
+      "Mushrooms",
+      "Potatoes",
+      "Onion",
+      "Garlic",
+      "Vegetable broth",
+      "Cream 10%",
+      "Greens (parsley)"
+    ],
+    "steps": [
+      "Thermomix: onion + garlic 5 sec/sp.5, sauté 3 min/Varoma.",
+      "Add mushrooms and potatoes, cook 18 min/100°C/sp.1 with broth.",
+      "Puree 1 min/sp.10, pour in cream.",
+      "Serve with sautéed mushrooms and greens."
+    ],
+    "tags": [
+      "thermomix"
+    ],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  },
+  "turkey-roast": {
+    "title": "Roasted Turkey Thigh with Vegetables",
+    "ingredients": [
+      "Turkey Thigh",
+      "Carrots",
+      "Sweet Potato",
+      "Red Onion",
+      "Rosemary",
+      "Garlic",
+      "Olive Oil"
+    ],
+    "steps": [
+      "Roughly chop vegetables and arrange in a baking dish.",
+      "Rub turkey with oil, garlic, rosemary, and salt.",
+      "Bake for 50 minutes at 190°C.",
+      "Let rest for 5 minutes, then slice."
+    ],
+    "tags": [],
+    "brainNote": "",
+    "childFriendlyNote": ""
+  }
+}
