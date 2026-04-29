@@ -15,8 +15,9 @@ export function RecipeDialog({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
-  const { t } = useT();
+  const { t, lang } = useT();
   if (!recipe) return null;
+  const gUnit = lang === "en" ? "g" : "г";
   const grouped: Record<IngredientCategory, typeof recipe.ingredients> = {
     fruit_veg: [], grains: [], meat_fish: [], dairy_alt: [], other: [],
   };
@@ -44,11 +45,11 @@ export function RecipeDialog({
               <div className="text-[10px] text-muted-foreground">{t("kcal_child_short")}</div>
             </div>
             <div className="rounded-xl bg-secondary p-2">
-              <div className="text-lg font-bold text-foreground">{recipe.nutrition.protein}{t("lang") === "en" ? "g" : "г"}</div>
+              <div className="text-lg font-bold text-foreground">{recipe.nutrition.protein}{gUnit}</div>
               <div className="text-[10px] text-muted-foreground">{t("protein_short")}</div>
             </div>
             <div className="rounded-xl bg-secondary p-2">
-              <div className="text-lg font-bold text-foreground">{recipe.nutrition.carbs}{t("lang") === "en" ? "g" : "г"}</div>
+              <div className="text-lg font-bold text-foreground">{recipe.nutrition.carbs}{gUnit}</div>
               <div className="text-[10px] text-muted-foreground">{t("carbs_short")}</div>
             </div>
           </div>
