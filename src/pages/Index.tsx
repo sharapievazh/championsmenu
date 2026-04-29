@@ -42,20 +42,20 @@ const Index = () => {
 
       <nav className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur border-t border-border z-20 pb-[env(safe-area-inset-bottom)]">
         <div className="mx-auto max-w-2xl grid grid-cols-4">
-          {TABS.map((t) => {
-            const active = tab === t.key;
-            const Icon = t.icon;
+          {TABS.map((tab_def) => {
+            const active = tab === tab_def.key;
+            const Icon = tab_def.icon;
             return (
               <button
-                key={t.key}
-                onClick={() => setTab(t.key)}
+                key={tab_def.key}
+                onClick={() => setTab(tab_def.key)}
                 className={`flex flex-col items-center gap-0.5 py-3 transition-colors ${
                   active ? "text-primary" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 <Icon className={`h-5 w-5 ${active ? "scale-110" : ""} transition-transform`} />
                 <span className={`text-[10px] font-semibold ${active ? "" : "font-medium"}`}>
-                  {t(t_key_for(t, t))}
+                  {t(tab_def.tKey)}
                 </span>
               </button>
             );
