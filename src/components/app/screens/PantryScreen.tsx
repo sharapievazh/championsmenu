@@ -1,29 +1,37 @@
 import { useState, useMemo, useEffect } from "react";
 import { usePantry } from "@/store/useAppStore";
-import { ingredientsToPantryItems, suggestFromPantry, CATEGORY_LABELS, CATEGORY_EMOJI } from "@/lib/menuUtils";
+import { ingredientsToPantryItems, suggestFromPantry } from "@/lib/menuUtils";
 import { IngredientCategory, PantryItem, Recipe } from "@/types";
 import { Plus, Sparkles, Check, Search } from "lucide-react";
 import { RecipeDialog } from "../RecipeDialog";
-import { RecipeImage } from "../RecipeImage";
 import { toast } from "sonner";
+import { useT } from "@/i18n";
+import { LangSwitcher } from "@/i18n/LangSwitcher";
+import { localizeRecipe, localizeIngredientName } from "@/i18n/recipeTranslations";
+
+const CAT_EMOJI: Record<IngredientCategory, string> = {
+  fruit_veg: "🥬", grains: "🌾", meat_fish: "🐟", dairy_alt: "🥛", other: "🫙",
+};
 
 export function PantryScreen() {
+  const { t, lang } = useT();
   const [pantry, setPantry] = usePantry();
   const [q, setQ] = useState("");
   const [suggestion, setSuggestion] = useState<Recipe | null>(null);
   const [openSug, setOpenSug] = useState(false);
 
-  // На первый запуск заполнить кладовую списком ингредиентов из всех рецептов (всё «нет в наличии»).
   useEffect(() => {
-    if (pantry.length === 0) {
-      setPantry(ingredientsToPantryItems());
-    }
+    if (pantry.length === 0) setPantry(ingredientsToPantryItems());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filtered = useMemo(
-    () => pantry.filter((p) => p.name.toLowerCase().includes(q.toLowerCase())),
-    [pantry, q]
+    () => pantry.filter((p) => {
+      const display = localizeIngredientName(p.name, lang);
+      return display.toLowerCase().includes(q.toLowerCase()) ||
+             p.name.toLowerCase().includes(q.toLowerCase());
+    }),
+    [pantry, q, lang]
   );
 
   const grouped: Record<IngredientCategory, PantryItem[]> = {
@@ -32,15 +40,13 @@ export function PantryScreen() {
   filtered.forEach((p) => grouped[p.category].push(p));
 
   const toggle = (id: string) =>
-    setPantry((items) =>
-      items.map((p) => (p.id === id ? { ...p, inStock: !p.inStock } : p))
-    );
+    setPantry((items) => items.map((p) => (p.id === id ? { ...p, inStock: !p.inStock } : p)));
 
   const addCustom = () => {
     const name = q.trim();
     if (!name) return;
     if (pantry.some((p) => p.name.toLowerCase() === name.toLowerCase())) {
-      toast.error("Уже есть в списке");
+      toast.error(t("pantry_already_in_list"));
       return;
     }
     setPantry((items) => [
@@ -53,10 +59,10 @@ export function PantryScreen() {
   const onSuggest = () => {
     const r = suggestFromPantry(pantry);
     if (!r) {
-      toast.error("Отметьте больше продуктов в кладовой");
+      toast.error(t("pantry_not_enough"));
       return;
     }
-    setSuggestion(r);
+    setSuggestion(localizeRecipe(r, lang));
     setOpenSug(true);
   };
 
@@ -65,25 +71,26 @@ export function PantryScreen() {
   return (
     <div className="pb-24">
       <header className="px-4 pt-4">
-        <h1 className="text-3xl font-bold text-foreground">Кладовая</h1>
+        <div className="flex items-start justify-between gap-3">
+          <h1 className="text-3xl font-bold text-foreground">{t("pantry_title")}</h1>
+          <LangSwitcher />
+        </div>
         <p className="text-muted-foreground text-sm mt-1">
-          {inStockCount} продуктов в наличии
+          {t("pantry_count", { n: inStockCount })}
         </p>
       </header>
 
       <div className="mx-4 mt-4 rounded-2xl bg-gradient-mint p-5 text-primary-foreground shadow-glow">
         <div className="flex items-center gap-2 mb-1">
           <Sparkles className="h-5 w-5" />
-          <h2 className="text-lg font-bold">Что приготовить?</h2>
+          <h2 className="text-lg font-bold">{t("pantry_what_to_cook")}</h2>
         </div>
-        <p className="text-sm opacity-90 mb-3">
-          Подберём рецепт из того, что есть в кладовой.
-        </p>
+        <p className="text-sm opacity-90 mb-3">{t("pantry_suggest_hint")}</p>
         <button
           onClick={onSuggest}
           className="bg-primary-foreground text-primary font-semibold rounded-full px-4 py-2 text-sm hover:opacity-90"
         >
-          Подобрать рецепт
+          {t("pantry_suggest_btn")}
         </button>
       </div>
 
@@ -95,14 +102,14 @@ export function PantryScreen() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && addCustom()}
-              placeholder="Найти или добавить..."
+              placeholder={t("pantry_search_placeholder")}
               className="w-full pl-9 pr-3 py-2.5 rounded-full bg-muted text-foreground placeholder:text-muted-foreground border border-transparent focus:border-primary focus:outline-none text-sm"
             />
           </div>
           <button
             onClick={addCustom}
             className="rounded-full bg-primary text-primary-foreground p-2.5 hover:opacity-90"
-            aria-label="Добавить"
+            aria-label={t("add")}
           >
             <Plus className="h-4 w-4" />
           </button>
@@ -115,8 +122,8 @@ export function PantryScreen() {
           .map((cat) => (
             <section key={cat}>
               <h2 className="font-bold text-foreground mb-2 flex items-center gap-2">
-                <span className="text-xl">{CATEGORY_EMOJI[cat]}</span>
-                {CATEGORY_LABELS[cat]}
+                <span className="text-xl">{CAT_EMOJI[cat]}</span>
+                {t(`cat_${cat}` as any)}
               </h2>
               <div className="rounded-2xl bg-card shadow-soft overflow-hidden">
                 {grouped[cat].map((p) => (
@@ -133,7 +140,7 @@ export function PantryScreen() {
                       {p.inStock && <Check className="h-3.5 w-3.5 text-success-foreground" />}
                     </div>
                     <span className={`flex-1 text-sm ${p.inStock ? "text-foreground font-medium" : "text-muted-foreground"}`}>
-                      {p.name}
+                      {localizeIngredientName(p.name, lang)}
                     </span>
                   </button>
                 ))}

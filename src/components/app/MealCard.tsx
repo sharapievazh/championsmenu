@@ -5,6 +5,8 @@ import { RecipeImage } from "./RecipeImage";
 import { RecipeBadges } from "./RecipeBadges";
 import { RefreshCw, Heart, ThumbsDown } from "lucide-react";
 import { useRatings } from "@/store/useAppStore";
+import { useT } from "@/i18n";
+import { localizeRecipe } from "@/i18n/recipeTranslations";
 
 interface Props {
   slot: MealSlot;
@@ -13,13 +15,15 @@ interface Props {
 }
 
 export function MealCard({ slot, onSwap, onOpen }: Props) {
-  const recipe = recipesById[slot.recipeId];
+  const { t, lang } = useT();
+  const recipeRaw = recipesById[slot.recipeId];
   const [dragX, setDragX] = useState(0);
   const [swiping, setSwiping] = useState(false);
   const startX = useRef(0);
   const [ratings, setRatings] = useRatings();
 
-  if (!recipe) return null;
+  if (!recipeRaw) return null;
+  const recipe = localizeRecipe(recipeRaw, lang);
 
   const rating = ratings[recipe.id];
   const toggleRating = (next: "love" | "dislike") => {
@@ -42,16 +46,14 @@ export function MealCard({ slot, onSwap, onOpen }: Props) {
   };
   const onPointerUp = () => {
     setSwiping(false);
-    if (dragX < -100) {
-      onSwap();
-    }
+    if (dragX < -100) onSwap();
     setDragX(0);
   };
 
   return (
     <div className="relative overflow-hidden rounded-2xl">
       <div className="absolute inset-0 flex items-center justify-end pr-6 bg-gradient-mint text-primary-foreground font-semibold">
-        <RefreshCw className="h-5 w-5 mr-2" /> Заменить
+        <RefreshCw className="h-5 w-5 mr-2" /> {t("swap")}
       </div>
       <div
         className="relative bg-card rounded-2xl shadow-soft hover:shadow-card transition-shadow cursor-pointer touch-pan-y select-none"
@@ -66,14 +68,14 @@ export function MealCard({ slot, onSwap, onOpen }: Props) {
       >
         <div className="flex gap-3 p-3">
           <div className="h-20 w-20 rounded-xl overflow-hidden flex-shrink-0 bg-muted">
-            <RecipeImage recipe={recipe} />
+            <RecipeImage recipe={recipeRaw} />
           </div>
           <div className="flex-1 min-w-0">
             <h3 className="font-semibold text-foreground leading-tight line-clamp-2">
               {recipe.title}
             </h3>
             <p className="text-xs text-muted-foreground mt-0.5">
-              {recipe.nutrition.kcalAdult} ккал · {recipe.nutrition.kcalChild} для детей
+              {recipe.nutrition.kcalAdult} {t("kcal")} · {recipe.nutrition.kcalChild} {t("for_kids_short")}
             </p>
             <div className="mt-1.5">
               <RecipeBadges recipe={recipe} />
@@ -82,41 +84,28 @@ export function MealCard({ slot, onSwap, onOpen }: Props) {
           <div className="flex flex-col items-center gap-1 self-start">
             <button
               className={`p-1.5 rounded-full transition-colors ${
-                rating === "love"
-                  ? "bg-primary/15 text-primary"
-                  : "text-muted-foreground hover:bg-muted"
+                rating === "love" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-muted"
               }`}
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleRating("love");
-              }}
-              aria-label="Любимое"
+              onClick={(e) => { e.stopPropagation(); toggleRating("love"); }}
+              aria-label={t("loved")}
               aria-pressed={rating === "love"}
             >
               <Heart className={`h-4 w-4 ${rating === "love" ? "fill-current" : ""}`} />
             </button>
             <button
               className={`p-1.5 rounded-full transition-colors ${
-                rating === "dislike"
-                  ? "bg-destructive/15 text-destructive"
-                  : "text-muted-foreground hover:bg-muted"
+                rating === "dislike" ? "bg-destructive/15 text-destructive" : "text-muted-foreground hover:bg-muted"
               }`}
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleRating("dislike");
-              }}
-              aria-label="Не моё"
+              onClick={(e) => { e.stopPropagation(); toggleRating("dislike"); }}
+              aria-label={t("disliked")}
               aria-pressed={rating === "dislike"}
             >
               <ThumbsDown className="h-4 w-4" />
             </button>
             <button
               className="p-1.5 rounded-full hover:bg-muted text-muted-foreground"
-              onClick={(e) => {
-                e.stopPropagation();
-                onSwap();
-              }}
-              aria-label="Заменить блюдо"
+              onClick={(e) => { e.stopPropagation(); onSwap(); }}
+              aria-label={t("swap_dish")}
             >
               <RefreshCw className="h-4 w-4" />
             </button>
