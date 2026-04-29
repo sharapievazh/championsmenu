@@ -818,5 +818,342 @@
     "tags": [],
     "brainNote": "",
     "childFriendlyNote": ""
+  },
+  "lentil-waffles": {
+    "title": "Lentil Waffles with Avocado and Tofu",
+    "ingredients": [
+      "Red lentils",
+      "Zucchini",
+      "Psyllium",
+      "Natural tofu",
+      "Avocado",
+      "Ajvar (homemade)",
+      "Flaxseed oil"
+    ],
+    "steps": [
+      "Soak lentils overnight, drain.",
+      "Blend lentils, grated zucchini, psyllium, and spices.",
+      "Bake in a waffle maker until golden brown (~7 waffles).",
+      "Serve 2 waffles with avocado slices, tofu, ajvar, and a drizzle of flaxseed oil."
+    ],
+    "tags": [
+      "gluten-free",
+      "vegan",
+      "thermomix"
+    ],
+    "brainNote": "High protein + fiber + healthy fats — an ideal pre-workout balance.",
+    "childFriendlyNote": "Crispy waffles — kids love to eat them."
+  },
+  "pumpkin-waffles": {
+    "title": "Pumpkin Waffles with Yogurt and Seeds",
+    "ingredients": [
+      "Pumpkin puree",
+      "Gluten-free oat flour",
+      "Egg",
+      "Milk",
+      "Cinnamon",
+      "Natural yogurt",
+      "Pumpkin seeds",
+      "Maple syrup"
+    ],
+    "steps": [
+      "Mix pumpkin puree, flour, eggs, milk, and cinnamon.",
+      "Bake in a waffle maker for 4–5 minutes.",
+      "Serve with yogurt, seeds, and syrup."
+    ],
+    "tags": [
+      "gluten-free"
+    ],
+    "brainNote": "Beta-carotene and magnesium from pumpkin seeds.",
+    "childFriendlyNote": "Sweet and bright — kids love them."
+  },
+  "broccoli-cream-soup": {
+    "title": "Broccoli Cream Soup (Thermomix, 25 min)",
+    "ingredients": [
+      "Broccoli",
+      "Potatoes",
+      "Onion",
+      "Garlic",
+      "Vegetable broth",
+      "Cream 10%",
+      "Pumpkin seeds",
+      "Olive oil"
+    ],
+    "steps": [
+      "Thermomix: onion + garlic 5 sec/sp.5, sauté 3 min/Varoma/sp.1.",
+      "Add broccoli, potatoes, and broth, cook 18 min/100°C/sp.1.",
+      "Puree 1 min/sp.10, add cream, season with salt.",
+      "Serve with seeds and a drizzle of oil."
+    ],
+    "tags": [
+      "gluten-free",
+      "vegan",
+      "thermomix"
+    ],
+    "brainNote": "Broccoli sulforaphane protects neurons.",
+    "childFriendlyNote": ""
+  },
+  "turkey-spinach": {
+    "title": "Turkey meatballs in spinach sauce",
+    "ingredients": [
+      "Ground turkey",
+      "Spinach",
+      "Cream 10%",
+      "Garlic",
+      "Onion",
+      "Brown rice",
+      "Olive oil"
+    ],
+    "steps": [
+      "Cook rice for 25 minutes.",
+      "Form meatballs from minced meat and onion, fry for 6 minutes.",
+      "Pour in cream and spinach, simmer for 8 minutes.",
+      "Serve with rice."
+    ],
+    "tags": [
+      "gluten-free"
+    ],
+    "brainNote": "",
+    "childFriendlyNote": "Tender creamy sauce — kids love it."
+  },
+  "salmon-poke": {
+    "title": "Salmon poke with quinoa and peas",
+    "ingredients": [
+      "Salmon fillet",
+      "Quinoa",
+      "Green peas",
+      "Cucumber",
+      "Tamari (gluten-free soy sauce)",
+      "Sesame",
+      "Lime"
+    ],
+    "steps": [
+      "Cook quinoa for 15 minutes.",
+      "Dice salmon, marinate in tamari and lime.",
+      "Assemble bowl: quinoa, salmon, peas, cucumber, sesame."
+    ],
+    "tags": [
+      "gluten-free"
+    ],
+    "brainNote": "Raw omega-3 — maximum benefit.",
+    "childFriendlyNote": ""
+  },
+  "protein-brownies": {
+    "title": "Healthy brownies with cocoa and raspberries",
+    "ingredients": [
+      "Gluten-free oat flour",
+      "Cocoa",
+      "Egg",
+      "Milk",
+      "Banana",
+      "Honey",
+      "Raspberry",
+      "Baking powder"
+    ],
+    "steps": [
+      "Mash bananas with a fork, mix with eggs, honey and milk.",
+      "Add flour, cocoa and baking powder, mix until smooth.",
+      "Pour into a mold, arrange raspberries on top.",
+      "Bake for 22 minutes at 180°C. Cool and slice."
+    ],
+    "tags": [
+      "gluten-free",
+      "healthy"
+    ],
+    "brainNote": "",
+    "childFriendlyNote": "A dessert that can even be for breakfast."
+  },
+  "cottage-casserole": {
+    "title": "Cottage cheese casserole with berries",
+    "ingredients": [
+      "Cottage cheese 5%",
+      "Egg",
+      "Semolina",
+      "Milk",
+      "Honey",
+      "Mixed berries",
+      "Sour cream 15%"
+    ],
+    "steps": [
+      "Soak semolina in milk for 15 minutes.",
+      "Mix cottage cheese with eggs, honey, and semolina.",
+      "Add berries, put into a baking dish.",
+      "Bake for 35 minutes at 180°C. Serve with sour cream."
+    ],
+    "tags": [
+      "healthy food"
+    ],
+    "brainNote": "",
+    "childFriendlyNote": "A favorite childhood treat."
+  },
+  "berry-smoothie": {
+    "title": "Milk smoothie with strawberry and banana",
+    "ingredients": [
+      "Milk",
+      "Strawberry",
+      "Banana",
+      "Honey",
+      "Gluten-free rolled oats"
+    ],
+    "steps": [
+      "Place all ingredients in a blender.",
+      "Blend for 30 seconds until creamy.",
+      "Serve immediately."
+    ],
+    "tags": [
+      "gluten-free",
+      "thermomix"
+    ],
+    "brainNote": "Glucose and vitamin C — quick energy.",
+    "childFriendlyNote": "Favorite pink cocktail."
+  },
+  "cocoa-smoothie": {
+    "title": "Milkshake with cocoa and banana",
+    "ingredients": [
+      "Milk",
+      "Banana",
+      "Cocoa",
+      "Honey",
+      "Gluten-free rolled oats"
+    ],
+    "steps": [
+      "Place all in a blender, blend for 30 seconds.",
+      "Serve immediately with a pinch of cocoa on top."
+    ],
+    "tags": [
+      "gluten-free",
+      "thermomix"
+    ],
+    "brainNote": "",
+    "childFriendlyNote": "Chocolate dessert in a glass."
+  },
+  "mango-smoothie": {
+    "title": "Tropical Mango-Passion Fruit Smoothie",
+    "ingredients": [
+      "Milk",
+      "Mango",
+      "Passion fruit",
+      "Natural yogurt",
+      "Honey"
+    ],
+    "steps": [
+      "Peel the mango and cut into cubes.",
+      "Combine with yogurt, honey, and milk in a blender.",
+      "Blend, pour into glasses, and top with a spoonful of passion fruit."
+    ],
+    "tags": [
+      "gluten-free",
+      "thermomix"
+    ],
+    "brainNote": "Vitamin C and antioxidants for immunity.",
+    "childFriendlyNote": ""
+  },
+  "nut-mix": {
+    "title": "Nut and Dried Fruit Mix",
+    "ingredients": [
+      "Walnut",
+      "Almond",
+      "Dried apricot",
+      "Raisin"
+    ],
+    "steps": [
+      "Lightly toast the nuts in a dry pan for 3 minutes.",
+      "Mix with dried fruits.",
+      "Store in a jar for up to a week."
+    ],
+    "tags": [
+      "gluten-free",
+      "vegan"
+    ],
+    "brainNote": "Omega-3 fats + quick glucose = ideal snack between games.",
+    "childFriendlyNote": "Convenient for school."
+  },
+  "veggie-sticks": {
+    "title": "Veggie Sticks with Hummus",
+    "ingredients": [
+      "Carrot",
+      "Cucumber",
+      "Bell pepper",
+      "Celery",
+      "Hummus"
+    ],
+    "steps": [
+      "Cut vegetables into long sticks.",
+      "Arrange on a plate with a bowl of hummus."
+    ],
+    "tags": [
+      "gluten-free",
+      "vegan"
+    ],
+    "brainNote": "",
+    "childFriendlyNote": "Kids love to dip themselves."
+  },
+  "healthy-sandwich": {
+    "title": "Healthy Sandwich with Avocado and Cottage Cheese",
+    "ingredients": [
+      "Whole grain bread",
+      "Soft cottage cheese",
+      "Avocado",
+      "Cucumber",
+      "Cherry tomatoes",
+      "Salt, pepper"
+    ],
+    "steps": [
+      "Toast the bread.",
+      "Spread cottage cheese, arrange avocado and cucumber slices.",
+      "Top with cherry tomato halves, salt, and pepper."
+    ],
+    "tags": [
+      "pp"
+    ],
+    "brainNote": "",
+    "childFriendlyNote": "Quick breakfast or afternoon snack."
+  },
+  "pp-pizza": {
+    "title": "PP-Pizza Margherita",
+    "ingredients": [
+      "Whole wheat flour",
+      "Milk",
+      "Dry yeast",
+      "Olive oil",
+      "Tomato sauce",
+      "Mozzarella",
+      "Cherry tomatoes",
+      "Basil"
+    ],
+    "steps": [
+      "Knead a dough from flour, warm milk, yeast, and oil. Let it rise for 30 minutes.",
+      "Roll out a thin base, spread with tomato sauce.",
+      "Arrange mozzarella and cherry tomatoes.",
+      "Bake for 12 minutes at 220°C. Sprinkle with basil."
+    ],
+    "tags": [
+      "pp"
+    ],
+    "brainNote": "",
+    "childFriendlyNote": "A favorite dish for family dinner."
+  },
+  "chicken-meatball-soup": {
+    "title": "Soup with Chicken Meatballs and Pasta",
+    "ingredients": [
+      "Minced chicken",
+      "Carrot",
+      "Onion",
+      "Celery",
+      "Small pasta (gluten-free)",
+      "Chicken broth",
+      "Greens (parsley)"
+    ],
+    "steps": [
+      "Form small meatballs from minced chicken.",
+      "Sauté vegetables for 5 minutes, then pour in broth.",
+      "Add meatballs, cook for 10 minutes.",
+      "Add pasta, cook for another 7 minutes. Sprinkle with greens."
+    ],
+    "tags": [
+      "gluten-free"
+    ],
+    "brainNote": "",
+    "childFriendlyNote": "Light and hearty, kids love it."
   }
 }
