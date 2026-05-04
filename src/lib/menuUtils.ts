@@ -149,7 +149,7 @@ export function suggestFromPantry(pantry: PantryItem[]): Recipe | null {
   );
   if (stocked.size === 0) return null;
 
-  // Базовые «всегда есть дома» — соль, специи, масло, лимон и т.п. — не учитываем как недостающие.
+  // Базовые «всегда есть дома» — не учитываем.
   const PANTRY_BASICS = new Set([
     "соль, перец", "соль", "перец", "корица", "куркума", "тимьян",
     "розмарин", "лавровый лист", "корица и зира", "мускатный орех",
@@ -157,26 +157,52 @@ export function suggestFromPantry(pantry: PantryItem[]): Recipe | null {
     "масло авокадо (спрей)", "семена кунжута", "кунжут",
   ]);
 
-  let best: { recipe: Recipe; score: number; missing: number } | null = null;
+  // Главное правило: достаточно совпадения по белковой основе (мясо/рыба).
+  // Остальные ингредиенты человек найдёт или заменит.
+  let bestProtein: { recipe: Recipe; matched: number; score: number } | null = null;
+  let bestAny: { recipe: Recipe; matched: number; score: number } | null = null;
+
   for (const r of recipes) {
-    let missing = 0;
+    let matched = 0;
     let total = 0;
+    let proteinMatched = 0;
+    let proteinTotal = 0;
     for (const ing of r.ingredients) {
       const name = ing.name.toLowerCase();
       if (PANTRY_BASICS.has(name)) continue;
       total++;
-      if (!stocked.has(name)) missing++;
+      const isStocked = stocked.has(name);
+      if (isStocked) matched++;
+      if (ing.category === "meat_fish") {
+        proteinTotal++;
+        if (isStocked) proteinMatched++;
+      }
     }
     if (total === 0) continue;
-    const score = (total - missing) / total;
-    // Подсказываем рецепт только если есть >=80% ингредиентов И не больше 1 недостающего.
-    if (score >= 0.8 && missing <= 1) {
-      if (!best || score > best.score || (score === best.score && missing < best.missing)) {
-        best = { recipe: r, score, missing };
+    const score = matched / total;
+
+    // Приоритет 1: рецепт с мясом/рыбой, у которого основной белок есть в кладовой.
+    if (proteinTotal > 0 && proteinMatched > 0) {
+      if (
+        !bestProtein ||
+        proteinMatched > (bestProtein.recipe.ingredients.filter(
+          (i) => i.category === "meat_fish" && stocked.has(i.name.toLowerCase())
+        ).length) ||
+        score > bestProtein.score
+      ) {
+        bestProtein = { recipe: r, matched, score };
+      }
+    }
+
+    // Приоритет 2 (запасной): любой рецепт с хотя бы одним совпадением.
+    if (matched >= 1) {
+      if (!bestAny || matched > bestAny.matched || (matched === bestAny.matched && score > bestAny.score)) {
+        bestAny = { recipe: r, matched, score };
       }
     }
   }
-  return best?.recipe ?? null;
+
+  return bestProtein?.recipe ?? bestAny?.recipe ?? null;
 }
 
 export function getPrepDayTasks(menu: MealSlot[]): {
