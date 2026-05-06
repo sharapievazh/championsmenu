@@ -28,7 +28,7 @@ const Index = () => {
   }>({ weeks: [1], mode: "both" });
 
   return (
-    <div className="min-h-screen bg-gradient-soft">
+    <div className="min-h-screen bg-gradient-soft pt-[env(safe-area-inset-top)]">
       <div className="mx-auto max-w-2xl">
         <div className="animate-fade-in" key={tab}>
           {tab === "menu" && <MenuScreen onPrint={(weeks) => setPrintConfig({ weeks, mode: "menu" })} />}
