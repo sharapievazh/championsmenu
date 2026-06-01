@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { CalendarDays, BookOpen, ShoppingCart, Refrigerator } from "lucide-react";
 import { MenuScreen } from "@/components/app/screens/MenuScreen";
 import { RecipesScreen } from "@/components/app/screens/RecipesScreen";
@@ -22,15 +22,24 @@ const Index = () => {
   const [tab, setTab] = useState<Tab>("menu");
   const [menu] = useMenu();
   const [pantry] = usePantry();
+  const contentRef = useRef<HTMLDivElement>(null);
   const [printConfig, setPrintConfig] = useState<{
     weeks: (1 | 2 | 3 | 4)[];
     mode: "menu" | "shopping" | "both";
   }>({ weeks: [1], mode: "both" });
 
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    el.classList.remove("animate-fade-in");
+    void el.offsetWidth; // force reflow to restart animation
+    el.classList.add("animate-fade-in");
+  }, [tab]);
+
   return (
     <div className="min-h-screen bg-gradient-soft pt-[env(safe-area-inset-top)]">
       <div className="mx-auto max-w-2xl">
-        <div className="animate-fade-in" key={tab}>
+        <div className="animate-fade-in" ref={contentRef}>
           {tab === "menu" && <MenuScreen onPrint={(weeks) => setPrintConfig({ weeks, mode: "menu" })} />}
           {tab === "recipes" && <RecipesScreen />}
           {tab === "shopping" && <ShoppingScreen onPrint={(weeks) => setPrintConfig({ weeks, mode: "shopping" })} />}
