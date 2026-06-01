@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { CalendarDays, BookOpen, ShoppingCart, Refrigerator } from "lucide-react";
 import { MenuScreen } from "@/components/app/screens/MenuScreen";
 import { RecipesScreen } from "@/components/app/screens/RecipesScreen";
