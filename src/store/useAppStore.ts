@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 import { MealSlot, PantryItem } from "@/types";
 import { defaultMenu } from "@/data/defaultMenu";
 
@@ -12,7 +12,21 @@ const RATINGS_KEY = "cm.ratings.v1";
 export type RecipeRating = "love" | "dislike";
 export type RecipeRatings = Record<string, RecipeRating>;
 
-function read<T>(key: string, fallback: T): T {
+type Listener = () => void;
+
+const listenersByKey = new Map<string, Set<Listener>>();
+const snapshots = new Map<string, unknown>();
+
+function getListeners(key: string): Set<Listener> {
+  let set = listenersByKey.get(key);
+  if (!set) {
+    set = new Set();
+    listenersByKey.set(key, set);
+  }
+  return set;
+}
+
+function readFromStorage<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
   try {
     const raw = localStorage.getItem(key);
@@ -21,37 +35,55 @@ function read<T>(key: string, fallback: T): T {
     return fallback;
   }
 }
-function write<T>(key: string, value: T) {
+
+function writeToStorage<T>(key: string, value: T) {
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch {}
 }
 
-// Простой реактивный стор на основе подписки на события storage внутри окна.
-type Listener = () => void;
-const listeners = new Set<Listener>();
-const notify = () => listeners.forEach((l) => l());
+function getSnapshot<T>(key: string, initial: T): T {
+  if (!snapshots.has(key)) {
+    snapshots.set(key, readFromStorage(key, initial));
+  }
+  return snapshots.get(key) as T;
+}
+
+function notifyKey(key: string) {
+  const set = listenersByKey.get(key);
+  if (!set) return;
+  set.forEach((l) => l());
+}
 
 function useStore<T>(key: string, initial: T) {
-  const [value, setValue] = useState<T>(() => read(key, initial));
-  useEffect(() => {
-    const l = () => setValue(read(key, initial));
-    listeners.add(l);
-    return () => {
-      listeners.delete(l);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key]);
+  const subscribe = useCallback(
+    (listener: Listener) => {
+      const set = getListeners(key);
+      set.add(listener);
+      return () => {
+        set.delete(listener);
+      };
+    },
+    [key]
+  );
 
-  const update = (next: T | ((prev: T) => T)) => {
-    setValue((prev) => {
+  const getSnap = useCallback(() => getSnapshot<T>(key, initial), [key, initial]);
+  const getServerSnap = useCallback(() => initial, [initial]);
+
+  const value = useSyncExternalStore(subscribe, getSnap, getServerSnap);
+
+  const update = useCallback(
+    (next: T | ((prev: T) => T)) => {
+      const prev = getSnapshot<T>(key, initial);
       const computed =
         typeof next === "function" ? (next as (p: T) => T)(prev) : next;
-      write(key, computed);
-      notify();
-      return computed;
-    });
-  };
+      writeToStorage(key, computed);
+      snapshots.set(key, computed);
+      notifyKey(key);
+    },
+    [key, initial]
+  );
+
   return [value, update] as const;
 }
 
