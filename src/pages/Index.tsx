@@ -39,7 +39,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-soft pt-[env(safe-area-inset-top)]">
       <div className="mx-auto max-w-2xl">
-        <div className="animate-fade-in" key={tab}>
+        <div className="animate-fade-in" ref={contentRef}>
           {tab === "menu" && <MenuScreen onPrint={(weeks) => setPrintConfig({ weeks, mode: "menu" })} />}
           {tab === "recipes" && <RecipesScreen />}
           {tab === "shopping" && <ShoppingScreen onPrint={(weeks) => setPrintConfig({ weeks, mode: "shopping" })} />}
