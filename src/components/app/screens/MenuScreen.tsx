@@ -160,16 +160,15 @@ export function MenuScreen({ onPrint }: MenuScreenProps = {}) {
             </div>
             <div className="space-y-2">
               {slots.map((s) => (
-                <div key={s.meal} className="space-y-1">
-                  <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide pl-1">
-                    {MEAL_EMOJI[s.meal]} {t(`meal_${s.meal}` as any)}
-                  </div>
-                  <MealCard
-                    slot={s}
-                    onSwap={() => swap(s.day, s.meal, s.recipeId)}
-                    onOpen={() => setSelected(localizeRecipe(recipesById[s.recipeId], lang))}
-                  />
-                </div>
+                <MealCardRow
+                  key={s.meal}
+                  slot={s}
+                  week={week}
+                  swap={swap}
+                  lang={lang}
+                  setSelected={setSelected}
+                  t={t}
+                />
               ))}
             </div>
           </section>
