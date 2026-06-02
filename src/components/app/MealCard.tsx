@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, memo } from "react";
 import { MealSlot } from "@/types";
 import { recipesById } from "@/data/recipes";
 import { RecipeImage } from "./RecipeImage";
