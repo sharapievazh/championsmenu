@@ -25,6 +25,29 @@ const DAY_KEYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] as const;
 const MEAL_KEYS = ["breakfast", "lunch", "dinner"] as const;
 const MEAL_EMOJI: Record<MealType, string> = { breakfast: "🌅", lunch: "🥗", dinner: "🌙" };
 
+interface MealCardRowProps {
+  slot: MealSlot;
+  week: 1 | 2 | 3 | 4;
+  swap: (day: DayKey, meal: MealType, currentId: string) => void;
+  lang: string;
+  setSelected: (r: Recipe | null) => void;
+  t: ReturnType<typeof useT>["t"];
+}
+
+const MealCardRow = memo(function MealCardRow({ slot, week, swap, lang, setSelected, t }: MealCardRowProps) {
+  const onSwap = useCallback(() => swap(slot.day, slot.meal, slot.recipeId), [swap, slot]);
+  const onOpen = useCallback(() => setSelected(localizeRecipe(recipesById[slot.recipeId], lang)), [setSelected, slot.recipeId, lang]);
+
+  return (
+    <div className="space-y-1">
+      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide pl-1">
+        {MEAL_EMOJI[slot.meal]} {t(`meal_${slot.meal}` as any)}
+      </div>
+      <MealCard slot={slot} onSwap={onSwap} onOpen={onOpen} />
+    </div>
+  );
+});
+
 export function MenuScreen({ onPrint }: MenuScreenProps = {}) {
   const { t, lang } = useT();
   const [menu, setMenu] = useMenu();
