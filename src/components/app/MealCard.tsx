@@ -14,7 +14,7 @@ interface Props {
   onOpen: () => void;
 }
 
-export function MealCard({ slot, onSwap, onOpen }: Props) {
+export const MealCard = memo(function MealCard({ slot, onSwap, onOpen }: Props) {
   const { t, lang } = useT();
   const recipeRaw = recipesById[slot.recipeId];
   const [dragX, setDragX] = useState(0);
