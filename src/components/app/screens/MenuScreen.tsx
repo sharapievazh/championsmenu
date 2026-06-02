@@ -29,7 +29,7 @@ interface MealCardRowProps {
   slot: MealSlot;
   week: 1 | 2 | 3 | 4;
   swap: (day: DayKey, meal: MealType, currentId: string) => void;
-  lang: string;
+  lang: Lang;
   setSelected: (r: Recipe | null) => void;
   t: ReturnType<typeof useT>["t"];
 }
