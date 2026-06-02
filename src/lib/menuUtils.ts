@@ -11,10 +11,16 @@ import {
 } from "@/types";
 import type { RecipeRatings } from "@/store/useAppStore";
 
-export function pickRandomRecipe(meal: MealType, excludeId?: string): Recipe {
-  const pool = recipes.filter(
+export function pickRandomRecipe(meal: MealType, excludeId?: string): Recipe | null {
+  let pool = recipes.filter(
     (r) => r.mealTypes.includes(meal) && r.id !== excludeId
   );
+  if (pool.length === 0) {
+    pool = recipes.filter((r) => r.mealTypes.includes(meal));
+  }
+  if (pool.length === 0) {
+    return null;
+  }
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
