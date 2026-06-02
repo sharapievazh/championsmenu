@@ -14,6 +14,7 @@ import { Recipe, MealType, DayKey, MealSlot } from "@/types";
 import { Snowflake, Sparkles, Printer, Heart } from "lucide-react";
 import { toast } from "sonner";
 import { useT } from "@/i18n";
+import type { Lang } from "@/i18n";
 import { LangSwitcher } from "@/i18n/LangSwitcher";
 import { localizeRecipe } from "@/i18n/recipeTranslations";
 
