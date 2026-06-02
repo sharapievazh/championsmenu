@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback, memo } from "react";
 import { useMenu, useRatings } from "@/store/useAppStore";
 import { DAYS } from "@/data/defaultMenu";
 import { MealCard } from "../MealCard";
@@ -14,6 +14,7 @@ import { Recipe, MealType, DayKey, MealSlot } from "@/types";
 import { Snowflake, Sparkles, Printer, Heart } from "lucide-react";
 import { toast } from "sonner";
 import { useT } from "@/i18n";
+import type { Lang } from "@/i18n";
 import { LangSwitcher } from "@/i18n/LangSwitcher";
 import { localizeRecipe } from "@/i18n/recipeTranslations";
 
@@ -25,6 +26,29 @@ const DAY_KEYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"] as const;
 const MEAL_KEYS = ["breakfast", "lunch", "dinner"] as const;
 const MEAL_EMOJI: Record<MealType, string> = { breakfast: "🌅", lunch: "🥗", dinner: "🌙" };
 
+interface MealCardRowProps {
+  slot: MealSlot;
+  week: 1 | 2 | 3 | 4;
+  swap: (day: DayKey, meal: MealType, currentId: string) => void;
+  lang: Lang;
+  setSelected: (r: Recipe | null) => void;
+  t: ReturnType<typeof useT>["t"];
+}
+
+const MealCardRow = memo(function MealCardRow({ slot, week, swap, lang, setSelected, t }: MealCardRowProps) {
+  const onSwap = useCallback(() => swap(slot.day, slot.meal, slot.recipeId), [swap, slot]);
+  const onOpen = useCallback(() => setSelected(localizeRecipe(recipesById[slot.recipeId], lang)), [setSelected, slot.recipeId, lang]);
+
+  return (
+    <div className="space-y-1">
+      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide pl-1">
+        {MEAL_EMOJI[slot.meal]} {t(`meal_${slot.meal}` as any)}
+      </div>
+      <MealCard slot={slot} onSwap={onSwap} onOpen={onOpen} />
+    </div>
+  );
+});
+
 export function MenuScreen({ onPrint }: MenuScreenProps = {}) {
   const { t, lang } = useT();
   const [menu, setMenu] = useMenu();
@@ -34,7 +58,7 @@ export function MenuScreen({ onPrint }: MenuScreenProps = {}) {
 
   const weekMenu = menu.filter((s) => s.week === week);
 
-  const swap = (day: DayKey, meal: MealType, currentId: string) => {
+  const swap = useCallback((day: DayKey, meal: MealType, currentId: string) => {
     const next = pickRandomRecipe(meal, currentId);
     setMenu((prev) =>
       prev.map((s) =>
@@ -44,7 +68,7 @@ export function MenuScreen({ onPrint }: MenuScreenProps = {}) {
       )
     );
     toast.success(`${t("toast_swap")} ${localizeRecipe(next, lang).title}`);
-  };
+  }, [week, setMenu, t, lang]);
 
   const prepTasks = getPrepDayTasks(weekMenu);
   const lovedCount = Object.values(ratings).filter((v) => v === "love").length;
@@ -136,16 +160,15 @@ export function MenuScreen({ onPrint }: MenuScreenProps = {}) {
             </div>
             <div className="space-y-2">
               {slots.map((s) => (
-                <div key={s.meal} className="space-y-1">
-                  <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide pl-1">
-                    {MEAL_EMOJI[s.meal]} {t(`meal_${s.meal}` as any)}
-                  </div>
-                  <MealCard
-                    slot={s}
-                    onSwap={() => swap(s.day, s.meal, s.recipeId)}
-                    onOpen={() => setSelected(localizeRecipe(recipesById[s.recipeId], lang))}
-                  />
-                </div>
+                <MealCardRow
+                  key={s.meal}
+                  slot={s}
+                  week={week}
+                  swap={swap}
+                  lang={lang}
+                  setSelected={setSelected}
+                  t={t}
+                />
               ))}
             </div>
           </section>
