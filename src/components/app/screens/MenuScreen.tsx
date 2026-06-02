@@ -60,6 +60,7 @@ export function MenuScreen({ onPrint }: MenuScreenProps = {}) {
 
   const swap = useCallback((day: DayKey, meal: MealType, currentId: string) => {
     const next = pickRandomRecipe(meal, currentId);
+    if (!next) return;
     setMenu((prev) =>
       prev.map((s) =>
         s.day === day && s.meal === meal && s.week === week
