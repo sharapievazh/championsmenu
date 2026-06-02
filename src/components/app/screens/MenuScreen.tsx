@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback, memo } from "react";
 import { useMenu, useRatings } from "@/store/useAppStore";
 import { DAYS } from "@/data/defaultMenu";
 import { MealCard } from "../MealCard";
