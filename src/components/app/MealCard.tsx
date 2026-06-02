@@ -114,4 +114,4 @@ export const MealCard = memo(function MealCard({ slot, onSwap, onOpen }: Props) 
       </div>
     </div>
   );
-}
+});
