@@ -12,6 +12,9 @@ export function RecipeImage({
       src={recipe.image}
       alt={recipe.title}
       loading="lazy"
+      decoding="async"
+      width={160}
+      height={160}
       className={`object-cover w-full h-full ${className}`}
     />
   );
