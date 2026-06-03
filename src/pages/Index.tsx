@@ -5,6 +5,7 @@ import { RecipesScreen } from "@/components/app/screens/RecipesScreen";
 import { ShoppingScreen } from "@/components/app/screens/ShoppingScreen";
 import { PantryScreen } from "@/components/app/screens/PantryScreen";
 import { PrintView } from "@/components/app/PrintView";
+import { ErrorBoundary } from "@/components/app/ErrorBoundary";
 import { useMenu, usePantry } from "@/store/useAppStore";
 import { useT, type TKey } from "@/i18n";
 

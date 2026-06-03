@@ -3,6 +3,7 @@ import React, { ReactNode } from "react";
 interface Props {
   children: ReactNode;
   fallbackTitle?: string;
+  fallbackHint?: string;
   fallbackActionLabel?: string;
   onFallbackAction?: () => void;
 }
