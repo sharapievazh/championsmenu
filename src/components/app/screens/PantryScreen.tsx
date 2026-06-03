@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { usePantry } from "@/store/useAppStore";
 import { ingredientsToPantryItems, suggestFromPantry } from "@/lib/menuUtils";
 import { IngredientCategory, PantryItem, Recipe } from "@/types";
@@ -19,9 +19,14 @@ export function PantryScreen() {
   const [q, setQ] = useState("");
   const [suggestion, setSuggestion] = useState<Recipe | null>(null);
   const [openSug, setOpenSug] = useState(false);
+  const seededRef = useRef(false);
 
   useEffect(() => {
-    if (pantry.length === 0) setPantry(ingredientsToPantryItems());
+    if (seededRef.current) return;
+    if (pantry.length === 0) {
+      seededRef.current = true;
+      setPantry(ingredientsToPantryItems());
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
