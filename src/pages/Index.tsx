@@ -5,6 +5,7 @@ import { RecipesScreen } from "@/components/app/screens/RecipesScreen";
 import { ShoppingScreen } from "@/components/app/screens/ShoppingScreen";
 import { PantryScreen } from "@/components/app/screens/PantryScreen";
 import { PrintView } from "@/components/app/PrintView";
+import { ErrorBoundary } from "@/components/app/ErrorBoundary";
 import { useMenu, usePantry } from "@/store/useAppStore";
 import { useT, type TKey } from "@/i18n";
 
@@ -40,10 +41,26 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-soft pt-[env(safe-area-inset-top)]">
       <div className="mx-auto max-w-2xl">
         <div className="animate-fade-in" ref={contentRef}>
-          {tab === "menu" && <MenuScreen onPrint={(weeks) => setPrintConfig({ weeks, mode: "menu" })} />}
-          {tab === "recipes" && <RecipesScreen />}
-          {tab === "shopping" && <ShoppingScreen onPrint={(weeks) => setPrintConfig({ weeks, mode: "shopping" })} />}
-          {tab === "pantry" && <PantryScreen />}
+          {tab === "menu" && (
+            <ErrorBoundary fallbackTitle={t("error_title")} fallbackHint={t("error_hint")} fallbackActionLabel={t("error_reload")}>
+              <MenuScreen onPrint={(weeks) => setPrintConfig({ weeks, mode: "menu" })} />
+            </ErrorBoundary>
+          )}
+          {tab === "recipes" && (
+            <ErrorBoundary fallbackTitle={t("error_title")} fallbackHint={t("error_hint")} fallbackActionLabel={t("error_reload")}>
+              <RecipesScreen />
+            </ErrorBoundary>
+          )}
+          {tab === "shopping" && (
+            <ErrorBoundary fallbackTitle={t("error_title")} fallbackHint={t("error_hint")} fallbackActionLabel={t("error_reload")}>
+              <ShoppingScreen onPrint={(weeks) => setPrintConfig({ weeks, mode: "shopping" })} />
+            </ErrorBoundary>
+          )}
+          {tab === "pantry" && (
+            <ErrorBoundary fallbackTitle={t("error_title")} fallbackHint={t("error_hint")} fallbackActionLabel={t("error_reload")}>
+              <PantryScreen />
+            </ErrorBoundary>
+          )}
         </div>
       </div>
 
