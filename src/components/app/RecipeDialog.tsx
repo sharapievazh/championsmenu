@@ -27,7 +27,15 @@ export function RecipeDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto p-0">
         <div className="aspect-[4/3] w-full overflow-hidden bg-muted">
-          <img src={recipe.image} alt={recipe.title} className="w-full h-full object-cover" />
+          <img
+            src={recipe.image}
+            alt={recipe.title}
+            loading="lazy"
+            decoding="async"
+            width={800}
+            height={600}
+            className="w-full h-full object-cover"
+          />
         </div>
         <div className="p-6 space-y-5">
           <DialogHeader>
