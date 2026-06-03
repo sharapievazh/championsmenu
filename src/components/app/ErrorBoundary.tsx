@@ -42,7 +42,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
               {this.props.fallbackTitle || "Something went wrong"}
             </h2>
             <p className="text-sm text-muted-foreground mb-4">
-              Try reloading the page.
+              {this.props.fallbackHint || "Try reloading the page."}
             </p>
             <button
               onClick={this.handleReload}
