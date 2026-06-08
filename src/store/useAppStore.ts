@@ -1,6 +1,7 @@
-import { useCallback, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useSyncExternalStore } from "react";
 import { MealSlot, PantryItem, Recipe } from "@/types";
 import { defaultMenu } from "@/data/defaultMenu";
+import { supabase } from "@/integrations/supabase/client";
 
 // v5 — понедельник 1-й недели на завтрак: творожная чаша с клубникой и миндалём.
 const MENU_KEY = "cm.menu.v5";
@@ -156,5 +157,78 @@ export function useRecipeRating(
 }
 
 export function useUserRecipes() {
-  return useStore<Recipe[]>(USER_RECIPES_KEY, EMPTY_RECIPES);
+  const [value, setValue] = useStore<Recipe[]>(USER_RECIPES_KEY, EMPTY_RECIPES);
+
+  useEffect(() => {
+    let unsub: (() => void) | undefined;
+
+    const syncFromCloud = async (userId: string) => {
+      const { data, error } = await supabase
+        .from("user_recipes")
+        .select("recipe_id, data")
+        .eq("user_id", userId);
+      if (error || !data) return;
+      const cloud: Recipe[] = data.map((r) => r.data as unknown as Recipe);
+      // Merge: upload any local-only recipes, then set state to cloud union.
+      const local = getSnapshot<Recipe[]>(USER_RECIPES_KEY, EMPTY_RECIPES);
+      const cloudIds = new Set(cloud.map((r) => r.id));
+      const localOnly = local.filter((r) => !cloudIds.has(r.id));
+      if (localOnly.length > 0) {
+        await supabase.from("user_recipes").upsert(
+          localOnly.map((r) => ({ user_id: userId, recipe_id: r.id, data: r as never })),
+          { onConflict: "user_id,recipe_id" }
+        );
+      }
+      const merged = [...cloud, ...localOnly];
+      writeToStorage(USER_RECIPES_KEY, merged);
+      snapshots.set(USER_RECIPES_KEY, merged);
+      notifyKey(USER_RECIPES_KEY);
+    };
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      if (session?.user) void syncFromCloud(session.user.id);
+    });
+    unsub = () => subscription.unsubscribe();
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) void syncFromCloud(session.user.id);
+    });
+    return () => unsub?.();
+  }, []);
+
+  const setCloudAware = useCallback(
+    (next: Recipe[] | ((prev: Recipe[]) => Recipe[])) => {
+      const prev = getSnapshot<Recipe[]>(USER_RECIPES_KEY, EMPTY_RECIPES);
+      const computed = typeof next === "function" ? (next as (p: Recipe[]) => Recipe[])(prev) : next;
+      writeToStorage(USER_RECIPES_KEY, computed);
+      snapshots.set(USER_RECIPES_KEY, computed);
+      notifyKey(USER_RECIPES_KEY);
+
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (!session?.user) return;
+        const userId = session.user.id;
+        const prevIds = new Set(prev.map((r) => r.id));
+        const nextIds = new Set(computed.map((r) => r.id));
+        const added = computed.filter((r) => !prevIds.has(r.id));
+        const updated = computed.filter((r) => prevIds.has(r.id));
+        const removed = prev.filter((r) => !nextIds.has(r.id));
+        const upserts = [...added, ...updated];
+        if (upserts.length > 0) {
+          void supabase.from("user_recipes").upsert(
+            upserts.map((r) => ({ user_id: userId, recipe_id: r.id, data: r as never })),
+            { onConflict: "user_id,recipe_id" }
+          );
+        }
+        if (removed.length > 0) {
+          void supabase
+            .from("user_recipes")
+            .delete()
+            .eq("user_id", userId)
+            .in("recipe_id", removed.map((r) => r.id));
+        }
+      });
+    },
+    []
+  );
+
+  return [value, setCloudAware] as const;
 }

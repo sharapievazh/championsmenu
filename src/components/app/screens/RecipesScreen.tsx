@@ -12,6 +12,7 @@ import {
 import { useT } from "@/i18n";
 import { LangSwitcher } from "@/i18n/LangSwitcher";
 import { localizeRecipe } from "@/i18n/recipeTranslations";
+import { AccountSheet } from "@/components/app/AccountSheet";
 
 type FilterKey = "all" | MealType | "brain" | "favorites" | "mine" | RecipeCategory;
 
@@ -79,7 +80,10 @@ export function RecipesScreen() {
       <header className="px-4 pt-4">
         <div className="flex items-start justify-between gap-3">
           <h1 className="text-3xl font-bold text-foreground">{t("recipes_title")}</h1>
-          <LangSwitcher />
+          <div className="flex items-center gap-2">
+            <LangSwitcher />
+            <AccountSheet />
+          </div>
         </div>
         <p className="text-muted-foreground text-sm mt-1">
           {t("recipes_subtitle", { n: recipes.length })}
