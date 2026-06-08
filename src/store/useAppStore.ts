@@ -9,6 +9,10 @@ const PANTRY_KEY = "cm.pantry.v5";
 const CHECKED_KEY = "cm.shopping.checked.v3";
 const RATINGS_KEY = "cm.ratings.v1";
 
+const EMPTY_PANTRY: PantryItem[] = [];
+const EMPTY_CHECKED: Record<string, boolean> = {};
+const EMPTY_RATINGS: RecipeRatings = {};
+
 /** Оценка блюда: ❤️ любимое, 👎 не моё, либо без оценки. */
 export type RecipeRating = "love" | "dislike";
 export type RecipeRatings = Record<string, RecipeRating>;
