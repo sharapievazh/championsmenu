@@ -22,6 +22,8 @@ export function ShoppingScreen({ onPrint }: ShoppingScreenProps = {}) {
   const [pantry] = usePantry();
   const [checked, setChecked] = useCheckedItems();
   const [week, setWeek] = useState<1 | 2 | 3 | 4>(1);
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+  const [compareOpen, setCompareOpen] = useState(false);
 
   const weekMenu = useMemo(() => menu.filter((s) => s.week === week), [menu, week]);
   const grouped = useMemo(() => buildShoppingList(weekMenu, pantry, checked), [weekMenu, pantry, checked]);
