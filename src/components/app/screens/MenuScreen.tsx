@@ -59,7 +59,10 @@ export function MenuScreen({ onPrint }: MenuScreenProps = {}) {
   const weekMenu = menu.filter((s) => s.week === week);
 
   const swap = useCallback((day: DayKey, meal: MealType, currentId: string) => {
-    const next = pickRandomRecipe(meal, currentId);
+    const usedInWeek = new Set(
+      menu.filter((s) => s.week === week).map((s) => s.recipeId)
+    );
+    const next = pickRandomRecipe(meal, currentId, usedInWeek);
     if (!next) return;
     setMenu((prev) =>
       prev.map((s) =>
@@ -69,7 +72,7 @@ export function MenuScreen({ onPrint }: MenuScreenProps = {}) {
       )
     );
     toast.success(`${t("toast_swap")} ${localizeRecipe(next, lang).title}`);
-  }, [week, setMenu, t, lang]);
+  }, [week, menu, setMenu, t, lang]);
 
   const prepTasks = getPrepDayTasks(weekMenu);
   const lovedCount = Object.values(ratings).filter((v) => v === "love").length;

@@ -11,10 +11,20 @@ import {
 } from "@/types";
 import type { RecipeRatings } from "@/store/useAppStore";
 
-export function pickRandomRecipe(meal: MealType, excludeId?: string): Recipe | null {
+export function pickRandomRecipe(
+  meal: MealType,
+  excludeId?: string,
+  excludeIds?: Set<string>
+): Recipe | null {
   let pool = recipes.filter(
-    (r) => r.mealTypes.includes(meal) && r.id !== excludeId
+    (r) =>
+      r.mealTypes.includes(meal) &&
+      r.id !== excludeId &&
+      !(excludeIds && excludeIds.has(r.id))
   );
+  if (pool.length === 0) {
+    pool = recipes.filter((r) => r.mealTypes.includes(meal) && r.id !== excludeId);
+  }
   if (pool.length === 0) {
     pool = recipes.filter((r) => r.mealTypes.includes(meal));
   }
