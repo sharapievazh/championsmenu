@@ -4,7 +4,7 @@ import { RecipeImage } from "../RecipeImage";
 import { RecipeBadges } from "../RecipeBadges";
 import { RecipeDialog } from "../RecipeDialog";
 import { Recipe, MealType, RecipeCategory } from "@/types";
-import { useRatings } from "@/store/useAppStore";
+import { useRatings, useUserRecipes } from "@/store/useAppStore";
 import {
   Search, LayoutGrid, Sunrise, Soup, Moon, Brain,
   Cookie, GlassWater, Apple, Pizza, Heart, ThumbsDown,
@@ -34,11 +34,15 @@ export function RecipesScreen() {
   const [q, setQ] = useState("");
   const [selected, setSelected] = useState<Recipe | null>(null);
   const [ratings, setRatings] = useRatings();
+  const [userRecipes] = useUserRecipes();
   const [visibleCount, setVisibleCount] = useState(18);
 
   const localizedAll = useMemo(
-    () => recipes.map((r) => ({ original: r, loc: localizeRecipe(r, lang) })),
-    [lang]
+    () => {
+      const all = [...recipes, ...userRecipes];
+      return all.map((r) => ({ original: r, loc: localizeRecipe(r, lang) }));
+    },
+    [lang, userRecipes]
   );
 
   const filtered = useMemo(() => {
