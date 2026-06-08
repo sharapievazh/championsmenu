@@ -4,7 +4,7 @@ import { recipesById } from "@/data/recipes";
 import { RecipeImage } from "./RecipeImage";
 import { RecipeBadges } from "./RecipeBadges";
 import { RefreshCw, Heart, ThumbsDown } from "lucide-react";
-import { useRatings } from "@/store/useAppStore";
+import { useRecipeRating } from "@/store/useAppStore";
 import { useT } from "@/i18n";
 import { localizeRecipe } from "@/i18n/recipeTranslations";
 
@@ -20,20 +20,10 @@ export const MealCard = memo(function MealCard({ slot, onSwap, onOpen }: Props) 
   const [dragX, setDragX] = useState(0);
   const [swiping, setSwiping] = useState(false);
   const startX = useRef(0);
-  const [ratings, setRatings] = useRatings();
+  const [rating, toggleRating] = useRecipeRating(slot.recipeId);
 
   if (!recipeRaw) return null;
   const recipe = localizeRecipe(recipeRaw, lang);
-
-  const rating = ratings[recipe.id];
-  const toggleRating = (next: "love" | "dislike") => {
-    setRatings((prev) => {
-      const copy = { ...prev };
-      if (copy[recipe.id] === next) delete copy[recipe.id];
-      else copy[recipe.id] = next;
-      return copy;
-    });
-  };
 
   const onPointerDown = (e: React.PointerEvent) => {
     startX.current = e.clientX;

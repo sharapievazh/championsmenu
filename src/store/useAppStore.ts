@@ -110,3 +110,45 @@ export function useCheckedItems() {
 export function useRatings() {
   return useStore<RecipeRatings>(RATINGS_KEY, EMPTY_RATINGS);
 }
+
+/**
+ * Селектор оценки одного рецепта. Подписка идёт только на изменения
+ * RATINGS_KEY, а getSnapshot возвращает примитив ("love" | "dislike" | undefined),
+ * что обеспечивает стабильность ссылочного сравнения и предотвращает
+ * перерисовку других карточек при смене чужой оценки.
+ */
+export function useRecipeRating(
+  recipeId: string
+): readonly [RecipeRating | undefined, (next: RecipeRating) => void] {
+  const subscribe = useCallback((listener: Listener) => {
+    const set = getListeners(RATINGS_KEY);
+    set.add(listener);
+    return () => {
+      set.delete(listener);
+    };
+  }, []);
+
+  const getSnap = useCallback((): RecipeRating | undefined => {
+    const all = getSnapshot<RecipeRatings>(RATINGS_KEY, EMPTY_RATINGS);
+    return all[recipeId];
+  }, [recipeId]);
+
+  const getServerSnap = useCallback((): RecipeRating | undefined => undefined, []);
+
+  const value = useSyncExternalStore(subscribe, getSnap, getServerSnap);
+
+  const toggle = useCallback(
+    (next: RecipeRating) => {
+      const prev = getSnapshot<RecipeRatings>(RATINGS_KEY, EMPTY_RATINGS);
+      const copy = { ...prev };
+      if (copy[recipeId] === next) delete copy[recipeId];
+      else copy[recipeId] = next;
+      writeToStorage(RATINGS_KEY, copy);
+      snapshots.set(RATINGS_KEY, copy);
+      notifyKey(RATINGS_KEY);
+    },
+    [recipeId]
+  );
+
+  return [value, toggle] as const;
+}
