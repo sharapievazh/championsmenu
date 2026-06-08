@@ -94,29 +94,40 @@ export function ShoppingScreen({ onPrint }: ShoppingScreenProps = {}) {
               </h2>
               <div className="rounded-2xl bg-card shadow-soft overflow-hidden">
                 {grouped[cat].map((item) => (
-                  <button
+                  <div
                     key={item.key}
-                    onClick={() => toggle(item.key)}
-                    className="w-full flex items-center gap-3 px-4 py-3 border-b border-border last:border-b-0 hover:bg-muted/40 transition-colors text-left"
+                    className="w-full flex items-center px-4 py-3 border-b border-border last:border-b-0 hover:bg-muted/40 transition-colors"
                   >
-                    <div
-                      className={`flex-shrink-0 h-6 w-6 rounded-full border-2 flex items-center justify-center transition-colors ${
-                        item.checked ? "bg-primary border-primary" : "border-border bg-background"
-                      }`}
+                    <button
+                      onClick={() => toggle(item.key)}
+                      className="flex flex-1 items-center gap-3 text-left"
                     >
-                      {item.checked && <Check className="h-3.5 w-3.5 text-primary-foreground" />}
-                    </div>
-                    <span
-                      className={`flex-1 text-sm ${
-                        item.checked ? "line-through text-muted-foreground" : "text-foreground"
-                      }`}
+                      <div
+                        className={`flex-shrink-0 h-6 w-6 rounded-full border-2 flex items-center justify-center transition-colors ${
+                          item.checked ? "bg-primary border-primary" : "border-border bg-background"
+                        }`}
+                      >
+                        {item.checked && <Check className="h-3.5 w-3.5 text-primary-foreground" />}
+                      </div>
+                      <span
+                        className={`flex-1 text-sm ${
+                          item.checked ? "line-through text-muted-foreground" : "text-foreground"
+                        }`}
+                      >
+                        {localizeIngredientName(item.name, lang)}
+                      </span>
+                      <span className="text-sm text-muted-foreground">
+                        {item.amount} {translateUnit(item.unit, lang)}
+                      </span>
+                    </button>
+                    <button
+                      onClick={() => { setSelectedProduct(item.name); setCompareOpen(true); }}
+                      className="text-muted-foreground hover:text-primary transition-colors ml-2"
+                      aria-label="Сравнить цены"
                     >
-                      {localizeIngredientName(item.name, lang)}
-                    </span>
-                    <span className="text-sm text-muted-foreground">
-                      {item.amount} {translateUnit(item.unit, lang)}
-                    </span>
-                  </button>
+                      <Tag className="h-4 w-4" />
+                    </button>
+                  </div>
                 ))}
               </div>
             </section>
