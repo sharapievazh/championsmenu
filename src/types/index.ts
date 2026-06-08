@@ -17,6 +17,7 @@ export type IngredientCategory =
   | "grains"
   | "meat_fish"
   | "dairy_alt"
+  | "spices"
   | "other";
 
 export interface Ingredient {

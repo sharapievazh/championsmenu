@@ -121,6 +121,7 @@ export function buildShoppingList(
     grains: [],
     meat_fish: [],
     dairy_alt: [],
+    spices: [],
     other: [],
   };
   for (const item of aggregate.values()) {
@@ -135,9 +136,10 @@ export function buildShoppingList(
 
 export const CATEGORY_LABELS: Record<IngredientCategory, string> = {
   fruit_veg: "Фрукты и овощи",
-  grains: "Крупы и хлеб (без глютена)",
+  grains: "Крупы и хлеб (желательно без глютена)",
   meat_fish: "Мясо и рыба",
   dairy_alt: "Молочка и альтернативы",
+  spices: "Специи",
   other: "Остальное",
 };
 
@@ -146,6 +148,7 @@ export const CATEGORY_EMOJI: Record<IngredientCategory, string> = {
   grains: "🌾",
   meat_fish: "🐟",
   dairy_alt: "🥛",
+  spices: "🧂",
   other: "🫙",
 };
 
@@ -246,19 +249,65 @@ export function totalKcalForDay(menu: MealSlot[], day: MealSlot["day"]) {
 
 export function ingredientsToPantryItems(): PantryItem[] {
   const map = new Map<string, PantryItem>();
+
+  // Названия, которые не нужны в кладовой (всегда есть дома).
+  const SKIP_NAMES = new Set<string>(["вода"]);
+
+  // Простая замена названия на каноническое.
+  const NAME_REPLACE: Record<string, string> = {
+    "яблоко зелёное": "Яблоко",
+    "лимонный сок": "Лимон",
+    "куриная грудка": "Куриное филе",
+    "говяжья вырезка": "Говядина",
+    "сулугуни тёртый": "Сулугуни",
+    "творог мягкий": "Творог",
+    "творог 5%": "Творог",
+    "зелень (петрушка)": "Петрушка",
+    "зелень (укроп)": "Укроп",
+    "овсяные хлопья без глютена": "Овсяные хлопья (желательно без глютена)",
+    "овсяная мука без глютена": "Овсяная мука (желательно без глютена)",
+    "паста мелкая (без глютена)": "Паста мелкая (желательно без глютена)",
+    "тамари (соевый соус б/глютена)": "Тамари (соевый соус, желательно без глютена)",
+  };
+
+  // Сложные ингредиенты, которые в кладовой удобно разбить на отдельные позиции.
+  const NAME_SPLIT: Record<string, string[]> = {
+    "зелень (петрушка, мята)": ["Петрушка", "Мята"],
+    "зелень (петрушка, укроп)": ["Петрушка", "Укроп"],
+    "корица и зира": ["Корица", "Зира"],
+  };
+
+  // Принудительная категория по нормализованному имени.
+  const CATEGORY_OVERRIDES: Record<string, IngredientCategory> = {
+    "корица": "spices",
+    "зира": "spices",
+    "куркума": "spices",
+    "тимьян": "spices",
+    "розмарин": "spices",
+    "лавровый лист": "spices",
+    "мускатный орех": "spices",
+    "соль, перец": "spices",
+    "разрыхлитель": "spices",
+    "ванилин": "spices",
+    "дрожжи сухие": "spices",
+    "чечевица красная": "grains",
+  };
+
   for (const r of recipes) {
     for (const ing of r.ingredients) {
-      const id = ing.name.toLowerCase();
-      if (!map.has(id)) {
-        map.set(id, {
-          id,
-          name: ing.name,
-          category: ing.category,
-          inStock: false,
-        });
+      const low = ing.name.toLowerCase();
+      if (SKIP_NAMES.has(low)) continue;
+
+      const names = NAME_SPLIT[low] ?? [NAME_REPLACE[low] ?? ing.name];
+      for (const name of names) {
+        const id = name.toLowerCase();
+        if (map.has(id)) continue;
+        const category = CATEGORY_OVERRIDES[id] ?? ing.category;
+        map.set(id, { id, name, category, inStock: false });
       }
     }
   }
+
   return [...map.values()].sort((a, b) => a.name.localeCompare(b.name, "ru"));
 }
 

@@ -87,9 +87,10 @@ export const en = {
   badge_min: "min",
 
   cat_fruit_veg: "Fruits & vegetables",
-  cat_grains: "Grains & bread (gluten-free)",
+  cat_grains: "Grains & bread (preferably gluten-free)",
   cat_meat_fish: "Meat & fish",
   cat_dairy_alt: "Dairy & alternatives",
+  cat_spices: "Spices",
   cat_other: "Other",
 
   print_app_name: "Champions Menu",

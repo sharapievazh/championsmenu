@@ -10,7 +10,7 @@ import { LangSwitcher } from "@/i18n/LangSwitcher";
 import { localizeRecipe, localizeIngredientName } from "@/i18n/recipeTranslations";
 
 const CAT_EMOJI: Record<IngredientCategory, string> = {
-  fruit_veg: "🥬", grains: "🌾", meat_fish: "🐟", dairy_alt: "🥛", other: "🫙",
+  fruit_veg: "🥬", grains: "🌾", meat_fish: "🐟", dairy_alt: "🥛", spices: "🧂", other: "🫙",
 };
 
 export function PantryScreen() {
@@ -40,7 +40,7 @@ export function PantryScreen() {
   );
 
   const grouped: Record<IngredientCategory, PantryItem[]> = {
-    fruit_veg: [], grains: [], meat_fish: [], dairy_alt: [], other: [],
+    fruit_veg: [], grains: [], meat_fish: [], dairy_alt: [], spices: [], other: [],
   };
   filtered.forEach((p) => grouped[p.category].push(p));
 
