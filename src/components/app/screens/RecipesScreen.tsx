@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { recipes } from "@/data/recipes";
 import { RecipeImage } from "../RecipeImage";
 import { RecipeBadges } from "../RecipeBadges";
@@ -34,6 +34,7 @@ export function RecipesScreen() {
   const [q, setQ] = useState("");
   const [selected, setSelected] = useState<Recipe | null>(null);
   const [ratings, setRatings] = useRatings();
+  const [visibleCount, setVisibleCount] = useState(18);
 
   const localizedAll = useMemo(
     () => recipes.map((r) => ({ original: r, loc: localizeRecipe(r, lang) })),
@@ -61,6 +62,10 @@ export function RecipesScreen() {
       return copy;
     });
   };
+
+  useEffect(() => {
+    setVisibleCount(18);
+  }, [q, filter]);
 
   return (
     <div className="pb-24">
@@ -105,7 +110,7 @@ export function RecipesScreen() {
       </div>
 
       <div className="grid grid-cols-2 gap-3 px-4 mt-3">
-        {filtered.map(({ original: r, loc }) => {
+        {filtered.slice(0, visibleCount).map(({ original: r, loc }) => {
           const rating = ratings[r.id];
           return (
             <div
@@ -152,6 +157,17 @@ export function RecipesScreen() {
           );
         })}
       </div>
+
+      {visibleCount < filtered.length && (
+        <div className="px-4 mt-4 flex justify-center">
+          <button
+            onClick={() => setVisibleCount((c) => c + 18)}
+            className="bg-primary text-primary-foreground rounded-xl px-6 py-2.5 text-sm font-semibold transition-colors hover:opacity-90"
+          >
+            Показать ещё
+          </button>
+        </div>
+      )}
 
       <RecipeDialog
         recipe={selected}
