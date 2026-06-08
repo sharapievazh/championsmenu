@@ -6,6 +6,7 @@ import { Check, Printer, Tag } from "lucide-react";
 import { useT } from "@/i18n";
 import { LangSwitcher } from "@/i18n/LangSwitcher";
 import { localizeIngredientName, translateUnit } from "@/i18n/recipeTranslations";
+import { PriceCompareModal } from "@/components/app/PriceCompareModal";
 
 interface ShoppingScreenProps {
   onPrint?: (weeks: (1 | 2 | 3 | 4)[]) => void;
