@@ -1,4 +1,5 @@
 import { Recipe } from "@/types";
+import { recipesExtra } from "./recipesExtra";
 
 // Импорты будут сгенерированы через AI в едином стиле «свежая мята/белый»
 import imgGreenJuice from "@/assets/recipes/green-juice.jpg";
@@ -60,7 +61,7 @@ import imgMushroomCreamSoup from "@/assets/recipes/mushroom-cream-soup.jpg";
 import imgTurkeyRoast from "@/assets/recipes/turkey-roast.jpg";
 import imgKhachapuri from "@/assets/recipes/khachapuri.jpg";
 
-export const recipes: Recipe[] = [
+const baseRecipes: Recipe[] = [
   {
     id: "green-juice",
     title: "Зелёный детокс-смузи",
@@ -1561,6 +1562,8 @@ export const recipes: Recipe[] = [
     childFriendlyNote: "Сладкий батат + нежная индейка — беспроигрышно.",
   },
 ];
+
+export const recipes: Recipe[] = [...baseRecipes, ...recipesExtra];
 
 export const recipesById: Record<string, Recipe> = Object.fromEntries(
   recipes.map((r) => [r.id, r])
