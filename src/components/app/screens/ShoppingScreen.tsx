@@ -137,6 +137,12 @@ export function ShoppingScreen({ onPrint }: ShoppingScreenProps = {}) {
           <p className="text-center text-muted-foreground py-12">{t("shopping_empty")}</p>
         )}
       </div>
+
+      <PriceCompareModal
+        productName={selectedProduct}
+        open={compareOpen}
+        onOpenChange={setCompareOpen}
+      />
     </div>
   );
 }
