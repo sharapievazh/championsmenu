@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { MealSlot, PantryItem } from "@/types";
 import { recipesById } from "@/data/recipes";
 import { buildShoppingList } from "@/lib/menuUtils";
@@ -15,6 +16,17 @@ const DAY_KEYS = ["mon","tue","wed","thu","fri","sat","sun"] as const;
 
 export function PrintView({ menu, pantry, weeks, mode }: PrintViewProps) {
   const { t, lang } = useT();
+
+  const weekData = useMemo(() => {
+    return weeks.map((w) => {
+      const wm = menu.filter((s) => s.week === w);
+      const grouped = (mode === "shopping" || mode === "both")
+        ? buildShoppingList(wm, pantry, {})
+        : undefined;
+      return { w, wm, grouped };
+    });
+  }, [menu, pantry, weeks, mode, lang]);
+
   return (
     <div className="print-only" aria-hidden>
       <div className="print-header">
@@ -26,46 +38,42 @@ export function PrintView({ menu, pantry, weeks, mode }: PrintViewProps) {
       </div>
 
       {(mode === "menu" || mode === "both") &&
-        weeks.map((w) => {
-          const wm = menu.filter((s) => s.week === w);
-          return (
-            <section key={`menu-${w}`} className="print-section">
-              <h2>{t("print_week_schedule", { n: w })}</h2>
-              <table className="print-table">
-                <thead>
-                  <tr>
-                    <th>{t("print_th_day")}</th>
-                    <th>{t("meal_breakfast")}</th>
-                    <th>{t("meal_lunch")}</th>
-                    <th>{t("meal_dinner")}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {DAY_KEYS.map((d) => {
-                    const slots = wm.filter((s) => s.day === d);
-                    const get = (m: "breakfast" | "lunch" | "dinner") => {
-                      const r = recipesById[slots.find((s) => s.meal === m)?.recipeId ?? ""];
-                      return r ? localizeRecipe(r, lang).title : "—";
-                    };
-                    return (
-                      <tr key={d}>
-                        <td className="print-day">{t(`day_${d}` as any)}</td>
-                        <td>{get("breakfast")}</td>
-                        <td>{get("lunch")}</td>
-                        <td>{get("dinner")}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </section>
-          );
-        })}
+        weekData.map(({ w, wm }) => (
+          <section key={`menu-${w}`} className="print-section">
+            <h2>{t("print_week_schedule", { n: w })}</h2>
+            <table className="print-table">
+              <thead>
+                <tr>
+                  <th>{t("print_th_day")}</th>
+                  <th>{t("meal_breakfast")}</th>
+                  <th>{t("meal_lunch")}</th>
+                  <th>{t("meal_dinner")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {DAY_KEYS.map((d) => {
+                  const slots = wm.filter((s) => s.day === d);
+                  const get = (m: "breakfast" | "lunch" | "dinner") => {
+                    const r = recipesById[slots.find((s) => s.meal === m)?.recipeId ?? ""];
+                    return r ? localizeRecipe(r, lang).title : "—";
+                  };
+                  return (
+                    <tr key={d}>
+                      <td className="print-day">{t(`day_${d}` as any)}</td>
+                      <td>{get("breakfast")}</td>
+                      <td>{get("lunch")}</td>
+                      <td>{get("dinner")}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </section>
+        ))}
 
       {(mode === "shopping" || mode === "both") &&
-        weeks.map((w) => {
-          const wm = menu.filter((s) => s.week === w);
-          const grouped = buildShoppingList(wm, pantry, {});
+        weekData.map(({ w, grouped }) => {
+          if (!grouped) return null;
           const cats = Object.keys(grouped) as (keyof typeof grouped)[];
           const total = cats.reduce((n, c) => n + grouped[c].length, 0);
           return (
