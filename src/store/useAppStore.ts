@@ -154,3 +154,7 @@ export function useRecipeRating(
 
   return [value, toggle] as const;
 }
+
+export function useUserRecipes() {
+  return useStore<Recipe[]>(USER_RECIPES_KEY, EMPTY_RECIPES);
+}
