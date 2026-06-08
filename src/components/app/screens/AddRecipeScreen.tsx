@@ -1,5 +1,6 @@
 import { useState, type ChangeEvent } from "react";
 import { Plus, Trash2, ImagePlus } from "lucide-react";
+import { toast } from "sonner";
 import { IngredientCategory } from "@/types";
 
 type Unit = "г" | "мл" | "шт" | "ст.л." | "ч.л.";
@@ -36,6 +37,7 @@ export function AddRecipeScreen() {
   const [prepMin, setPrepMin] = useState("");
   const [bakeMin, setBakeMin] = useState("");
   const [photo, setPhoto] = useState<string | null>(null);
+  const [showErrors, setShowErrors] = useState(false);
 
   const updateIngredient = (idx: number, patch: Partial<IngredientRow>) => {
     setIngredients((prev) => prev.map((row, i) => (i === idx ? { ...row, ...patch } : row)));
@@ -61,8 +63,35 @@ export function AddRecipeScreen() {
     reader.readAsDataURL(file);
   };
 
+  const titleValid = title.trim().length >= 3;
+  const ingredientsValid = ingredients.some(
+    (ing) => ing.name.trim().length > 0 && ing.amount !== "" && Number(ing.amount) > 0
+  );
+  const stepsValid = steps.some((s) => s.trim().length > 0);
+  const prepNum = Number(prepMin);
+  const bakeNum = Number(bakeMin);
+  const prepValid = prepMin !== "" && !isNaN(prepNum) && prepNum >= 0;
+  const bakeValid = bakeMin !== "" && !isNaN(bakeNum) && bakeNum >= 0;
+  const formValid = titleValid && ingredientsValid && stepsValid && prepValid && bakeValid;
+
+  const handleSave = () => {
+    if (!formValid) {
+      setShowErrors(true);
+      const errors: string[] = [];
+      if (!titleValid) errors.push("Название должно быть не короче 3 символов");
+      if (!ingredientsValid) errors.push("Добавьте хотя бы один ингредиент с названием и количеством больше 0");
+      if (!stepsValid) errors.push("Добавьте хотя бы один шаг приготовления");
+      if (!prepValid) errors.push("Время подготовки должно быть числом не меньше 0");
+      if (!bakeValid) errors.push("Время в духовке должно быть числом не меньше 0");
+      toast.error(errors.join("; "));
+      return;
+    }
+    // stub: actual saving will be implemented later
+  };
+
   const inputCls =
     "w-full rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/40 transition";
+  const errorCls = "border-destructive focus:ring-destructive/40";
 
   return (
     <div className="px-4 py-6 pb-24 space-y-5">
@@ -79,8 +108,11 @@ export function AddRecipeScreen() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Например, паста с томатами"
-          className={inputCls}
+          className={`${inputCls} ${showErrors && !titleValid ? errorCls : ""}`}
         />
+        {showErrors && !titleValid && (
+          <p className="text-xs text-destructive">Минимум 3 символа</p>
+        )}
       </section>
 
       {/* Photo */}
@@ -126,7 +158,7 @@ export function AddRecipeScreen() {
                   value={row.name}
                   onChange={(e) => updateIngredient(idx, { name: e.target.value })}
                   placeholder="Ингредиент"
-                  className={inputCls}
+                  className={`${inputCls} ${showErrors && !row.name.trim() ? errorCls : ""}`}
                 />
                 <button
                   type="button"
@@ -145,7 +177,7 @@ export function AddRecipeScreen() {
                   value={row.amount}
                   onChange={(e) => updateIngredient(idx, { amount: e.target.value })}
                   placeholder="Кол-во"
-                  className={inputCls}
+                  className={`${inputCls} ${showErrors && (!row.amount || Number(row.amount) <= 0) ? errorCls : ""}`}
                 />
                 <select
                   value={row.unit}
@@ -175,6 +207,11 @@ export function AddRecipeScreen() {
             </div>
           ))}
         </div>
+        {showErrors && !ingredientsValid && (
+          <p className="text-xs text-destructive">
+            Добавьте хотя бы один ингредиент с названием и количеством больше 0
+          </p>
+        )}
 
         <button
           type="button"
@@ -204,7 +241,7 @@ export function AddRecipeScreen() {
                 onChange={(e) => updateStep(idx, e.target.value)}
                 placeholder={`Шаг ${idx + 1}`}
                 rows={2}
-                className={`${inputCls} resize-none`}
+                className={`${inputCls} resize-none ${showErrors && !step.trim() ? errorCls : ""}`}
               />
               <button
                 type="button"
@@ -218,6 +255,9 @@ export function AddRecipeScreen() {
             </div>
           ))}
         </div>
+        {showErrors && !stepsValid && (
+          <p className="text-xs text-destructive">Добавьте хотя бы один шаг приготовления</p>
+        )}
 
         <button
           type="button"
@@ -241,8 +281,11 @@ export function AddRecipeScreen() {
               value={prepMin}
               onChange={(e) => setPrepMin(e.target.value)}
               placeholder="0"
-              className={inputCls}
+              className={`${inputCls} ${showErrors && !prepValid ? errorCls : ""}`}
             />
+            {showErrors && !prepValid && (
+              <p className="text-xs text-destructive">Введите число не меньше 0</p>
+            )}
           </label>
           <label className="space-y-1">
             <span className="text-xs text-muted-foreground">В духовке, мин</span>
@@ -252,8 +295,11 @@ export function AddRecipeScreen() {
               value={bakeMin}
               onChange={(e) => setBakeMin(e.target.value)}
               placeholder="0"
-              className={inputCls}
+              className={`${inputCls} ${showErrors && !bakeValid ? errorCls : ""}`}
             />
+            {showErrors && !bakeValid && (
+              <p className="text-xs text-destructive">Введите число не меньше 0</p>
+            )}
           </label>
         </div>
       </section>
@@ -261,7 +307,12 @@ export function AddRecipeScreen() {
       {/* Save (visual stub) */}
       <button
         type="button"
-        className="w-full bg-primary text-primary-foreground rounded-xl py-3 font-semibold shadow-sm hover:opacity-90 transition"
+        onClick={handleSave}
+        className={`w-full rounded-xl py-3 font-semibold shadow-sm transition ${
+          !formValid
+            ? "bg-muted text-muted-foreground cursor-not-allowed"
+            : "bg-primary text-primary-foreground hover:opacity-90"
+        }`}
       >
         Сохранить рецепт
       </button>
