@@ -3,6 +3,7 @@ export const en = {
   nav_recipes: "Recipes",
   nav_shopping: "Shopping",
   nav_pantry: "Pantry",
+  nav_add: "Add",
 
   print: "Print",
   search: "Search",
