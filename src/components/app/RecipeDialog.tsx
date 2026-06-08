@@ -26,7 +26,7 @@ export function RecipeDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto p-0">
-        <div className="aspect-[4/3] w-full overflow-hidden bg-muted">
+        <div className="aspect-[16/9] w-full overflow-hidden bg-muted">
           <img
             src={recipe.image}
             alt={recipe.title}

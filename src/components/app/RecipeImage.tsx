@@ -15,7 +15,7 @@ export function RecipeImage({
       decoding="async"
       width={160}
       height={160}
-      className={`object-cover w-full h-full ${className}`}
+      className={`object-cover w-full h-full aspect-square ${className}`}
     />
   );
 }
