@@ -105,23 +105,26 @@ export function buildShoppingList(
     const recipe = recipesById[slot.recipeId];
     if (!recipe) continue;
     for (const ing of recipe.ingredients) {
-      const key = `${ing.name.toLowerCase()}|${ing.unit}`;
-      const inPantry = pantry.find(
-        (p) => p.inStock && p.name.toLowerCase() === ing.name.toLowerCase()
-      );
-      if (inPantry) continue;
-      const existing = aggregate.get(key);
-      if (existing) {
-        existing.amount += ing.amount;
-      } else {
-        aggregate.set(key, {
-          key,
-          name: ing.name,
-          amount: ing.amount,
-          unit: ing.unit,
-          category: ing.category,
-          checked: !!checked[key],
-        });
+      const parts = normalizeIngredient(ing);
+      for (const part of parts) {
+        const inPantry = pantry.find(
+          (p) => p.inStock && p.name.toLowerCase() === part.name.toLowerCase()
+        );
+        if (inPantry) continue;
+        const key = `${part.name.toLowerCase()}|${part.unit}`;
+        const existing = aggregate.get(key);
+        if (existing) {
+          existing.amount += part.amount;
+        } else {
+          aggregate.set(key, {
+            key,
+            name: part.name,
+            amount: part.amount,
+            unit: part.unit,
+            category: part.category,
+            checked: !!checked[key],
+          });
+        }
       }
     }
   }
