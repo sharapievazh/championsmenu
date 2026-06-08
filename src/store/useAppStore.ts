@@ -175,7 +175,7 @@ export function useUserRecipes() {
       const localOnly = local.filter((r) => !cloudIds.has(r.id));
       if (localOnly.length > 0) {
         await supabase.from("user_recipes").upsert(
-          localOnly.map((r) => ({ user_id: userId, recipe_id: r.id, data: r as unknown as object })),
+          localOnly.map((r) => ({ user_id: userId, recipe_id: r.id, data: r as never })),
           { onConflict: "user_id,recipe_id" }
         );
       }
@@ -214,7 +214,7 @@ export function useUserRecipes() {
         const upserts = [...added, ...updated];
         if (upserts.length > 0) {
           void supabase.from("user_recipes").upsert(
-            upserts.map((r) => ({ user_id: userId, recipe_id: r.id, data: r as unknown as object })),
+            upserts.map((r) => ({ user_id: userId, recipe_id: r.id, data: r as never })),
             { onConflict: "user_id,recipe_id" }
           );
         }
