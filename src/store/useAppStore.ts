@@ -1,5 +1,5 @@
 import { useCallback, useSyncExternalStore } from "react";
-import { MealSlot, PantryItem } from "@/types";
+import { MealSlot, PantryItem, Recipe } from "@/types";
 import { defaultMenu } from "@/data/defaultMenu";
 
 // v3 — обычное молоко, новые категории, меню на 4 недели.
