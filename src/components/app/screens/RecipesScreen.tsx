@@ -34,6 +34,7 @@ export function RecipesScreen() {
   const [q, setQ] = useState("");
   const [selected, setSelected] = useState<Recipe | null>(null);
   const [ratings, setRatings] = useRatings();
+  const [visibleCount, setVisibleCount] = useState(18);
 
   const localizedAll = useMemo(
     () => recipes.map((r) => ({ original: r, loc: localizeRecipe(r, lang) })),
