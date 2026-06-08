@@ -1,7 +1,8 @@
 import { useState, type ChangeEvent } from "react";
 import { Plus, Trash2, ImagePlus } from "lucide-react";
 import { toast } from "sonner";
-import { IngredientCategory } from "@/types";
+import { IngredientCategory, Recipe } from "@/types";
+import { useUserRecipes } from "@/store/useAppStore";
 
 type Unit = "г" | "мл" | "шт" | "ст.л." | "ч.л.";
 
@@ -38,6 +39,7 @@ export function AddRecipeScreen() {
   const [bakeMin, setBakeMin] = useState("");
   const [photo, setPhoto] = useState<string | null>(null);
   const [showErrors, setShowErrors] = useState(false);
+  const [, setUserRecipes] = useUserRecipes();
 
   const updateIngredient = (idx: number, patch: Partial<IngredientRow>) => {
     setIngredients((prev) => prev.map((row, i) => (i === idx ? { ...row, ...patch } : row)));
@@ -86,7 +88,34 @@ export function AddRecipeScreen() {
       toast.error(errors.join("; "));
       return;
     }
-    // stub: actual saving will be implemented later
+    const newRecipe: Recipe = {
+      id: crypto.randomUUID(),
+      title: title.trim(),
+      image: photo ?? "",
+      mealTypes: ["lunch"],
+      servings: 4,
+      timeMin: prepNum + bakeNum,
+      ingredients: ingredients
+        .filter((ing) => ing.name.trim() && Number(ing.amount) > 0)
+        .map((ing) => ({
+          name: ing.name.trim(),
+          amount: Number(ing.amount),
+          unit: ing.unit,
+          category: ing.category,
+        })),
+      steps: steps.map((s) => s.trim()).filter(Boolean),
+      nutrition: { kcalAdult: 0, kcalChild: 0, protein: 0, fat: 0, carbs: 0 },
+      tags: [],
+    };
+    setUserRecipes((prev) => [...prev, newRecipe]);
+    setTitle("");
+    setIngredients([emptyIngredient()]);
+    setSteps([""]);
+    setPrepMin("");
+    setBakeMin("");
+    setPhoto(null);
+    setShowErrors(false);
+    toast.success("Рецепт сохранён");
   };
 
   const inputCls =
