@@ -96,10 +96,10 @@ export function useMenu() {
   return useStore<MealSlot[]>(MENU_KEY, defaultMenu);
 }
 export function usePantry() {
-  return useStore<PantryItem[]>(PANTRY_KEY, []);
+  return useStore<PantryItem[]>(PANTRY_KEY, EMPTY_PANTRY);
 }
 export function useCheckedItems() {
-  return useStore<Record<string, boolean>>(CHECKED_KEY, {});
+  return useStore<Record<string, boolean>>(CHECKED_KEY, EMPTY_CHECKED);
 }
 
 /**
@@ -108,5 +108,5 @@ export function useCheckedItems() {
  * и для быстрой пометки на карточках.
  */
 export function useRatings() {
-  return useStore<RecipeRatings>(RATINGS_KEY, {});
+  return useStore<RecipeRatings>(RATINGS_KEY, EMPTY_RATINGS);
 }
