@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useMenu, usePantry, useCheckedItems } from "@/store/useAppStore";
 import { buildShoppingList } from "@/lib/menuUtils";
 import { IngredientCategory } from "@/types";
-import { Check, Printer } from "lucide-react";
+import { Check, Printer, Tag } from "lucide-react";
 import { useT } from "@/i18n";
 import { LangSwitcher } from "@/i18n/LangSwitcher";
 import { localizeIngredientName, translateUnit } from "@/i18n/recipeTranslations";
