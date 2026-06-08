@@ -54,7 +54,7 @@ import imgPpPizza from "@/assets/recipes/pp-pizza.jpg";
 import imgGrillRolls from "@/assets/recipes/grill-rolls.jpg";
 import imgSpringRolls from "@/assets/recipes/spring-rolls.jpg";
 import imgChickenWrap from "@/assets/recipes/chicken-wrap.jpg";
-import imgOatCookies from "@/assets/recipes/oat-cookies.jpg";
+import imgOatCookies from "@/assets/recipes/banana-blueberry-muffins.jpg";
 import imgCottageCasserole from "@/assets/recipes/cottage-casserole.jpg";
 import imgChickenMeatballSoup from "@/assets/recipes/chicken-meatball-soup.jpg";
 import imgMushroomCreamSoup from "@/assets/recipes/mushroom-cream-soup.jpg";
