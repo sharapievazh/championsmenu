@@ -63,6 +63,10 @@ export function RecipesScreen() {
     });
   };
 
+  useEffect(() => {
+    setVisibleCount(18);
+  }, [q, filter]);
+
   return (
     <div className="pb-24">
       <header className="px-4 pt-4">
@@ -106,7 +110,7 @@ export function RecipesScreen() {
       </div>
 
       <div className="grid grid-cols-2 gap-3 px-4 mt-3">
-        {filtered.map(({ original: r, loc }) => {
+        {filtered.slice(0, visibleCount).map(({ original: r, loc }) => {
           const rating = ratings[r.id];
           return (
             <div
@@ -153,6 +157,17 @@ export function RecipesScreen() {
           );
         })}
       </div>
+
+      {visibleCount < filtered.length && (
+        <div className="px-4 mt-4 flex justify-center">
+          <button
+            onClick={() => setVisibleCount((c) => c + 18)}
+            className="bg-primary text-primary-foreground rounded-xl px-6 py-2.5 text-sm font-semibold transition-colors hover:opacity-90"
+          >
+            Показать ещё
+          </button>
+        </div>
+      )}
 
       <RecipeDialog
         recipe={selected}
