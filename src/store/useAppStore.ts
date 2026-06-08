@@ -2,8 +2,8 @@ import { useCallback, useSyncExternalStore } from "react";
 import { MealSlot, PantryItem, Recipe } from "@/types";
 import { defaultMenu } from "@/data/defaultMenu";
 
-// v4 — авто-генерация меню из всех 112 рецептов без повторов внутри недели.
-const MENU_KEY = "cm.menu.v4";
+// v5 — понедельник 1-й недели на завтрак: творожная чаша с клубникой и миндалём.
+const MENU_KEY = "cm.menu.v5";
 // v5 — кунжут/семена в специи, без тёмного шоколада, яйцо в «остальное», тамари → соевый соус.
 const PANTRY_KEY = "cm.pantry.v5";
 const CHECKED_KEY = "cm.shopping.checked.v3";
