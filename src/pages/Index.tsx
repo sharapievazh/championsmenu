@@ -1,21 +1,23 @@
 import { useState, useEffect, useRef } from "react";
-import { CalendarDays, BookOpen, ShoppingCart, Refrigerator } from "lucide-react";
+import { CalendarDays, BookOpen, ShoppingCart, Refrigerator, Plus } from "lucide-react";
 import { MenuScreen } from "@/components/app/screens/MenuScreen";
 import { RecipesScreen } from "@/components/app/screens/RecipesScreen";
 import { ShoppingScreen } from "@/components/app/screens/ShoppingScreen";
 import { PantryScreen } from "@/components/app/screens/PantryScreen";
+import { AddRecipeScreen } from "@/components/app/screens/AddRecipeScreen";
 import { PrintView } from "@/components/app/PrintView";
 import { ErrorBoundary } from "@/components/app/ErrorBoundary";
 import { useMenu, usePantry } from "@/store/useAppStore";
 import { useT, type TKey } from "@/i18n";
 
-type Tab = "menu" | "recipes" | "shopping" | "pantry";
+type Tab = "menu" | "recipes" | "shopping" | "pantry" | "add";
 
 const TABS: { key: Tab; tKey: TKey; icon: typeof CalendarDays }[] = [
   { key: "menu", tKey: "nav_menu", icon: CalendarDays },
   { key: "recipes", tKey: "nav_recipes", icon: BookOpen },
   { key: "shopping", tKey: "nav_shopping", icon: ShoppingCart },
   { key: "pantry", tKey: "nav_pantry", icon: Refrigerator },
+  { key: "add", tKey: "nav_add", icon: Plus },
 ];
 
 const Index = () => {
@@ -61,13 +63,18 @@ const Index = () => {
               <PantryScreen />
             </ErrorBoundary>
           )}
+          {tab === "add" && (
+            <ErrorBoundary fallbackTitle={t("error_title")} fallbackHint={t("error_hint")} fallbackActionLabel={t("error_reload")}>
+              <AddRecipeScreen />
+            </ErrorBoundary>
+          )}
         </div>
       </div>
 
       <PrintView menu={menu} pantry={pantry} weeks={printConfig.weeks} mode={printConfig.mode} />
 
       <nav className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur border-t border-border z-20 pb-[env(safe-area-inset-bottom)]">
-        <div className="mx-auto max-w-2xl grid grid-cols-4">
+        <div className="mx-auto max-w-2xl grid grid-cols-5">
           {TABS.map((tab_def) => {
             const active = tab === tab_def.key;
             const Icon = tab_def.icon;
