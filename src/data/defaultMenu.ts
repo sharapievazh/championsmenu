@@ -83,4 +83,25 @@ function buildDefaultMenu(): MealSlot[] {
   return slots;
 }
 
-export const defaultMenu: MealSlot[] = buildDefaultMenu();
+function ensureMondayW1Breakfast(slots: MealSlot[], desiredId: string): MealSlot[] {
+  const out = slots.map((s) => ({ ...s }));
+  const targetIdx = out.findIndex(
+    (s) => s.week === 1 && s.day === "mon" && s.meal === "breakfast"
+  );
+  if (targetIdx === -1) return out;
+  if (out[targetIdx].recipeId === desiredId) return out;
+  const currentId = out[targetIdx].recipeId;
+  const desiredIdx = out.findIndex((s) => s.recipeId === desiredId);
+  if (desiredIdx === -1) {
+    out[targetIdx].recipeId = desiredId;
+    return out;
+  }
+  out[targetIdx].recipeId = desiredId;
+  out[desiredIdx].recipeId = currentId;
+  return out;
+}
+
+export const defaultMenu: MealSlot[] = ensureMondayW1Breakfast(
+  buildDefaultMenu(),
+  "cottage-bowl"
+);
