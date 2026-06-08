@@ -670,21 +670,22 @@
     "brainNote": "",
     "childFriendlyNote": ""
   },
-  "oat-cookies": {
-    "title": "Oat Cookies with Chocolate",
+  "banana-blueberry-muffins": {
+    "title": "Banana Blueberry Muffins",
     "ingredients": [
-      "Gluten-Free Rolled Oats",
+      "Oat flour",
       "Banana",
-      "Dark Chocolate Chips",
-      "Raisins",
+      "Blueberries",
+      "Egg",
+      "Natural yogurt",
       "Honey",
-      "Milk"
+      "Baking powder"
     ],
     "steps": [
-      "Mash bananas, mix with milk and honey.",
-      "Add oats, chocolate, and raisins.",
-      "Spoon onto a baking sheet with parchment.",
-      "Bake for 15 mins at 180°C."
+      "Mash bananas with a fork, mix with eggs, yogurt and honey.",
+      "Add flour and baking powder, gently fold in the blueberries.",
+      "Divide batter between muffin tins.",
+      "Bake for 20 mins at 180°C until golden."
     ],
     "tags": [],
     "brainNote": "",
