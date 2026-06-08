@@ -63,6 +63,7 @@ export const en = {
   filter_smoothie: "Smoothies & drinks",
   filter_snack: "Snacks",
   filter_bakery: "Bakery & rolls",
+  filter_mine: "My recipes",
 
   shopping_title: "Shopping list",
   shopping_progress: "{done} of {total} bought",
