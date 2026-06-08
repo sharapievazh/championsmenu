@@ -105,23 +105,26 @@ export function buildShoppingList(
     const recipe = recipesById[slot.recipeId];
     if (!recipe) continue;
     for (const ing of recipe.ingredients) {
-      const key = `${ing.name.toLowerCase()}|${ing.unit}`;
-      const inPantry = pantry.find(
-        (p) => p.inStock && p.name.toLowerCase() === ing.name.toLowerCase()
-      );
-      if (inPantry) continue;
-      const existing = aggregate.get(key);
-      if (existing) {
-        existing.amount += ing.amount;
-      } else {
-        aggregate.set(key, {
-          key,
-          name: ing.name,
-          amount: ing.amount,
-          unit: ing.unit,
-          category: ing.category,
-          checked: !!checked[key],
-        });
+      const parts = normalizeIngredient(ing);
+      for (const part of parts) {
+        const inPantry = pantry.find(
+          (p) => p.inStock && p.name.toLowerCase() === part.name.toLowerCase()
+        );
+        if (inPantry) continue;
+        const key = `${part.name.toLowerCase()}|${part.unit}`;
+        const existing = aggregate.get(key);
+        if (existing) {
+          existing.amount += part.amount;
+        } else {
+          aggregate.set(key, {
+            key,
+            name: part.name,
+            amount: part.amount,
+            unit: part.unit,
+            category: part.category,
+            checked: !!checked[key],
+          });
+        }
       }
     }
   }
@@ -260,69 +263,89 @@ export function totalKcalForDay(menu: MealSlot[], day: MealSlot["day"]) {
 export function ingredientsToPantryItems(): PantryItem[] {
   const map = new Map<string, PantryItem>();
 
-  // Названия, которые не нужны в кладовой (всегда есть дома).
-  const SKIP_NAMES = new Set<string>(["вода", "тёмный шоколад капли"]);
-
-  // Простая замена названия на каноническое.
-  const NAME_REPLACE: Record<string, string> = {
-    "яблоко зелёное": "Яблоко",
-    "лимонный сок": "Лимон",
-    "куриная грудка": "Куриное филе",
-    "говяжья вырезка": "Говядина",
-    "сулугуни тёртый": "Сулугуни",
-    "творог мягкий": "Творог",
-    "творог 5%": "Творог",
-    "зелень (петрушка)": "Петрушка",
-    "зелень (укроп)": "Укроп",
-    "овсяные хлопья без глютена": "Овсяные хлопья (желательно без глютена)",
-    "овсяная мука без глютена": "Овсяная мука (желательно без глютена)",
-    "паста мелкая (без глютена)": "Паста мелкая (желательно без глютена)",
-    "тамари (соевый соус б/глютена)": "Соевый соус",
-    "семена кунжута": "Кунжут",
-  };
-
-  // Сложные ингредиенты, которые в кладовой удобно разбить на отдельные позиции.
-  const NAME_SPLIT: Record<string, string[]> = {
-    "зелень (петрушка, мята)": ["Петрушка", "Мята"],
-    "зелень (петрушка, укроп)": ["Петрушка", "Укроп"],
-    "корица и зира": ["Корица", "Зира"],
-  };
-
-  // Принудительная категория по нормализованному имени.
-  const CATEGORY_OVERRIDES: Record<string, IngredientCategory> = {
-    "корица": "spices",
-    "зира": "spices",
-    "куркума": "spices",
-    "тимьян": "spices",
-    "розмарин": "spices",
-    "лавровый лист": "spices",
-    "мускатный орех": "spices",
-    "соль, перец": "spices",
-    "разрыхлитель": "spices",
-    "ванилин": "spices",
-    "дрожжи сухие": "spices",
-    "чечевица красная": "grains",
-    "кунжут": "spices",
-    "тыквенные семечки": "spices",
-    "яйцо": "other",
-  };
-
   for (const r of recipes) {
     for (const ing of r.ingredients) {
-      const low = ing.name.toLowerCase();
-      if (SKIP_NAMES.has(low)) continue;
-
-      const names = NAME_SPLIT[low] ?? [NAME_REPLACE[low] ?? ing.name];
-      for (const name of names) {
-        const id = name.toLowerCase();
+      const parts = normalizeIngredient(ing);
+      for (const part of parts) {
+        const id = part.name.toLowerCase();
         if (map.has(id)) continue;
-        const category = CATEGORY_OVERRIDES[id] ?? ing.category;
-        map.set(id, { id, name, category, inStock: false });
+        map.set(id, { id, name: part.name, category: part.category, inStock: false });
       }
     }
   }
 
   return [...map.values()].sort((a, b) => a.name.localeCompare(b.name, "ru"));
+}
+
+// =========================================================================
+// Нормализация ингредиентов: применяется и в кладовой, и в списке покупок,
+// чтобы названия совпадали один в один (Творог = Творог, не «Творог 5%»).
+// =========================================================================
+
+const SKIP_NAMES = new Set<string>(["вода", "тёмный шоколад капли"]);
+
+const NAME_REPLACE: Record<string, string> = {
+  "яблоко зелёное": "Яблоко",
+  "лимонный сок": "Лимон",
+  "куриная грудка": "Куриное филе",
+  "говяжья вырезка": "Говядина",
+  "сулугуни тёртый": "Сулугуни",
+  "творог мягкий": "Творог",
+  "творог 5%": "Творог",
+  "зелень (петрушка)": "Петрушка",
+  "зелень (укроп)": "Укроп",
+  "овсяные хлопья без глютена": "Овсяные хлопья (желательно без глютена)",
+  "овсяная мука без глютена": "Овсяная мука (желательно без глютена)",
+  "паста мелкая (без глютена)": "Паста мелкая (желательно без глютена)",
+  "тамари (соевый соус б/глютена)": "Соевый соус",
+  "семена кунжута": "Кунжут",
+};
+
+const NAME_SPLIT: Record<string, string[]> = {
+  "зелень (петрушка, мята)": ["Петрушка", "Мята"],
+  "зелень (петрушка, укроп)": ["Петрушка", "Укроп"],
+  "корица и зира": ["Корица", "Зира"],
+};
+
+const CATEGORY_OVERRIDES: Record<string, IngredientCategory> = {
+  "корица": "spices",
+  "зира": "spices",
+  "куркума": "spices",
+  "тимьян": "spices",
+  "розмарин": "spices",
+  "лавровый лист": "spices",
+  "мускатный орех": "spices",
+  "соль, перец": "spices",
+  "разрыхлитель": "spices",
+  "ванилин": "spices",
+  "дрожжи сухие": "spices",
+  "чечевица красная": "grains",
+  "кунжут": "spices",
+  "тыквенные семечки": "spices",
+  "яйцо": "other",
+};
+
+interface NormalizedIngredient {
+  name: string;
+  amount: number;
+  unit: string;
+  category: IngredientCategory;
+}
+
+function normalizeIngredient(ing: Ingredient): NormalizedIngredient[] {
+  const low = ing.name.toLowerCase();
+  if (SKIP_NAMES.has(low)) return [];
+  const names = NAME_SPLIT[low] ?? [NAME_REPLACE[low] ?? ing.name];
+  const share = ing.amount / names.length;
+  return names.map((name) => {
+    const id = name.toLowerCase();
+    return {
+      name,
+      amount: share,
+      unit: ing.unit,
+      category: CATEGORY_OVERRIDES[id] ?? ing.category,
+    };
+  });
 }
 
 export type { Ingredient };
