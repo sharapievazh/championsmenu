@@ -179,52 +179,50 @@ export function suggestFromPantry(pantry: PantryItem[]): Recipe | null {
     "масло авокадо (спрей)", "семена кунжута", "кунжут",
   ]);
 
-  // Главное правило: достаточно совпадения по белковой основе (мясо/рыба).
-  // Остальные ингредиенты человек найдёт или заменит.
-  let bestProtein: { recipe: Recipe; matched: number; score: number } | null = null;
-  let bestAny: { recipe: Recipe; matched: number; score: number } | null = null;
+  // Сравниваем по НОРМАЛИЗОВАННЫМ названиям — так же, как они хранятся
+  // в кладовой. Иначе «куриная грудка» в рецепте не совпадёт с «Куриное филе»
+  // в кладовой.
+  const meaningfulStocked = new Set(
+    [...stocked].filter((n) => !PANTRY_BASICS.has(n))
+  );
+  const pickedCount = meaningfulStocked.size;
+  if (pickedCount === 0) return null;
+
+  // Порог: чтобы рецепт считался релевантным, должно совпасть
+  // не менее половины выбранных пользователем продуктов
+  // (и минимум 2, если выбрано 2+).
+  const requiredMatches = pickedCount === 1 ? 1 : Math.max(2, Math.ceil(pickedCount / 2));
+
+  let best: { recipe: Recipe; matched: number; score: number } | null = null;
 
   for (const r of recipes) {
-    let matched = 0;
-    let total = 0;
-    let proteinMatched = 0;
-    let proteinTotal = 0;
+    const recipeNames = new Set<string>();
     for (const ing of r.ingredients) {
-      const name = ing.name.toLowerCase();
-      if (PANTRY_BASICS.has(name)) continue;
-      total++;
-      const isStocked = stocked.has(name);
-      if (isStocked) matched++;
-      if (ing.category === "meat_fish") {
-        proteinTotal++;
-        if (isStocked) proteinMatched++;
+      const parts = normalizeIngredient(ing);
+      for (const part of parts) {
+        const low = part.name.toLowerCase();
+        if (PANTRY_BASICS.has(low)) continue;
+        recipeNames.add(low);
       }
     }
-    if (total === 0) continue;
-    const score = matched / total;
+    if (recipeNames.size === 0) continue;
 
-    // Приоритет 1: рецепт с мясом/рыбой, у которого основной белок есть в кладовой.
-    if (proteinTotal > 0 && proteinMatched > 0) {
-      if (
-        !bestProtein ||
-        proteinMatched > (bestProtein.recipe.ingredients.filter(
-          (i) => i.category === "meat_fish" && stocked.has(i.name.toLowerCase())
-        ).length) ||
-        score > bestProtein.score
-      ) {
-        bestProtein = { recipe: r, matched, score };
-      }
-    }
+    let matched = 0;
+    for (const n of meaningfulStocked) if (recipeNames.has(n)) matched++;
+    if (matched < requiredMatches) continue;
 
-    // Приоритет 2 (запасной): любой рецепт с хотя бы одним совпадением.
-    if (matched >= 1) {
-      if (!bestAny || matched > bestAny.matched || (matched === bestAny.matched && score > bestAny.score)) {
-        bestAny = { recipe: r, matched, score };
-      }
+    // score — насколько рецепт «покрыт» имеющимися продуктами
+    const score = matched / recipeNames.size;
+    if (
+      !best ||
+      matched > best.matched ||
+      (matched === best.matched && score > best.score)
+    ) {
+      best = { recipe: r, matched, score };
     }
   }
 
-  return bestProtein?.recipe ?? bestAny?.recipe ?? null;
+  return best?.recipe ?? null;
 }
 
 export function getPrepDayTasks(menu: MealSlot[]): {
