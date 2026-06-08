@@ -63,6 +63,7 @@ export const ru = {
   filter_smoothie: "Смузи и коктейли",
   filter_snack: "Снеки",
   filter_bakery: "Выпечка и роллы",
+  filter_mine: "Мои рецепты",
 
   shopping_title: "Список покупок",
   shopping_progress: "{done} из {total} куплено",

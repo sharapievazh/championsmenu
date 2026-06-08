@@ -84,7 +84,7 @@ export function AddRecipeScreen() {
       if (!ingredientsValid) errors.push("Добавьте хотя бы один ингредиент с названием и количеством больше 0");
       if (!stepsValid) errors.push("Добавьте хотя бы один шаг приготовления");
       if (!prepValid) errors.push("Время подготовки должно быть числом не меньше 0");
-      if (!bakeValid) errors.push("Время в духовке должно быть числом не меньше 0");
+      if (!bakeValid) errors.push("Время приготовления должно быть числом не меньше 0");
       toast.error(errors.join("; "));
       return;
     }
@@ -317,7 +317,7 @@ export function AddRecipeScreen() {
             )}
           </label>
           <label className="space-y-1">
-            <span className="text-xs text-muted-foreground">В духовке, мин</span>
+            <span className="text-xs text-muted-foreground">Приготовление, мин</span>
             <input
               type="number"
               inputMode="numeric"

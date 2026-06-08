@@ -7,17 +7,18 @@ import { Recipe, MealType, RecipeCategory } from "@/types";
 import { useRatings, useUserRecipes } from "@/store/useAppStore";
 import {
   Search, LayoutGrid, Sunrise, Soup, Moon, Brain,
-  Cookie, GlassWater, Apple, Pizza, Heart, ThumbsDown,
+  Cookie, GlassWater, Apple, Pizza, Heart, ThumbsDown, ChefHat,
 } from "lucide-react";
 import { useT } from "@/i18n";
 import { LangSwitcher } from "@/i18n/LangSwitcher";
 import { localizeRecipe } from "@/i18n/recipeTranslations";
 
-type FilterKey = "all" | MealType | "brain" | "favorites" | RecipeCategory;
+type FilterKey = "all" | MealType | "brain" | "favorites" | "mine" | RecipeCategory;
 
 const FILTERS: { key: FilterKey; tKey: string; icon: typeof LayoutGrid }[] = [
   { key: "all", tKey: "filter_all", icon: LayoutGrid },
   { key: "favorites", tKey: "filter_favorites", icon: Heart },
+  { key: "mine", tKey: "filter_mine", icon: ChefHat },
   { key: "breakfast", tKey: "filter_breakfast", icon: Sunrise },
   { key: "lunch", tKey: "filter_lunch", icon: Soup },
   { key: "dinner", tKey: "filter_dinner", icon: Moon },
@@ -36,6 +37,7 @@ export function RecipesScreen() {
   const [ratings, setRatings] = useRatings();
   const [userRecipes] = useUserRecipes();
   const [visibleCount, setVisibleCount] = useState(18);
+  const userRecipeIds = useMemo(() => new Set(userRecipes.map((r) => r.id)), [userRecipes]);
 
   const localizedAll = useMemo(
     () => {
@@ -50,13 +52,14 @@ export function RecipesScreen() {
       if (q && !loc.title.toLowerCase().includes(q.toLowerCase())) return false;
       if (filter === "all") return true;
       if (filter === "favorites") return ratings[r.id] === "love";
+      if (filter === "mine") return userRecipeIds.has(r.id);
       if (filter === "brain") return !!r.brainBoost;
       if (filter === "dessert" || filter === "smoothie" || filter === "snack" || filter === "bakery") {
         return r.categories?.includes(filter) ?? false;
       }
       return r.mealTypes.includes(filter);
     });
-  }, [filter, q, ratings, localizedAll]);
+  }, [filter, q, ratings, localizedAll, userRecipeIds]);
 
   const toggleRating = (id: string, next: "love" | "dislike") => {
     setRatings((prev) => {
