@@ -2,43 +2,68 @@ import { Recipe } from "@/types";
 
 // 56 дополнительных семейных рецептов (полезные, для детей, готовятся в духовке).
 // Картинки переиспользуют существующие ассеты, чтобы не ломать сборку — заменишь на свои при необходимости.
-import imgBakedApples from "@/assets/recipes/baked-apples.jpg";
-import imgBakedCod from "@/assets/recipes/baked-cod.jpg";
-import imgBananaPancakes from "@/assets/recipes/banana-pancakes.jpg";
-import imgBeefStew from "@/assets/recipes/beef-stew.jpg";
-import imgBerryPancakes from "@/assets/recipes/berry-pancakes.jpg";
-import imgBroccoliCreamSoup from "@/assets/recipes/broccoli-cream-soup.jpg";
-import imgCauliflowerCreamSoup from "@/assets/recipes/cauliflower-cream-soup.jpg";
-import imgChiaPudding from "@/assets/recipes/chia-pudding.jpg";
-import imgChickenBuckwheat from "@/assets/recipes/chicken-buckwheat.jpg";
-import imgChickenStew from "@/assets/recipes/chicken-stew.jpg";
-import imgCottageCasserole from "@/assets/recipes/cottage-casserole.jpg";
-import imgEggMuffins from "@/assets/recipes/egg-muffins.jpg";
-import imgFiloSpiral from "@/assets/recipes/filo-spiral.jpg";
-import imgLemonChicken from "@/assets/recipes/lemon-chicken.jpg";
-import imgMackerel from "@/assets/recipes/mackerel.jpg";
-import imgNutMix from "@/assets/recipes/nut-mix.jpg";
-import imgOatBowl from "@/assets/recipes/oat-bowl.jpg";
-import imgOatCookies from "@/assets/recipes/oat-cookies.jpg";
-import imgPpPizza from "@/assets/recipes/pp-pizza.jpg";
-import imgPumpkinWaffles from "@/assets/recipes/pumpkin-waffles.jpg";
-import imgQuinoaBowl from "@/assets/recipes/quinoa-bowl.jpg";
-import imgSalmonRice from "@/assets/recipes/salmon-rice.jpg";
-import imgSyrniki from "@/assets/recipes/syrniki.jpg";
-import imgTunaSalad from "@/assets/recipes/tuna-salad.jpg";
-import imgTurkeyMeatballs from "@/assets/recipes/turkey-meatballs.jpg";
-import imgTurkeyRoast from "@/assets/recipes/turkey-roast.jpg";
-import imgTurkeySpinach from "@/assets/recipes/turkey-spinach.jpg";
-import imgVeggieFrittata from "@/assets/recipes/veggie-frittata.jpg";
-import imgVeggieSticks from "@/assets/recipes/veggie-sticks.jpg";
-import imgWalnutPorridge from "@/assets/recipes/walnut-porridge.jpg";
-import imgZucchiniFritters from "@/assets/recipes/zucchini-fritters.jpg";
+import imgBakedOatmealApple from "@/assets/recipes/extra/baked-oatmeal-apple.jpg";
+import imgCottageCheeseBakeBerry from "@/assets/recipes/extra/cottage-cheese-bake-berry.jpg";
+import imgBakedEggsAvocado from "@/assets/recipes/extra/baked-eggs-avocado.jpg";
+import imgBananaBreadOat from "@/assets/recipes/extra/banana-bread-oat.jpg";
+import imgDutchBabyPancake from "@/assets/recipes/extra/dutch-baby-pancake.jpg";
+import imgPumpkinMuffins from "@/assets/recipes/extra/pumpkin-muffins.jpg";
+import imgAppleCinnamonBuns from "@/assets/recipes/extra/apple-cinnamon-buns.jpg";
+import imgEggCheeseStrata from "@/assets/recipes/extra/egg-cheese-strata.jpg";
+import imgMilletPumpkinBake from "@/assets/recipes/extra/millet-pumpkin-bake.jpg";
+import imgCarrotMuffins from "@/assets/recipes/extra/carrot-muffins.jpg";
+import imgBakedRicePudding from "@/assets/recipes/extra/baked-rice-pudding.jpg";
+import imgQuinoaAppleBake from "@/assets/recipes/extra/quinoa-apple-bake.jpg";
+import imgChickenRiceBake from "@/assets/recipes/extra/chicken-rice-bake.jpg";
+import imgBakedFishVeggies from "@/assets/recipes/extra/baked-fish-veggies.jpg";
+import imgTurkeyZucchiniBoats from "@/assets/recipes/extra/turkey-zucchini-boats.jpg";
+import imgBakedMeatballsTomato from "@/assets/recipes/extra/baked-meatballs-tomato.jpg";
+import imgPotatoChickenCasserole from "@/assets/recipes/extra/potato-chicken-casserole.jpg";
+import imgBakedCodPotato from "@/assets/recipes/extra/baked-cod-potato.jpg";
+import imgVeggieLasagna from "@/assets/recipes/extra/veggie-lasagna.jpg";
+import imgStuffedPeppers from "@/assets/recipes/extra/stuffed-peppers.jpg";
+import imgBakedSalmonBroccoli from "@/assets/recipes/extra/baked-salmon-broccoli.jpg";
+import imgChickenVegetablePie from "@/assets/recipes/extra/chicken-vegetable-pie.jpg";
+import imgLazyCabbageRolls from "@/assets/recipes/extra/lazy-cabbage-rolls.jpg";
+import imgPotatoFishGratin from "@/assets/recipes/extra/potato-fish-gratin.jpg";
+import imgBakedChickenThighsVeg from "@/assets/recipes/extra/baked-chicken-thighs-veg.jpg";
+import imgCauliflowerCheeseBake from "@/assets/recipes/extra/cauliflower-cheese-bake.jpg";
+import imgBuckwheatMushroomPot from "@/assets/recipes/extra/buckwheat-mushroom-pot.jpg";
+import imgTunaPastaBake from "@/assets/recipes/extra/tuna-pasta-bake.jpg";
+import imgBakedChickenBreastVeg from "@/assets/recipes/extra/baked-chicken-breast-veg.jpg";
+import imgSalmonFoilBaked from "@/assets/recipes/extra/salmon-foil-baked.jpg";
+import imgTurkeyMeatballsVeg from "@/assets/recipes/extra/turkey-meatballs-veg.jpg";
+import imgVeggieStuffedZucchini from "@/assets/recipes/extra/veggie-stuffed-zucchini.jpg";
+import imgBakedChickenPumpkin from "@/assets/recipes/extra/baked-chicken-pumpkin.jpg";
+import imgCodTomatoBake from "@/assets/recipes/extra/cod-tomato-bake.jpg";
+import imgBakedBeefVegetables from "@/assets/recipes/extra/baked-beef-vegetables.jpg";
+import imgChickenBroccoliGratin from "@/assets/recipes/extra/chicken-broccoli-gratin.jpg";
+import imgBakedHakeVegetables from "@/assets/recipes/extra/baked-hake-vegetables.jpg";
+import imgTurkeyPotatoTray from "@/assets/recipes/extra/turkey-potato-tray.jpg";
+import imgPollockCreamBake from "@/assets/recipes/extra/pollock-cream-bake.jpg";
+import imgEggplantMeatBake from "@/assets/recipes/extra/eggplant-meat-bake.jpg";
+import imgBakedChickenQuinoa from "@/assets/recipes/extra/baked-chicken-quinoa.jpg";
+import imgFishCakesBaked from "@/assets/recipes/extra/fish-cakes-baked.jpg";
+import imgChickenRiceTomato from "@/assets/recipes/extra/chicken-rice-tomato.jpg";
+import imgVeggieOmeletBake from "@/assets/recipes/extra/veggie-omelet-bake.jpg";
+import imgBakedPearHoney from "@/assets/recipes/extra/baked-pear-honey.jpg";
+import imgCottageCheeseMuffins from "@/assets/recipes/extra/cottage-cheese-muffins.jpg";
+import imgOatBananaCookies from "@/assets/recipes/extra/oat-banana-cookies.jpg";
+import imgAppleChips from "@/assets/recipes/extra/apple-chips.jpg";
+import imgPumpkinPiePp from "@/assets/recipes/extra/pumpkin-pie-pp.jpg";
+import imgCarrotCakeMini from "@/assets/recipes/extra/carrot-cake-mini.jpg";
+import imgCottageCheesecake from "@/assets/recipes/extra/cottage-cheesecake.jpg";
+import imgGranolaHomemade from "@/assets/recipes/extra/granola-homemade.jpg";
+import imgVeggieChips from "@/assets/recipes/extra/veggie-chips.jpg";
+import imgCheeseStraws from "@/assets/recipes/extra/cheese-straws.jpg";
+import imgBerryCrumble from "@/assets/recipes/extra/berry-crumble.jpg";
+import imgAppleGalette from "@/assets/recipes/extra/apple-galette.jpg";
 
 export const recipesExtra: Recipe[] = [
   {
     id: "baked-oatmeal-apple",
     title: "Запечённая овсянка с яблоком и корицей",
-    image: imgOatBowl,
+    image: imgBakedOatmealApple,
     mealTypes: ["breakfast"],
     servings: 4,
     timeMin: 35,
@@ -67,7 +92,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "cottage-cheese-bake-berry",
     title: "Творожная запеканка с ягодами",
-    image: imgCottageCasserole,
+    image: imgCottageCheeseBakeBerry,
     mealTypes: ["breakfast"],
     servings: 4,
     timeMin: 45,
@@ -94,7 +119,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "baked-eggs-avocado",
     title: "Яйца, запечённые в авокадо",
-    image: imgEggMuffins,
+    image: imgBakedEggsAvocado,
     mealTypes: ["breakfast"],
     servings: 4,
     timeMin: 20,
@@ -120,7 +145,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "banana-bread-oat",
     title: "Овсяный банановый хлеб",
-    image: imgBananaPancakes,
+    image: imgBananaBreadOat,
     mealTypes: ["breakfast"],
     servings: 4,
     timeMin: 55,
@@ -148,7 +173,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "dutch-baby-pancake",
     title: "Голландский запечённый блин (датч-бэби)",
-    image: imgBerryPancakes,
+    image: imgDutchBabyPancake,
     mealTypes: ["breakfast"],
     servings: 4,
     timeMin: 30,
@@ -173,7 +198,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "pumpkin-muffins",
     title: "Тыквенные маффины",
-    image: imgPumpkinWaffles,
+    image: imgPumpkinMuffins,
     mealTypes: ["breakfast"],
     servings: 4,
     timeMin: 40,
@@ -201,7 +226,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "apple-cinnamon-buns",
     title: "ПП булочки с яблоком и корицей",
-    image: imgFiloSpiral,
+    image: imgAppleCinnamonBuns,
     mealTypes: ["breakfast"],
     servings: 4,
     timeMin: 50,
@@ -227,7 +252,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "egg-cheese-strata",
     title: "Запеканка из тостов с сыром и яйцом",
-    image: imgVeggieFrittata,
+    image: imgEggCheeseStrata,
     mealTypes: ["breakfast"],
     servings: 4,
     timeMin: 40,
@@ -253,7 +278,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "millet-pumpkin-bake",
     title: "Пшённая каша с тыквой в духовке",
-    image: imgWalnutPorridge,
+    image: imgMilletPumpkinBake,
     mealTypes: ["breakfast"],
     servings: 4,
     timeMin: 55,
@@ -278,7 +303,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "carrot-muffins",
     title: "Морковные маффины",
-    image: imgPumpkinWaffles,
+    image: imgCarrotMuffins,
     mealTypes: ["breakfast"],
     servings: 4,
     timeMin: 40,
@@ -306,7 +331,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "baked-rice-pudding",
     title: "Запечённый рисовый пудинг",
-    image: imgChiaPudding,
+    image: imgBakedRicePudding,
     mealTypes: ["breakfast"],
     servings: 4,
     timeMin: 55,
@@ -331,7 +356,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "quinoa-apple-bake",
     title: "Запеканка из киноа с яблоком",
-    image: imgQuinoaBowl,
+    image: imgQuinoaAppleBake,
     mealTypes: ["breakfast"],
     servings: 4,
     timeMin: 45,
@@ -357,7 +382,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "chicken-rice-bake",
     title: "Запечённая курица с рисом и овощами",
-    image: imgLemonChicken,
+    image: imgChickenRiceBake,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 60,
@@ -387,7 +412,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "baked-fish-veggies",
     title: "Белая рыба, запечённая с овощами",
-    image: imgBakedCod,
+    image: imgBakedFishVeggies,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 45,
@@ -414,7 +439,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "turkey-zucchini-boats",
     title: "Лодочки из кабачка с индейкой",
-    image: imgTurkeySpinach,
+    image: imgTurkeyZucchiniBoats,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 50,
@@ -440,7 +465,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "baked-meatballs-tomato",
     title: "Тефтели в томатном соусе в духовке",
-    image: imgTurkeyMeatballs,
+    image: imgBakedMeatballsTomato,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 50,
@@ -468,7 +493,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "potato-chicken-casserole",
     title: "Картофельная запеканка с курицей",
-    image: imgChickenStew,
+    image: imgPotatoChickenCasserole,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 65,
@@ -493,7 +518,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "baked-cod-potato",
     title: "Треска с картофелем по-домашнему",
-    image: imgBakedCod,
+    image: imgBakedCodPotato,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 55,
@@ -519,7 +544,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "veggie-lasagna",
     title: "Овощная лазанья",
-    image: imgVeggieFrittata,
+    image: imgVeggieLasagna,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 70,
@@ -546,7 +571,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "stuffed-peppers",
     title: "Фаршированный перец индейкой и рисом",
-    image: imgTurkeyRoast,
+    image: imgStuffedPeppers,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 60,
@@ -572,7 +597,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "baked-salmon-broccoli",
     title: "Лосось с брокколи на противне",
-    image: imgSalmonRice,
+    image: imgBakedSalmonBroccoli,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 35,
@@ -598,7 +623,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "chicken-vegetable-pie",
     title: "Куриный пирог с овощами",
-    image: imgPpPizza,
+    image: imgChickenVegetablePie,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 65,
@@ -623,7 +648,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "lazy-cabbage-rolls",
     title: "Ленивые голубцы в духовке",
-    image: imgTurkeyMeatballs,
+    image: imgLazyCabbageRolls,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 60,
@@ -649,7 +674,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "potato-fish-gratin",
     title: "Картофельно-рыбный гратен",
-    image: imgBakedCod,
+    image: imgPotatoFishGratin,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 65,
@@ -674,7 +699,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "baked-chicken-thighs-veg",
     title: "Куриные бёдра с овощами",
-    image: imgChickenStew,
+    image: imgBakedChickenThighsVeg,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 55,
@@ -700,7 +725,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "cauliflower-cheese-bake",
     title: "Цветная капуста под сыром",
-    image: imgCauliflowerCreamSoup,
+    image: imgCauliflowerCheeseBake,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 40,
@@ -725,7 +750,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "buckwheat-mushroom-pot",
     title: "Гречка с грибами в горшочке",
-    image: imgChickenBuckwheat,
+    image: imgBuckwheatMushroomPot,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 50,
@@ -750,7 +775,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "tuna-pasta-bake",
     title: "Запеканка из пасты с тунцом",
-    image: imgTunaSalad,
+    image: imgTunaPastaBake,
     mealTypes: ["lunch", "dinner"],
     servings: 4,
     timeMin: 50,
@@ -775,7 +800,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "baked-chicken-breast-veg",
     title: "Куриная грудка с овощами в духовке",
-    image: imgLemonChicken,
+    image: imgBakedChickenBreastVeg,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 45,
@@ -800,7 +825,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "salmon-foil-baked",
     title: "Лосось в фольге с лимоном",
-    image: imgSalmonRice,
+    image: imgSalmonFoilBaked,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 35,
@@ -826,7 +851,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "turkey-meatballs-veg",
     title: "Тефтели из индейки с овощами",
-    image: imgTurkeyMeatballs,
+    image: imgTurkeyMeatballsVeg,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 45,
@@ -852,7 +877,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "veggie-stuffed-zucchini",
     title: "Кабачки, фаршированные овощами и сыром",
-    image: imgZucchiniFritters,
+    image: imgVeggieStuffedZucchini,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 50,
@@ -877,7 +902,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "baked-chicken-pumpkin",
     title: "Курица с тыквой в духовке",
-    image: imgChickenStew,
+    image: imgBakedChickenPumpkin,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 55,
@@ -902,7 +927,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "cod-tomato-bake",
     title: "Треска в томатах",
-    image: imgBakedCod,
+    image: imgCodTomatoBake,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 40,
@@ -928,7 +953,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "baked-beef-vegetables",
     title: "Говядина с овощами в духовке",
-    image: imgBeefStew,
+    image: imgBakedBeefVegetables,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 90,
@@ -955,7 +980,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "chicken-broccoli-gratin",
     title: "Курица с брокколи под сыром",
-    image: imgBroccoliCreamSoup,
+    image: imgChickenBroccoliGratin,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 50,
@@ -980,7 +1005,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "baked-hake-vegetables",
     title: "Хек с овощами",
-    image: imgMackerel,
+    image: imgBakedHakeVegetables,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 45,
@@ -1005,7 +1030,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "turkey-potato-tray",
     title: "Индейка с картофелем на противне",
-    image: imgTurkeyRoast,
+    image: imgTurkeyPotatoTray,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 60,
@@ -1030,7 +1055,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "pollock-cream-bake",
     title: "Минтай в сливочном соусе",
-    image: imgBakedCod,
+    image: imgPollockCreamBake,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 45,
@@ -1055,7 +1080,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "eggplant-meat-bake",
     title: "Баклажаны с фаршем",
-    image: imgBeefStew,
+    image: imgEggplantMeatBake,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 60,
@@ -1081,7 +1106,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "baked-chicken-quinoa",
     title: "Курица с киноа и овощами",
-    image: imgQuinoaBowl,
+    image: imgBakedChickenQuinoa,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 55,
@@ -1107,7 +1132,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "fish-cakes-baked",
     title: "Рыбные котлеты в духовке",
-    image: imgZucchiniFritters,
+    image: imgFishCakesBaked,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 40,
@@ -1134,7 +1159,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "chicken-rice-tomato",
     title: "Курица с рисом в томатном соусе",
-    image: imgChickenStew,
+    image: imgChickenRiceTomato,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 55,
@@ -1160,7 +1185,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "veggie-omelet-bake",
     title: "Овощной омлет-запеканка",
-    image: imgVeggieFrittata,
+    image: imgVeggieOmeletBake,
     mealTypes: ["dinner"],
     servings: 4,
     timeMin: 35,
@@ -1185,7 +1210,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "baked-pear-honey",
     title: "Запечённая груша с мёдом и орехами",
-    image: imgBakedApples,
+    image: imgBakedPearHoney,
     mealTypes: ["breakfast"],
     categories: ["dessert"],
     servings: 4,
@@ -1210,7 +1235,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "cottage-cheese-muffins",
     title: "Творожные маффины",
-    image: imgSyrniki,
+    image: imgCottageCheeseMuffins,
     mealTypes: ["breakfast"],
     categories: ["dessert", "bakery"],
     servings: 4,
@@ -1237,7 +1262,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "oat-banana-cookies",
     title: "Овсяно-банановое печенье",
-    image: imgOatCookies,
+    image: imgOatBananaCookies,
     mealTypes: ["breakfast"],
     categories: ["dessert", "snack"],
     servings: 4,
@@ -1263,7 +1288,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "apple-chips",
     title: "Яблочные чипсы из духовки",
-    image: imgBakedApples,
+    image: imgAppleChips,
     mealTypes: ["breakfast"],
     categories: ["snack"],
     servings: 4,
@@ -1286,7 +1311,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "pumpkin-pie-pp",
     title: "ПП тыквенный пирог",
-    image: imgPumpkinWaffles,
+    image: imgPumpkinPiePp,
     mealTypes: ["breakfast"],
     categories: ["bakery", "dessert"],
     servings: 4,
@@ -1312,7 +1337,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "carrot-cake-mini",
     title: "Мини морковный кекс",
-    image: imgPumpkinWaffles,
+    image: imgCarrotCakeMini,
     mealTypes: ["breakfast"],
     categories: ["bakery", "dessert"],
     servings: 4,
@@ -1339,7 +1364,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "cottage-cheesecake",
     title: "Творожный чизкейк без выпечки коржа",
-    image: imgCottageCasserole,
+    image: imgCottageCheesecake,
     mealTypes: ["breakfast"],
     categories: ["dessert"],
     servings: 4,
@@ -1366,7 +1391,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "granola-homemade",
     title: "Домашняя гранола",
-    image: imgNutMix,
+    image: imgGranolaHomemade,
     mealTypes: ["breakfast"],
     categories: ["snack"],
     servings: 4,
@@ -1393,7 +1418,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "veggie-chips",
     title: "Овощные чипсы",
-    image: imgVeggieSticks,
+    image: imgVeggieChips,
     mealTypes: ["breakfast"],
     categories: ["snack"],
     servings: 4,
@@ -1419,7 +1444,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "cheese-straws",
     title: "Сырные палочки",
-    image: imgFiloSpiral,
+    image: imgCheeseStraws,
     mealTypes: ["breakfast"],
     categories: ["snack", "bakery"],
     servings: 4,
@@ -1444,7 +1469,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "berry-crumble",
     title: "Ягодный крамбл",
-    image: imgBerryPancakes,
+    image: imgBerryCrumble,
     mealTypes: ["breakfast"],
     categories: ["dessert"],
     servings: 4,
@@ -1470,7 +1495,7 @@ export const recipesExtra: Recipe[] = [
   {
     id: "apple-galette",
     title: "Яблочная галета",
-    image: imgFiloSpiral,
+    image: imgAppleGalette,
     mealTypes: ["breakfast"],
     categories: ["bakery", "dessert"],
     servings: 4,
