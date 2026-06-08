@@ -4,8 +4,8 @@ import { defaultMenu } from "@/data/defaultMenu";
 
 // v3 — обычное молоко, новые категории, меню на 4 недели.
 const MENU_KEY = "cm.menu.v3";
-// v4 — нормализация названий, новая категория «Специи», удаление дублей.
-const PANTRY_KEY = "cm.pantry.v4";
+// v5 — кунжут/семена в специи, без тёмного шоколада, яйцо в «остальное», тамари → соевый соус.
+const PANTRY_KEY = "cm.pantry.v5";
 const CHECKED_KEY = "cm.shopping.checked.v3";
 const RATINGS_KEY = "cm.ratings.v1";
 

@@ -251,7 +251,7 @@ export function ingredientsToPantryItems(): PantryItem[] {
   const map = new Map<string, PantryItem>();
 
   // Названия, которые не нужны в кладовой (всегда есть дома).
-  const SKIP_NAMES = new Set<string>(["вода"]);
+  const SKIP_NAMES = new Set<string>(["вода", "тёмный шоколад капли"]);
 
   // Простая замена названия на каноническое.
   const NAME_REPLACE: Record<string, string> = {
@@ -267,7 +267,8 @@ export function ingredientsToPantryItems(): PantryItem[] {
     "овсяные хлопья без глютена": "Овсяные хлопья (желательно без глютена)",
     "овсяная мука без глютена": "Овсяная мука (желательно без глютена)",
     "паста мелкая (без глютена)": "Паста мелкая (желательно без глютена)",
-    "тамари (соевый соус б/глютена)": "Тамари (соевый соус, желательно без глютена)",
+    "тамари (соевый соус б/глютена)": "Соевый соус",
+    "семена кунжута": "Кунжут",
   };
 
   // Сложные ингредиенты, которые в кладовой удобно разбить на отдельные позиции.
@@ -291,6 +292,9 @@ export function ingredientsToPantryItems(): PantryItem[] {
     "ванилин": "spices",
     "дрожжи сухие": "spices",
     "чечевица красная": "grains",
+    "кунжут": "spices",
+    "тыквенные семечки": "spices",
+    "яйцо": "other",
   };
 
   for (const r of recipes) {
