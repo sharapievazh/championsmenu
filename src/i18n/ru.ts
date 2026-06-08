@@ -3,6 +3,7 @@ export const ru = {
   nav_recipes: "Рецепты",
   nav_shopping: "Покупки",
   nav_pantry: "Кладовая",
+  nav_add: "Добавить",
 
   print: "Печать",
   search: "Поиск",
