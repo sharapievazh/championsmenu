@@ -12,7 +12,7 @@ interface ShoppingScreenProps {
 }
 
 const CAT_EMOJI: Record<IngredientCategory, string> = {
-  fruit_veg: "🥬", grains: "🌾", meat_fish: "🐟", dairy_alt: "🥛", other: "🫙",
+  fruit_veg: "🥬", grains: "🌾", meat_fish: "🐟", dairy_alt: "🥛", spices: "🧂", other: "🫙",
 };
 
 export function ShoppingScreen({ onPrint }: ShoppingScreenProps = {}) {

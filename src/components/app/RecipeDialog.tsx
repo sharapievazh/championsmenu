@@ -5,7 +5,7 @@ import { Brain } from "lucide-react";
 import { useT } from "@/i18n";
 
 const CAT_EMOJI: Record<IngredientCategory, string> = {
-  fruit_veg: "🥬", grains: "🌾", meat_fish: "🐟", dairy_alt: "🥛", other: "🫙",
+  fruit_veg: "🥬", grains: "🌾", meat_fish: "🐟", dairy_alt: "🥛", spices: "🧂", other: "🫙",
 };
 
 export function RecipeDialog({
@@ -19,7 +19,7 @@ export function RecipeDialog({
   if (!recipe) return null;
   const gUnit = lang === "en" ? "g" : "г";
   const grouped: Record<IngredientCategory, typeof recipe.ingredients> = {
-    fruit_veg: [], grains: [], meat_fish: [], dairy_alt: [], other: [],
+    fruit_veg: [], grains: [], meat_fish: [], dairy_alt: [], spices: [], other: [],
   };
   recipe.ingredients.forEach((i) => grouped[i.category].push(i));
 

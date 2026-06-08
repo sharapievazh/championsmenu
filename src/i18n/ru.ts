@@ -87,9 +87,10 @@ export const ru = {
   badge_min: "мин",
 
   cat_fruit_veg: "Фрукты и овощи",
-  cat_grains: "Крупы и хлеб (без глютена)",
+  cat_grains: "Крупы и хлеб (желательно без глютена)",
   cat_meat_fish: "Мясо и рыба",
   cat_dairy_alt: "Молочка и альтернативы",
+  cat_spices: "Специи",
   cat_other: "Остальное",
 
   print_app_name: "Меню Чемпиона",
