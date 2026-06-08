@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { recipes } from "@/data/recipes";
 import { RecipeImage } from "../RecipeImage";
 import { RecipeBadges } from "../RecipeBadges";
