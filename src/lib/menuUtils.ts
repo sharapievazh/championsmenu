@@ -185,15 +185,13 @@ export function suggestFromPantry(pantry: PantryItem[]): Recipe | null {
   const meaningfulStocked = new Set(
     [...stocked].filter((n) => !PANTRY_BASICS.has(n))
   );
-  const pickedCount = meaningfulStocked.size;
-  if (pickedCount === 0) return null;
+  // Если пользователь отметил только базовые продукты — учитываем всё,
+  // что отмечено, чтобы всё равно что-то подобрать.
+  const pool = meaningfulStocked.size > 0 ? meaningfulStocked : stocked;
 
-  // Порог: чтобы рецепт считался релевантным, должно совпасть
-  // не менее половины выбранных пользователем продуктов
-  // (и минимум 2, если выбрано 2+).
-  const requiredMatches = pickedCount === 1 ? 1 : Math.max(2, Math.ceil(pickedCount / 2));
-
-  let best: { recipe: Recipe; matched: number; score: number } | null = null;
+  // Достаточно одного совпадения — дальше ранжируем по количеству
+  // совпадений и покрытию рецепта.
+  const candidates: { recipe: Recipe; matched: number; score: number }[] = [];
 
   for (const r of recipes) {
     const recipeNames = new Set<string>();
@@ -208,21 +206,22 @@ export function suggestFromPantry(pantry: PantryItem[]): Recipe | null {
     if (recipeNames.size === 0) continue;
 
     let matched = 0;
-    for (const n of meaningfulStocked) if (recipeNames.has(n)) matched++;
-    if (matched < requiredMatches) continue;
+    for (const n of pool) if (recipeNames.has(n)) matched++;
+    if (matched === 0) continue;
 
     // score — насколько рецепт «покрыт» имеющимися продуктами
-    const score = matched / recipeNames.size;
-    if (
-      !best ||
-      matched > best.matched ||
-      (matched === best.matched && score > best.score)
-    ) {
-      best = { recipe: r, matched, score };
-    }
+    candidates.push({ recipe: r, matched, score: matched / recipeNames.size });
   }
 
-  return best?.recipe ?? null;
+  if (candidates.length === 0) return null;
+
+  candidates.sort((a, b) => b.matched - a.matched || b.score - a.score);
+  // Немного случайности среди лучших вариантов, чтобы подсказка не была
+  // всегда одинаковой.
+  const top = candidates.filter(
+    (c) => c.matched === candidates[0].matched
+  );
+  return top[Math.floor(Math.random() * top.length)].recipe;
 }
 
 export function getPrepDayTasks(menu: MealSlot[]): {
